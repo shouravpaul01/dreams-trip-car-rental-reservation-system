@@ -43,7 +43,7 @@ const CarTypeTable = ({ carTypes }: { carTypes: TCarType[] }) => {
             </caption>
           )}
           {/* head */}
-          <thead className="bg-[#92C6C5] text-sm text-black">
+          <thead className="bg-[#3aa27ea8] text-sm text-black">
             <tr>
               <th>Name</th>
               <th>Description</th>
@@ -63,7 +63,7 @@ const CarTypeTable = ({ carTypes }: { carTypes: TCarType[] }) => {
                     />
                     <span>{type.isActive ? "Active" : "Inactive"}</span>
                     <button
-                      className={`btn btn-sm btn-outline btn-primary `}
+                      className={`btn btn-sm btn-outline btn-success `}
                       onClick={() =>
                         handleStatusUpdate(
                           type._id!,
@@ -77,7 +77,7 @@ const CarTypeTable = ({ carTypes }: { carTypes: TCarType[] }) => {
                 </td>
                 <td>
                   <button
-                    className="btn btn-sm btn-outline btn-primary"
+                    className="btn btn-sm btn-outline btn-success"
                     onClick={() => {
                       setModalId(type._id), setEditableData(type);
                     }}

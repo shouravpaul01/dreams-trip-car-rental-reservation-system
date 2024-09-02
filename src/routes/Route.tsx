@@ -25,6 +25,10 @@ export const router = createBrowserRouter([
         element: <DashboardLayout />,
       },
       {
+        path: "/admin-dashboard/car-types",
+        element: <CarType />,
+      },
+      {
         path: "/car-types",
         element: <CarType />,
       },

@@ -17,18 +17,18 @@ useEffect(() => {
 
 return (
   <>
-  <dialog id={modalId} className="modal ">
-    <div className={`modal-box ${width} `}>
-    <div className="border-b border-violet-900 z-50">
+  <dialog id={modalId} className="modal " style={{zIndex:1050}}>
+    <div className={`modal-box ${width} `} >
+    <div className="border-b border-violet-900 " >
     <h3 className="font-bold text-lg">{modalTitle}</h3>
       <form method="dialog">
         {/* if there is a button in form, it will close the modal */}
-        <button className="btn btn-sm btn-circle  btn-primary absolute right-2 top-2" onClick={()=>hanleCloseModal()}>
+        <button className="btn btn-sm btn-circle  btn-success absolute right-2 top-2" onClick={()=>hanleCloseModal()}>
           ✕
         </button>
       </form>
     </div >
-      <div >{children}</div>
+      <div style={{zIndex:1050}}>{children}</div>
     </div>
   </dialog>
   </>

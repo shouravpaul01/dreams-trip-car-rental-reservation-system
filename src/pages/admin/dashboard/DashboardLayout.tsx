@@ -5,6 +5,8 @@ import { FaHome } from "react-icons/fa";
 import { FaCubesStacked } from "react-icons/fa6";
 import Dashboard from "./DashboardLayout";
 import CarType from "../car-type/CarType";
+import Car from "../car/Car";
+
 
 const DashboardLayout = () => {
   const [tabActive, setTabActive] = useState<string>("LayDashboardLayout");
@@ -13,29 +15,33 @@ const DashboardLayout = () => {
       <div className="pt-8 ">
         <div className="join">
           <button
-            className={`btn btn-outline  btn-primary rounded-s-full join-item ${tabActive =="DashboardLayout" && "btn-active"}`}
+            className={`btn btn-outline  btn-success rounded-s-full join-item ${tabActive =="DashboardLayout" && "btn-active"}`}
             onClick={() => setTabActive("dashboard")}
           >
            <FaHome /> Dashboard
           </button>
+        
           <button
-            className={`btn btn-outline btn-primary join-item ${tabActive =="carType" && "btn-active"}`}
+            className={`btn btn-outline btn-success join-item ${tabActive =="carType" && "btn-active"}`}
             onClick={() => setTabActive("carType")}
           >
-           <BiSolidCategory /> Types
+           <BiSolidCategory />Manage Types
           </button>
+          
           <button
-            className={`btn btn-outline btn-primary rounded-e-full join-item ${tabActive =="product" &&  "btn-active"}`}
-            onClick={() => setTabActive("product")}
+            className={`btn btn-outline btn-success rounded-e-full join-item ${tabActive =="cars" &&  "btn-active"}`}
+            onClick={() => setTabActive("cars")}
           >
-           <FaCubesStacked /> Product
+           <FaCubesStacked />Manage cars
           </button>
         </div>
       </div>
       <div className="my-8">
         {tabActive=="dashboard" && <Dashboard/>}
          {tabActive=="carType" && <CarType/>}
-        {/* {tabActive=="product" && <Product/>}  */}
+        {tabActive=="cars" && <Car/>} 
+
+
       </div>
     </div>
   );

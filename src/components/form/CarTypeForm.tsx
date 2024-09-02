@@ -86,7 +86,7 @@ const CarTypeForm = ({ editableData }: { editableData?: FieldValues | null }) =>
 
       <button
         type="submit"
-        className={`btn btn-sm btn-primary rounded-full px-10 my-3 ${
+        className={`btn btn-sm btn-success rounded-full px-10 my-3 ${
           isBtnSubmit ? "disabled" : ""
         }`}
       >

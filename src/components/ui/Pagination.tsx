@@ -18,7 +18,7 @@ import {
       <div className="flex gap-3 ">
         <button
           onClick={() => setCurrentPage(currentPage - 1)}
-          className="btn btn-sm  btn-deepgreen rounded-[4px]"
+          className="btn btn-sm  btn-success rounded-full"
           disabled={currentPage === 1}
         >
           <MdKeyboardDoubleArrowLeft /> Prev
@@ -27,8 +27,8 @@ import {
           {generateTotalPaginatePages(totalPages)?.map((pageNo, index) => (
             <li
               key={index + 1}
-              className={`btn btn-sm btn-circle ${
-                currentPage == pageNo ? "btn-deepgreen" : "btn-outline-deepgreen"
+              className={`btn btn-sm btn-outline btn-success btn-circle ${
+                currentPage == pageNo && "btn-active"
               } `}
               onClick={() => {
                 setCurrentPage(pageNo);
@@ -40,7 +40,7 @@ import {
         </ul>
         <button
           onClick={() => setCurrentPage(currentPage + 1)}
-          className="btn btn-sm  btn-deepgreen rounded-[4px]"
+          className="btn btn-sm  btn-success rounded-full"
           disabled={currentPage === totalPages}
         >
           Next <MdKeyboardDoubleArrowRight /> 

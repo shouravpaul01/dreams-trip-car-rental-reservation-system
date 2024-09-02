@@ -9,7 +9,7 @@ import InputSearch from "../../../components/ui/InputSearch";
 import Loading from "../../../components/ui/Loading";
 
 
-const CatType = () => {
+const CarType = () => {
   const [modalId, setModalId] = useState<string>("");
   const [searchInputValue, setSearchInputValue] = useState<string>("");
   const [currentPage, setCurrentPage] = useState<number>(1);
@@ -28,11 +28,11 @@ const CatType = () => {
   return (
     <>
       <div className="bg-gray-100 mt-4">
-        <div className="flex items-center bg-[#92C6C5] gap-2 py-2 px-4">
+        <div className="flex items-center bg-[#3aa27ea8] gap-2 py-2 px-4">
           <p className="font-bold text-black flex-1">Manage Types</p>
           <button
             onClick={() => setModalId("openModal")}
-            className={`btn btn-sm btn-circle  btn-deepgreen`}
+            className={`btn btn-sm btn-circle  btn-warning`}
           >
             <FaPlus />
           </button>
@@ -71,4 +71,4 @@ const CatType = () => {
   );
 };
 
-export default CatType;
+export default CarType;
