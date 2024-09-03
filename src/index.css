@@ -1,7 +1,33 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
+@import url('https://fonts.googleapis.com/css2?family=Rubik+Bubbles&display=swap');
+.my-container{
+    @apply w-full max-w-5xl mx-auto px-2 md:px-0
+}
 .label-text{
     @apply text-base pb-1
 }
+.main-menu{
+    @apply flex items-center space-x-4
+}
+.main-menu-item-hover:hover{
+    @apply bg-yellow-500 rounded-full bg-opacity-35 text-white 
+}
+.main-menu-item-active{
+    @apply bg-yellow-500 rounded-full bg-opacity-35 text-white
+}
+
+/* Animation */
+@keyframes animate-bounceLR {
+    0%, 100% {
+      transform: translateX(0);
+    }
+    50% {
+      transform: translateX(10px);
+    }
+  }
+  
+  .animate-bounceLR {
+    animation: animate-bounceLR 3s infinite;
+  }

@@ -4,11 +4,11 @@ import Header from "../ui/Header";
 
 const MainLayout = () => {
   return (
-    <div>
+    <div className="relative">
       <Header/>
-      <Container>
+      
         <Outlet />
-      </Container>
+      
     </div>
   );
 };
