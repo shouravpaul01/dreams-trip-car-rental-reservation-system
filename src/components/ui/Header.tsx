@@ -13,7 +13,7 @@ const Header = () => {
       <input id="my-drawer-3" type="checkbox" className="drawer-toggle" />
       <div className="drawer-content flex flex-col">
         {/* Navbar */}
-        <div className="navbar w-full h-[50px]">
+        <div className="navbar bg-success border-b-4 border-warning bg-gradient-to-b w-full h-[50px]">
           <div className="my-container">
             <div className="flex-none lg:hidden">
               <label
