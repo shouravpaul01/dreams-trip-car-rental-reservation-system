@@ -1,14 +1,14 @@
 import { Outlet } from "react-router-dom";
-import Container from "../ui/Container";
 import Header from "../ui/Header";
+import Footer from "../ui/Footer";
 
 const MainLayout = () => {
   return (
-    <div className="relative">
+    <div className="bg-slate-100">
       <Header/>
       
         <Outlet />
-      
+      <Footer/>
     </div>
   );
 };
