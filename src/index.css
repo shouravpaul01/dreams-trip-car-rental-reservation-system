@@ -18,6 +18,8 @@
     @apply bg-success rounded-full bg-opacity-35 text-white
 }
 
+
+
 /* Animation */
 @keyframes animate-bounceLR {
     0%, 100% {

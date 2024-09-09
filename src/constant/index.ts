@@ -34,4 +34,9 @@ export const carColorOptions = [
     { value: "Tinted Windows", label: "Tinted Windows" },
     { value: "Third-Row Seating", label: "Third-Row Seating" },
   ];
+  export const sortByOptions = [
+    { value: "Low to High", label: "Low to High" },
+    { value: "High to Low", label: "High to Low" },
+   
+  ];
   
