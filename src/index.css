@@ -12,10 +12,10 @@
     @apply flex items-center space-x-4
 }
 .main-menu-item-hover:hover{
-    @apply bg-yellow-500 rounded-full bg-opacity-35 text-white 
+    @apply bg-success rounded-full bg-opacity-35 text-white 
 }
 .main-menu-item-active{
-    @apply bg-yellow-500 rounded-full bg-opacity-35 text-white
+    @apply bg-success rounded-full bg-opacity-35 text-white
 }
 
 /* Animation */

@@ -1,48 +1,50 @@
 import {
   FaFacebookF,
   FaInstagram,
+  FaLocationDot,
   FaPhone,
   FaRegCopyright,
+  FaRegEnvelope,
   FaTwitter,
 } from "react-icons/fa6";
 import dreamstrip_logo from "/dreamstrip-logo.png";
 
 const Footer = () => {
   return (
-    <footer className=" bg-base-200">
+    <footer className=" bg-black ">
       <div className="my-container  pt-7">
-        <div className="flex flex-col md:flex-row gap-5 md:gap-0 justify-around border rounded-lg px-7 py-7 ">
+        <div className="flex flex-col md:flex-row gap-5 md:gap-0 justify-around border border-slate-50 border-opacity-30 rounded-lg px-7 py-7 ">
           <div className="flex items-center gap-5">
-            <p className="p-4 bg-white rounded-full">
+            <p className="p-3 bg-success rounded-full text-2xl">
               <FaPhone />
             </p>
-            <div>
+            <div className="text-white">
               <p className="font-bold">Call Us</p>
               <p>+880111111111</p>
             </div>
           </div>
-          <div className=" border-b md:border-r "></div>
+          <div className=" border-b md:border-r border-slate-50 border-opacity-30"></div>
           <div className="flex items-center gap-5">
-            <p className="p-4 bg-white rounded-full">
-              <FaPhone />
+            <p className="p-3 bg-success rounded-full text-2xl">
+            <FaRegEnvelope />
             </p>
-            <div>
-              <p className="font-bold">Call Us</p>
-              <p>+880111111111</p>
+            <div className="text-white">
+              <p className="font-bold">Write Us</p>
+              <p>dreamstrip@gmail.com</p>
             </div>
           </div>
-          <div className=" border-b md:border-r "></div>
+          <div className=" border-b md:border-r border-slate-50 border-opacity-30"></div>
           <div className="flex items-center gap-5">
-            <p className="p-4 bg-white rounded-full">
-              <FaPhone />
+            <p className="p-3 bg-success rounded-full text-2xl">
+            <FaLocationDot />
             </p>
-            <div>
-              <p className="font-bold">Call Us</p>
-              <p>+880111111111</p>
+            <div className="text-white">
+              <p className="font-bold">Address</p>
+              <p className="text-gray-200">Kalabagan,Dhaka</p>
             </div>
           </div>
         </div>
-        <div className="footer gap-20 text-base-content py-10">
+        <div className="footer gap-10 md:gap-20 text-white py-10">
           <aside>
             <img
               src={dreamstrip_logo}
@@ -97,7 +99,7 @@ const Footer = () => {
             <h6 className="footer-title">Subscribe</h6>
             <fieldset className="form-control w-80">
               <label className="label">
-                <span className="label-text">
+                <span className="label-text text-white">
                   Want to be notified about our services. Just sign up and we'll
                   send you a notification by email.
                 </span>
@@ -108,12 +110,12 @@ const Footer = () => {
                   placeholder="username@site.com"
                   className="input input-bordered join-item"
                 />
-                <button className="btn btn-primary join-item">Subscribe</button>
+                <button className="btn btn-success join-item">Subscribe</button>
               </div>
             </fieldset>
           </form>
         </div>
-        <footer className="footer bg-base-200 text-base-content border-base-300 border-t px-10 py-4">
+        <footer className="footer text-white  border-t  border-slate-50 border-opacity-30  py-4">
           <p className="flex items-center">
             <FaRegCopyright /> Dreams Trip .All right reserved.
           </p>

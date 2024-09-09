@@ -7,14 +7,18 @@ import {
 import dreamstrip_logo from "/dreamstrip-logo.png";
 import { NavLink } from "react-router-dom";
 
-const Header = () => {
+const Header = ({isScroll}:{isScroll:number}) => {
   return (
     <div className="drawer z-50">
       <input id="my-drawer-3" type="checkbox" className="drawer-toggle" />
       <div className="drawer-content flex flex-col">
         {/* Navbar */}
-        <div className="navbar bg-success border-b-4 border-warning bg-gradient-to-b w-full h-[50px]">
-          <div className="my-container">
+        <div
+          className={`navbar w-full h-[50px] transition-all duration-300 ${
+            isScroll > 70 ? "fixed top-0 bg-white border-b border-success shadow-lg" : ""
+          }`}
+        >
+          <div className="my-container ">
             <div className="flex-none lg:hidden">
               <label
                 htmlFor="my-drawer-3"
@@ -71,8 +75,8 @@ const Header = () => {
                     to="/signin"
                     className={({ isActive }) =>
                       isActive
-                        ? "btn btn-sm btn-warning rounded-full transition"
-                        : "btn btn-sm btn-outline btn-warning rounded-full transition"
+                        ? "btn btn-sm btn-success rounded-full transition"
+                        : "btn btn-sm btn-outline btn-success rounded-full transition"
                     }
                   >
                     <FaUnlockKeyhole /> Sign In
@@ -83,8 +87,8 @@ const Header = () => {
                     to="/signup"
                     className={({ isActive }) =>
                       isActive
-                        ? "btn btn-sm btn-warning rounded-full  transition"
-                        : "btn btn-sm btn-outline btn-warning rounded-full transition"
+                        ? "btn btn-sm btn-success rounded-full  transition"
+                        : "btn btn-sm btn-outline btn-success rounded-full transition"
                     }
                   >
                     <FaUserLock /> Sign Up
