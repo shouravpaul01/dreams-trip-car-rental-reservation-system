@@ -8,6 +8,7 @@ import CarType from "../pages/admin/car-type/CarType";
 import Car from "../pages/admin/car/Car";
 import AboutUs from "../pages/main/about-us/AboutUs";
 import HomePage from "../pages/main/home/HomePage";
+import CarListingPage from "../pages/main/car-listing/CarListingPage";
 
 export const router = createBrowserRouter([
   {
@@ -18,6 +19,10 @@ export const router = createBrowserRouter([
       {
         path:"/",
         element:<HomePage/>
+      },
+      {
+        path:"/booking",
+        element:<CarListingPage/>
       },
       {
         path: "/signup",
