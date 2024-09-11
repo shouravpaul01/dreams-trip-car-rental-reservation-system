@@ -5,10 +5,16 @@ import Pagination from "../../../components/ui/Pagination";
 import { sortByOptions } from "../../../constant";
 import { TCar } from "../../../redux/features/car-type/car.type";
 import { useGetAllCarsQuery } from "../../../redux/features/car/carApi";
+import Loading from "../../../components/ui/Loading";
 
 const CarListingPage = () => {
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const { data: cars } = useGetAllCarsQuery(undefined);
+  const { data: cars,isLoading:isCarsLoading } = useGetAllCarsQuery(undefined);
+
+  if (isCarsLoading) {
+    return <Loading className="h-screen"/>
+  }
+
   return (
     <div>
       <Breadcrumbs title="Car Listings" />

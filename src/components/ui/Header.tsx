@@ -48,7 +48,7 @@ const Header = ({isScroll}:{isScroll:number}) => {
                 </li>
                 <li>
                   <NavLink
-                    to="/booking"
+                    to="/car-listings"
                     className={({ isActive }) =>
                       isActive
                         ? "main-menu-item-active"
