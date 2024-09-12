@@ -1,48 +1,20 @@
 import {
   FaFacebookF,
   FaInstagram,
-  FaLocationDot,
-  FaPhone,
   FaRegCopyright,
-  FaRegEnvelope,
   FaTwitter,
 } from "react-icons/fa6";
 import dreamstrip_logo from "/dreamstrip-logo.png";
+import { contactInfo } from "../../constant";
+import ContactInfoCard from "../form/ContactInfoCard";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
     <footer className=" bg-black ">
       <div className="my-container  pt-7">
-        <div className="flex flex-col md:flex-row gap-5 md:gap-0 justify-around border border-slate-50 border-opacity-30 rounded-lg px-7 py-7 ">
-          <div className="flex items-center gap-5">
-            <p className="p-3 bg-success rounded-full text-2xl">
-              <FaPhone />
-            </p>
-            <div className="text-white">
-              <p className="font-bold">Call Us</p>
-              <p>+880111111111</p>
-            </div>
-          </div>
-          <div className=" border-b md:border-r border-slate-50 border-opacity-30"></div>
-          <div className="flex items-center gap-5">
-            <p className="p-3 bg-success rounded-full text-2xl">
-            <FaRegEnvelope />
-            </p>
-            <div className="text-white">
-              <p className="font-bold">Write Us</p>
-              <p>dreamstrip@gmail.com</p>
-            </div>
-          </div>
-          <div className=" border-b md:border-r border-slate-50 border-opacity-30"></div>
-          <div className="flex items-center gap-5">
-            <p className="p-3 bg-success rounded-full text-2xl">
-            <FaLocationDot />
-            </p>
-            <div className="text-white">
-              <p className="font-bold">Address</p>
-              <p className="text-gray-200">Kalabagan,Dhaka</p>
-            </div>
-          </div>
+      <div className={`flex flex-col md:flex-row gap-5 md:gap-0 justify-around text-black border  border-slate-50 border-opacity-30  rounded-lg px-7 py-7 `}>
+        {contactInfo?.map((info,index)=><ContactInfoCard key={index} info={info} index={index}/>)}
         </div>
         <div className="footer gap-10 md:gap-20 text-white py-10">
           <aside>
@@ -90,10 +62,11 @@ const Footer = () => {
           </aside>
           <nav>
             <h6 className="footer-title">Quick Links</h6>
-            <a className="link link-hover">About us</a>
-            <a className="link link-hover">Contact</a>
-            <a className="link link-hover">Jobs</a>
-            <a className="link link-hover">Press kit</a>
+            <Link to={"/car-listings"} className="link link-hover">Car-Listings</Link>
+            <Link to={"/about"} className="link link-hover">About us</Link>
+            
+            
+           
           </nav>
           <form>
             <h6 className="footer-title">Subscribe</h6>
@@ -115,11 +88,11 @@ const Footer = () => {
             </fieldset>
           </form>
         </div>
-        <footer className="footer text-white  border-t  border-slate-50 border-opacity-30  py-4">
+        <div className="footer text-white  border-t  border-slate-50 border-opacity-30  py-4">
           <p className="flex items-center">
             <FaRegCopyright /> Dreams Trip .All right reserved.
           </p>
-        </footer>
+        </div>
       </div>
     </footer>
   );

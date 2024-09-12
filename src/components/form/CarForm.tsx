@@ -7,7 +7,7 @@ import { useCreateCarMutation, useUpdateCarMutation } from "../../redux/features
 import { toast } from "sonner";
 import { FaArrowsRotate } from "react-icons/fa6";
 import { TCarType } from "../../type/cartype.type";
-import { carColorOptions, carFeatureOptions } from "../../constant";
+import { carColorOptions, carFeatureOptions } from "../../constant/index";
 import Select from 'react-select';
 import JoditEditor from "jodit-react";
 import Loading from "../ui/Loading";

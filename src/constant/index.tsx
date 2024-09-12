@@ -1,3 +1,4 @@
+import { FaLocationDot, FaPhone, FaRegEnvelope } from "react-icons/fa6";
 export const carColorOptions = [
     { value: "white", label: "White" },
     { value: "black", label: "Black" },
@@ -89,4 +90,42 @@ export const carColorOptions = [
     { value: "12:00 AM", label: "12:00 AM" },
     { value: "12:30 AM", label: "12:30 AM" }
   ]
+  export const teamInformations=[
+    {
+      image:"https://res.cloudinary.com/dcrui4h7s/image/upload/v1726161621/dreams-trip-car-rental-reservation-system/o9ogwuhoadptb1kidzzd.webp",
+      name:"Mr. Shourav Paul",
+      designation:"CEO"
+    },
+    {
+      image:"https://res.cloudinary.com/dcrui4h7s/image/upload/v1726175059/dreams-trip-car-rental-reservation-system/o5uwmcmian2fuhxlrilg.jpg",
+      name:"Radika Sen",
+      designation:"COO"
+    },
+    {
+      image:"https://res.cloudinary.com/dcrui4h7s/image/upload/v1726175236/dreams-trip-car-rental-reservation-system/ecfa1j6ncy2k5pzzkrmg.jpg",
+      name:"Mr. Hasan Ulahh",
+      designation:"CFO"
+    },
+  ]
+ 
+
+  export const contactInfo = [
+  {
+    icon: <FaPhone />,
+    title: "Phone",
+    subTitle: "+880123456789"
+  },
+  {
+    icon: <FaRegEnvelope />,
+    title: "Email",
+    subTitle: "info@dreamscoxstrip.com"
+  },
+  {
+    icon: <FaLocationDot />,
+    title: "Location",
+    subTitle: "Cox's Bazar, Bangladesh"
+  },
   
+];
+
+ 

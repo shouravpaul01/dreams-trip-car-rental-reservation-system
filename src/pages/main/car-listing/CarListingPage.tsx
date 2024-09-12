@@ -2,7 +2,7 @@ import { useState } from "react";
 import CarCard from "../../../components/cards/CarCard";
 import Breadcrumbs from "../../../components/ui/Breadcrumbs";
 import Pagination from "../../../components/ui/Pagination";
-import { sortByOptions } from "../../../constant";
+import { sortByOptions } from "../../../constant/index";
 import { TCar } from "../../../redux/features/car-type/car.type";
 import { useGetAllCarsQuery } from "../../../redux/features/car/carApi";
 import Loading from "../../../components/ui/Loading";
@@ -91,7 +91,7 @@ const CarListingPage = () => {
             </div>
           </div>
           <div className="w-full md:w-[75%]">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-5 ">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-2 ">
               {cars?.data?.data.map((car: TCar, index: number) => (
                 <CarCard key={index} car={car} />
               ))}

@@ -6,11 +6,12 @@ import NotFound from "../pages/not-found/NotFound";
 import DashboardLayout from "../pages/admin/dashboard/DashboardLayout";
 import CarType from "../pages/admin/car-type/CarType";
 import Car from "../pages/admin/car/Car";
-import AboutUs from "../pages/main/about-us/AboutUs";
+import AboutUs from "../pages/main/about-us/AboutUsPage";
 import HomePage from "../pages/main/home/HomePage";
 import CarListingPage from "../pages/main/car-listing/CarListingPage";
 import BookingPage from "../pages/main/booking/BookingPage";
 import CarDetails from "../pages/main/car-details/CarDetails";
+import AboutUsPage from "../pages/main/about-us/AboutUsPage";
 
 export const router = createBrowserRouter([
   {
@@ -55,8 +56,8 @@ export const router = createBrowserRouter([
         element: <Car />,
       },
       {
-        path: "/about-us",
-        element: <AboutUs />,
+        path: "/about",
+        element: <AboutUsPage />,
       },
     ],
   },
