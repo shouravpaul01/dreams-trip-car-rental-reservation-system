@@ -9,6 +9,8 @@ import { useState } from "react";
 import { jwtDecode } from "jwt-decode";
 import { useAppDispatch } from "../../redux/hook";
 import { setUser } from "../../redux/features/auth/authSlice";
+import Breadcrumbs from "../../components/ui/Breadcrumbs";
+import { FaArrowRightToBracket } from "react-icons/fa6";
 
 const SignIn = () => {
   useTitle("Sign In");
@@ -51,10 +53,14 @@ const SignIn = () => {
     setIsBtnSubmitDisable(false);
   };
   return (
-    <div className="flex justify-center items-center min-h-screen">
-      <div className="max-w-2xl w-full mx-auto p-4">
-        <div className="flex flex-col md:flex-row md:items-center border border-primary border-dashed rounded-md p-3 mb-3">
-          <h2 className="grow text-2xl font-semibold">
+   <div>
+    <Breadcrumbs title="Login"/>
+     <div className="flex justify-center items-center my-20">
+      <div className="max-w-xl w-full mx-auto p-4">
+        
+        <div className="bg-white  shadow-md rounded-md px-10 md:px-20  py-10">
+          <div className="border-b border-dashed border-success pb-2 mb-5">
+          <h2 className=" text-2xl font-Spicy_Rice">
             Welcome to Dreams Trip
           </h2>
           <p className="">
@@ -64,19 +70,18 @@ const SignIn = () => {
             </Link>{" "}
             here
           </p>
-        </div>
-        <div className="bg-white shadow-md rounded-md px-20 py-8">
+          </div>
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-2">
             {/* Email Address Field */}
             <div className="form-control w-full">
-              <label className="label-text">Email Address</label>
+              <label className="label-text">Email <span className="text-red-500">*</span></label>
               <input
                 type="email"
                 id="email"
                 className={`input input-bordered w-full ${
                   errors.email && "input-error"
                 }`}
-                placeholder="email@example.com"
+                placeholder="email@site.com"
                 {...register("email", { required: "Email is required" })}
               />
               {errors.email && (
@@ -87,7 +92,7 @@ const SignIn = () => {
             </div>
 
             <div className="form-control w-full">
-              <label className="label-text">Password</label>
+              <label className="label-text">Password <span className="text-red-500">*</span></label>
               <input
                 type="password"
                 className={`input input-bordered w-full ${
@@ -107,15 +112,16 @@ const SignIn = () => {
             <div className="text-center">
               <button
                 type="submit"
-                className="btn btn-primary uppercase w-full"
+                className="btn btn-success uppercase w-full"
               >
-                Sign In
+               <FaArrowRightToBracket /> Sign In
               </button>
             </div>
           </form>
         </div>
       </div>
     </div>
+   </div>
   );
 };
 
