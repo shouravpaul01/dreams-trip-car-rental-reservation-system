@@ -135,7 +135,7 @@ const BookingPage = () => {
                 </div>
               </div>
             </div>
-            <button className="btn btn-sm btn-success px-6"><FaArrowRight className="animate-bounceLR me-2"/> Confirm Booking</button>
+            <button className="btn btn-success rounded-full px-6"><FaArrowRight className="animate-bounceLR me-2"/> Confirm Booking</button>
           </div>
           <div className="w-full md:w-[35%] ">
             <div className="bg-green-100 rounded-xl p-4">
