@@ -3,7 +3,7 @@ import CarCard from "../../../components/cards/CarCard";
 import Breadcrumbs from "../../../components/ui/Breadcrumbs";
 import Pagination from "../../../components/ui/Pagination";
 import { sortByOptions } from "../../../constant/index";
-import { TCar } from "../../../redux/features/car-type/car.type";
+import { TCar } from "../../../type/car.type";
 import { useGetAllCarsQuery } from "../../../redux/features/car/carApi";
 import Loading from "../../../components/ui/Loading";
 

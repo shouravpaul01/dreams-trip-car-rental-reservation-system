@@ -1,4 +1,5 @@
 import {
+  FaArrowRightFromBracket,
   FaBars,
   FaDeleteLeft,
   FaUnlockKeyhole,
@@ -6,8 +7,14 @@ import {
 } from "react-icons/fa6";
 import dreamstrip_logo from "/dreamstrip-logo.png";
 import { NavLink } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../../redux/hook";
+import { MdAccountCircle } from "react-icons/md";
+import { logout } from "../../redux/features/auth/authSlice";
 
-const Header = ({isScroll}:{isScroll:number}) => {
+const Header = ({ isScroll }: { isScroll: number }) => {
+  const { user } = useAppSelector((state) => state.auth);
+  const dispatch=useAppDispatch()
+  console.log(user)
   return (
     <div className="drawer z-50">
       <input id="my-drawer-3" type="checkbox" className="drawer-toggle" />
@@ -15,7 +22,9 @@ const Header = ({isScroll}:{isScroll:number}) => {
         {/* Navbar */}
         <div
           className={`navbar w-full h-[50px] transition-all duration-300 ${
-            isScroll > 70 ? "fixed top-0 bg-white border-b border-success shadow-lg" : ""
+            isScroll > 70
+              ? "fixed top-0 bg-white border-b border-success shadow-lg"
+              : ""
           }`}
         >
           <div className="my-container ">
@@ -32,15 +41,15 @@ const Header = ({isScroll}:{isScroll:number}) => {
               <img src={dreamstrip_logo} alt="" className="w-[250px]" />
             </div>
             <div className="hidden flex-none lg:block">
-              <ul className="main-menu font-semibold">
+              <ul className="nav-menu font-semibold">
                 {/* Navbar menu content here */}
                 <li>
                   <NavLink
                     to="/"
                     className={({ isActive }) =>
                       isActive
-                        ? "main-menu-item-active"
-                        : "main-menu-item-hover"
+                        ? "nav-item-active"
+                        : "nav-item-hover"
                     }
                   >
                     Home
@@ -51,8 +60,8 @@ const Header = ({isScroll}:{isScroll:number}) => {
                     to="/car-listings"
                     className={({ isActive }) =>
                       isActive
-                        ? "main-menu-item-active"
-                        : "main-menu-item-hover"
+                        ? "nav-item-active"
+                        : "nav-item-hover"
                     }
                   >
                     Booking
@@ -63,42 +72,65 @@ const Header = ({isScroll}:{isScroll:number}) => {
                     to="/about"
                     className={({ isActive }) =>
                       isActive
-                        ? "main-menu-item-active"
-                        : "main-menu-item-hover"
+                        ? "nav-item-active"
+                        : "nav-item-hover"
                     }
                   >
                     About
                   </NavLink>
-                </li>
-                <li>
-                  <NavLink
-                    to="/signin"
-                    className={({ isActive }) =>
-                      isActive
-                        ? "btn btn-sm btn-success rounded-full transition"
-                        : "btn btn-sm btn-outline btn-success rounded-full transition"
-                    }
-                  >
-                    <FaUnlockKeyhole /> Sign In
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink
-                    to="/signup"
-                    className={({ isActive }) =>
-                      isActive
-                        ? "btn btn-sm btn-success rounded-full  transition"
-                        : "btn btn-sm btn-outline btn-success rounded-full transition"
-                    }
-                  >
-                    <FaUserLock /> Sign Up
-                  </NavLink>
-                </li>
+                  </li>
+                  {user ? (
+                    <li>
+                      <div className="dropdown dropdown-end">
+                        <div tabIndex={0} role="button" className="btn btn-circle btn-outline btn-success">
+                        <MdAccountCircle className="text-4xl"/>
+                        </div>
+                        <ul
+                          tabIndex={0}
+                          className="dropdown-content main-menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow"
+                        >
+                          <li>
+                            <a>Item 1</a>
+                          </li>
+                          <li className="">
+                            <button className="menu-item" onClick={()=>dispatch(logout())}><FaArrowRightFromBracket />Logout</button>
+                          </li>
+                        </ul>
+                      </div>
+                    </li>
+                  ):(
+                    <>
+                      <li>
+                        <NavLink
+                          to="/signin"
+                          className={({ isActive }) =>
+                            isActive
+                              ? "btn btn-sm btn-success rounded-full transition"
+                              : "btn btn-sm btn-outline btn-success rounded-full transition"
+                          }
+                        >
+                          <FaUnlockKeyhole /> Sign In
+                        </NavLink>
+                      </li>
+                      <li>
+                        <NavLink
+                          to="/signup"
+                          className={({ isActive }) =>
+                            isActive
+                              ? "btn btn-sm btn-success rounded-full  transition"
+                              : "btn btn-sm btn-outline btn-success rounded-full transition"
+                          }
+                        >
+                          <FaUserLock /> Sign Up
+                        </NavLink>
+                      </li>
+                    </>
+                  ) }
+               
               </ul>
             </div>
           </div>
         </div>
-       
       </div>
       <div className="drawer-side">
         <label

@@ -1,5 +1,5 @@
 import { number } from "zod";
-import { TCar } from "../../redux/features/car-type/car.type";
+import { TCar } from "../../type/car.type";
 
 const CarDetailsTable = ({ details }: { details: TCar }) => {
   return (

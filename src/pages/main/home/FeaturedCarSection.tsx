@@ -1,6 +1,6 @@
 import { FaArrowLeft, FaArrowRight, FaStar } from "react-icons/fa6";
 import { useGetAllCarsQuery } from "../../../redux/features/car/carApi";
-import { TCar } from "../../../redux/features/car-type/car.type";
+import { TCar } from "../../../type/car.type";
 import CarCard from "../../../components/cards/CarCard";
 
 const FeaturedCarSection = () => {

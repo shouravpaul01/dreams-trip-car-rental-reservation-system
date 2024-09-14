@@ -8,3 +8,7 @@ export type TContactInfo={
     title:string,
     subTitle:string
 }
+export type TRole={
+    admin:string,
+    user:string
+}

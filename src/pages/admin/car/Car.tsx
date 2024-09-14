@@ -10,7 +10,7 @@ import {
   useGetAllCarsQuery,
   useGetSingleCarQuery,
 } from "../../../redux/features/car/carApi";
-import { TCar } from "../../../redux/features/car-type/car.type";
+import { TCar } from "../../../type/car.type";
 
 const Car = () => {
   const [contentManage, setContentManage] = useState<string>("manage");
@@ -36,7 +36,7 @@ const Car = () => {
   if (isCarsLoading || isSingleCarLoading) {
     return <Loading className="h-screen" />;
   }
-  console.log(editableData);
+ 
   return (
     <>
       <div className="bg-gray-100 mt-4">
@@ -46,19 +46,20 @@ const Car = () => {
             {contentManage == "manage" && "Manage Car"}{" "}
             {contentManage == "update" && "Edit Car"}
           </p>
-          {contentManage == "update" && (
+          {contentManage == "update" || contentManage == "manage" && (
             <button
               onClick={() => {
                 setContentManage( "add"),
                   setCarId(null);
                 setEditableData(null);
               }}
-              className={`btn btn-sm  rounded-full btn-warning`}
+              className={`btn btn-sm btn-circle btn-warning`}
             >
-              <FaPlus /> Add
+              <FaPlus /> 
             </button>
           )}
-          <button
+          {
+           ( contentManage=="add" || contentManage=="update") && <button
             onClick={() => {
               setContentManage((prev) =>
                 prev == "add" || prev == "update" ? "manage" : "add"
@@ -66,24 +67,15 @@ const Car = () => {
                 setCarId(null);
               setEditableData(null);
             }}
-            className={`btn btn-sm  rounded-full btn-warning`}
+            className={`btn btn-sm rounded-full btn-warning`}
           >
-            {contentManage == "manage" && (
-              <>
-                <FaPlus /> Add
-              </>
-            )}{" "}
-            {contentManage == "add" && (
-              <>
+            
+            
                 <FaCubesStacked /> Manage
-              </>
-            )}
-            {contentManage == "update" && (
-              <>
-                <FaCubesStacked /> Manage
-              </>
-            )}
+             
+            
           </button>
+          }
         </div>
         <div className="px-4 py-5">
           {contentManage == "add" || editableData ? (

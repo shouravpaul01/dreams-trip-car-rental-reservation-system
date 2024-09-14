@@ -46,7 +46,7 @@ const CarTypeTable = ({ carTypes }: { carTypes: TCarType[] }) => {
           <thead className="bg-[#3aa27ea8] text-sm text-black">
             <tr>
               <th>Name</th>
-              <th>Description</th>
+             
               <th>Status</th>
               <th>Action </th>
             </tr>
@@ -54,8 +54,17 @@ const CarTypeTable = ({ carTypes }: { carTypes: TCarType[] }) => {
           <tbody>
             {carTypes?.map((type: TCarType, index: number) => (
               <tr key={index}>
-                <td>{type.name}</td>
-                <td>{type.description}</td>
+                <td> <div className="flex items-center gap-3">
+                    <div className="avatar">
+                      <div className="mask mask-squircle h-12 w-12">
+                        <img src={type.icon} alt="image" />
+                      </div>
+                    </div>
+                    <div>
+                      <div className="font-bold">{type.name}</div>
+                    </div>
+                  </div></td>
+                
                 <td>
                   <div className="flex gap-2 items-center ">
                     <FaCircleDot

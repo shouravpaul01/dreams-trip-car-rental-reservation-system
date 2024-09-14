@@ -36,14 +36,27 @@ const CarTypeForm = ({ editableData }: { editableData?: FieldValues | null }) =>
 
   const handleSubmitCarType: SubmitHandler<FieldValues> = async (data) => {
     setIsBtnSubmit(true);
+   
     try {
+      const formData = new FormData();
+      if (Object.keys(data.icon).length!==0) {
+        formData.append("file", data.icon[0]);
+      }else{
+        delete data["icon"]
+      }
+    formData.append("data", JSON.stringify(data));
+    const uppdateData = {
+      _id: data._id,
+      data: formData,
+    };
       const res = editableData
-        ? await updateCarType(data).unwrap()
-        : await createCarType(data).unwrap();
+        ? await updateCarType(uppdateData).unwrap()
+        : await createCarType(formData).unwrap();
         console.log(res)
       toast.success(res.message);
       !editableData && reset();
     } catch (error: any) {
+      console.log(error)
       const errorMessages = error?.data.errorMessages;
       if (errorMessages.length > 0) {
         errorMessages.forEach((errorMessage: any) =>
@@ -74,7 +87,19 @@ const CarTypeForm = ({ editableData }: { editableData?: FieldValues | null }) =>
           <span className="text-red-500">{errors.name.message as string}</span>
         )}
       </label>
-
+      <label className="form-control w-full  ">
+          <span className="label-text ">Icon</span>
+          <input
+            type="file"
+            {...register("icon")}
+            className="file-input file-input-bordered file-input-success w-full"
+          />
+          {errors.icon && (
+            <span className="text-red-500">
+              {errors.icon.message as string}
+            </span>
+          )}
+        </label>
       <label className="form-control w-full ">
         <span className="label-text ">Description</span>
         <textarea

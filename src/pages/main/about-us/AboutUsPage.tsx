@@ -4,7 +4,7 @@ import Breadcrumbs from "../../../components/ui/Breadcrumbs";
 import dreamstrip_logo from "/dreamstrip-logo.png";
 import { contactInfo, teamInformations } from "../../../constant";
 import CarCard from "../../../components/cards/CarCard";
-import { TCar } from "../../../redux/features/car-type/car.type";
+import { TCar } from "../../../type/car.type";
 import { useGetAllCarsQuery } from "../../../redux/features/car/carApi";
 
 const AboutUsPage = () => {

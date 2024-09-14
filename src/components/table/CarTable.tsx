@@ -8,7 +8,7 @@ import {
 import { useState } from "react";
 import Modal from "../ui/Modal";
 import { toast } from "sonner";
-import { TCar } from "../../redux/features/car-type/car.type";
+import { TCar } from "../../type/car.type";
 import { useGetSingleCarQuery, useUpdateCarStatusMutation } from "../../redux/features/car/carApi";
 import { TCarType } from "../../type/cartype.type";
 import CarDetailsTable from "./CarDetailsTable";

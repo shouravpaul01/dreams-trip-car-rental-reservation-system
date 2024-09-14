@@ -1,11 +1,15 @@
 import { FaArrowRight, FaInfo, FaStar } from "react-icons/fa6";
-import { TCar } from "../../redux/features/car-type/car.type";
+import { TCar } from "../../type/car.type";
 import { Link } from "react-router-dom";
+import { TbArmchair } from "react-icons/tb";
+import { MdLuggage } from "react-icons/md";
+import { BsFillFuelPumpDieselFill } from "react-icons/bs";
+import { IoSettingsOutline } from "react-icons/io5";
 
 const CarCard = ({ car }: { car: TCar }) => {
   return (
     <div className="card bg-base-100 border hover:shadow-2xl hover:scale-105 transition-all duration-300 ease-in-out p-3 rounded-lg relative overflow-hidden">
-      <figure className="overflow-hidden">
+      <figure className="overflow-hidden ">
         <img
           src={car.image}
           alt={car.name}
@@ -24,9 +28,13 @@ const CarCard = ({ car }: { car: TCar }) => {
           {car.name}
         </h2>
 
-        <p className="text-sm text-gray-600 line-clamp-2">
-          If a dog chews shoes whose shoes does he choose?
-        </p>
+       <div className="flex flex-wrap gap-2">
+        <span className="badge badge-outline badge-neutral font-semibold"><TbArmchair className="me-2" /> {car.seats} Seats</span>
+        <span className="badge badge-outline badge-neutral font-semibold"><MdLuggage className="me-2" /> {car.bagCapability} Bags</span>
+        <span className="badge badge-outline badge-neutral font-semibold"><BsFillFuelPumpDieselFill className="me-2" /> {car.fuelType} </span>
+        <span className="badge badge-outline badge-neutral font-semibold"><IoSettingsOutline className="me-2" /> {car.transmission} </span>
+       
+       </div>
 
         <div className="card-actions justify-end items-center mt-4 space-x-2">
           <p className="text-gray-700">
@@ -35,7 +43,7 @@ const CarCard = ({ car }: { car: TCar }) => {
           </p>
           <div className="flex items-center gap-2">
             <Link
-              to={`/car-listings/details/${car._id}`}
+              to={`/car-listings/${car._id}`}
               className="btn btn-sm btn-circle btn-success hover:scale-105 transition-transform duration-300"
             >
               <FaInfo />

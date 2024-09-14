@@ -26,7 +26,6 @@ const MainLayout = () => {
       window.removeEventListener("scroll", scrollVisibility);
     };
   }, []);
-  console.log(isScroll)
   return (
     <div className="relative">
       <Header isScroll={isScroll}/>

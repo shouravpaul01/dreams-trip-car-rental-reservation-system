@@ -23,7 +23,7 @@ const carTypeApi=baseApi.injectEndpoints({
             query:(data)=>({
                 url:`/car-types/${data._id}`,
                 method:"PATCH",
-                body:data
+                body:data.data
             }),
             invalidatesTags:["carTypes"]
         }),

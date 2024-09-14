@@ -30,7 +30,6 @@ const carApi = baseApi.injectEndpoints({
     }),
     updateCar: build.mutation({
       query: (data) => {
-        console.log(data, "update");
         return {
           url: `/cars/${data._id}`,
           method: "PATCH",

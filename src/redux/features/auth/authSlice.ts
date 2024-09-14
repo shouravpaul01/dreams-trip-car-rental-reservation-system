@@ -1,7 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
-
+type TUser={
+    email:string,
+    role:string,
+    iat:number,
+    exp:number
+}
 type TInitialState={
-    user:null | object,
+    user:TUser | null ,
     token:null | string
 }
 

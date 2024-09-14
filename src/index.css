@@ -8,17 +8,27 @@
 .label-text{
     @apply text-base pb-1
 }
-.main-menu{
+.nav-menu{
     @apply flex items-center space-x-4
 }
-.main-menu-item-hover:hover{
+.nav-item-hover:hover{
     @apply bg-success rounded-full bg-opacity-35 text-white 
 }
-.main-menu-item-active{
+.nav-item-active{
     @apply bg-success rounded-full bg-opacity-35 text-white
 }
 
+.main-menu {
+  @apply p-4  space-y-1
+}
 
+.menu-item {
+  @apply flex items-center gap-2 hover:bg-success hover:text-white rounded-md py-2 px-3 w-full
+}
+
+.menu-item-active {
+  @apply flex items-center gap-2 bg-success text-white rounded-md py-2 px-3
+}
 
 /* Animation */
 @keyframes animate-bounceLR {
