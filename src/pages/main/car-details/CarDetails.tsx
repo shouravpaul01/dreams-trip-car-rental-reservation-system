@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Breadcrumbs from "../../../components/ui/Breadcrumbs";
 import { useGetSingleCarQuery } from "../../../redux/features/car/carApi";
 import { FaArrowRight, FaStar } from "react-icons/fa6";
@@ -34,23 +34,23 @@ const CarDetails = () => {
             </p>
             <div className="flex flex-wrap gap-2">
               <span className="badge badge-outline badge-neutral font-semibold">
-                <TbArmchair className="me-2" /> {car.seats} Seats
+                <TbArmchair className="me-2" /> {car?.seats} Seats
               </span>
               <span className="badge badge-outline badge-neutral font-semibold">
-                <MdLuggage className="me-2" /> {car.bagCapability} Bags
+                <MdLuggage className="me-2" /> {car?.bagCapability} Bags
               </span>
               <span className="badge badge-outline badge-neutral font-semibold">
-                <BsFillFuelPumpDieselFill className="me-2" /> {car.fuelType}{" "}
+                <BsFillFuelPumpDieselFill className="me-2" /> {car?.fuelType}{" "}
               </span>
               <span className="badge badge-outline badge-neutral font-semibold">
-                <IoSettingsOutline className="me-2" /> {car.transmission}{" "}
+                <IoSettingsOutline className="me-2" /> {car?.transmission}{" "}
               </span>
             </div>
             <div className="absolute bottom-0 left-0 right-0">
-              <button className="btn btn-sm btn-success rounded-t-none w-full">
+              <Link to={`/booking/${car?._id}`} className="btn btn-sm btn-success rounded-t-none w-full">
                 <FaArrowRight />
                 Book Now
-              </button>
+              </Link>
             </div>
           </div>
         </div>

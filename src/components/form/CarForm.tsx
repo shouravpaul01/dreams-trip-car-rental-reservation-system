@@ -20,6 +20,7 @@ import {
   bagCapabilityOptions,
   carColorOptions,
   carFeatureOptions,
+  drivingOptions,
   fuelOptions,
   seatOptions,
   selectCustomStype,
@@ -28,11 +29,14 @@ import {
 import Select from "react-select";
 import JoditEditor from "jodit-react";
 import Loading from "../ui/Loading";
+import { useGetAllActivePricesQuery } from "../../redux/features/price/priceApi";
+import { TPrice } from "../../type/price.type";
 
 const CarForm = ({ editableData }: { editableData?: FieldValues | null }) => {
   const [isBtnSubmit, setIsBtnSubmit] = useState<boolean>(false);
 
   const { data: carTypes, isLoading } = useGetAllActiveCarTypesQuery(undefined);
+  const {data:prices}=useGetAllActivePricesQuery(undefined)
 
   const [createCar] = useCreateCarMutation();
   const [updateCar] = useUpdateCarMutation();
@@ -52,7 +56,7 @@ const CarForm = ({ editableData }: { editableData?: FieldValues | null }) => {
       setValue("name", editableData.name);
       setValue("type", editableData.type._id);
       setValue("color", editableData.color);
-      setValue("pricePerHour", editableData.pricePerHour);
+      setValue("price", editableData.price);
       setValue("features", editableData.features);
       setValue("description", editableData.description);
     }
@@ -143,17 +147,19 @@ const CarForm = ({ editableData }: { editableData?: FieldValues | null }) => {
       <div className="flex flex-col md:flex-row gap-5">
         <label className="form-control w-full  md:w-[25%]">
           <span className="label-text ">
-            Price for Per Hour <span className="text-red-500">*</span>
+            Price <span className="text-red-500">*</span>
           </span>
-          <input
-            type="number"
-            {...register("pricePerHour")}
-            placeholder="Price"
-            className="input input-bordered  w-full"
-          />
-          {errors.pricePerHour && (
+          <select className="select select-bordered " {...register("price")}>
+            <option value={""}>--Select Price--</option>
+            {prices?.data?.map((price:TPrice, index: number) => (
+              <option key={index} value={price._id}>
+                {price.hourly.ratePerHour}TK/H ---- {price.daily.ratePerDay}TK/D
+              </option>
+            ))}
+          </select>
+          {errors.price && (
             <span className="text-red-500">
-              {errors.pricePerHour.message as string}
+              {errors.price.message as string}
             </span>
           )}
         </label>
@@ -190,7 +196,7 @@ const CarForm = ({ editableData }: { editableData?: FieldValues | null }) => {
         </label>
       </div>
       <div className="flex flex-col md:flex-row gap-5">
-        <label className="form-control w-full md:w-[25%]">
+        <label className="form-control w-full ">
           <span className="label-text ">
             Seats <span className="text-red-500">*</span>
           </span>
@@ -208,7 +214,7 @@ const CarForm = ({ editableData }: { editableData?: FieldValues | null }) => {
             </span>
           )}
         </label>
-        <label className="form-control w-full md:w-[25%]">
+        <label className="form-control w-full ">
           <span className="label-text ">
             Bag Capability <span className="text-red-500">*</span>
           </span>
@@ -226,7 +232,7 @@ const CarForm = ({ editableData }: { editableData?: FieldValues | null }) => {
             </span>
           )}
         </label>
-        <label className="form-control w-full md:w-[25%]">
+        <label className="form-control w-full ">
           <span className="label-text ">
             Fuel Type <span className="text-red-500">*</span>
           </span>
@@ -244,7 +250,10 @@ const CarForm = ({ editableData }: { editableData?: FieldValues | null }) => {
             </span>
           )}
         </label>
-        <label className="form-control w-full md:w-[25%]">
+        
+      </div>
+      <div className="flex flex-col md:flex-row gap-5">
+      <label className="form-control w-full ">
           <span className="label-text ">
             Transmission <span className="text-red-500">*</span>
           </span>
@@ -262,9 +271,7 @@ const CarForm = ({ editableData }: { editableData?: FieldValues | null }) => {
             </span>
           )}
         </label>
-      </div>
-      <div className="flex flex-col md:flex-row gap-5">
-        <label className="form-control w-full md:w-[25%]">
+        <label className="form-control w-full ">
           <span className="label-text ">
           Air Conditioning <span className="text-red-500">*</span>
           </span>
@@ -283,7 +290,27 @@ const CarForm = ({ editableData }: { editableData?: FieldValues | null }) => {
             </span>
           )}
         </label>
-        <label className="form-control w-full  md:w-[75%]">
+        <label className="form-control w-full ">
+          <span className="label-text ">
+          Driving Type <span className="text-red-500">*</span>
+          </span>
+          <select className="select select-bordered " {...register("drivingType")}>
+            <option value={""}>--Select Driving Type--</option>
+            {drivingOptions?.map((option, index: number) => (
+              <option key={index} value={option.value}>
+                {option.label}
+              </option>
+            ))}
+          </select>
+
+          {errors.drivingType && (
+            <span className="text-red-500">
+              {errors.drivingType.message as string}
+            </span>
+          )}
+        </label>
+      </div>
+      <label className="form-control w-full  ">
           <span className="label-text ">
             Features <span className="text-red-500">*</span>
           </span>
@@ -316,7 +343,6 @@ const CarForm = ({ editableData }: { editableData?: FieldValues | null }) => {
             </span>
           )}
         </label>
-      </div>
       <label className="form-control w-full ">
         <span className="label-text ">Description</span>
         <Controller

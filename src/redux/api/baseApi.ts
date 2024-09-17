@@ -7,6 +7,7 @@ import {
 } from "@reduxjs/toolkit/query/react";
 import { RootState } from "../store";
 import { logout } from "../features/auth/authSlice";
+import { toast } from "sonner";
 
 const baseQuery = fetchBaseQuery({
   baseUrl: "http://localhost:3000/api",
@@ -24,9 +25,9 @@ const baseQueryWithVerifyToken = async (
   extraOptions: {}
 ) => {
   const result = await baseQuery(args, api, extraOptions);
-  console.log(result);
   if (result?.error?.status == 401) {
     api.dispatch(logout());
+    toast.error((result.error.data as any).message )
   }
   return result;
 };
@@ -34,6 +35,6 @@ const baseQueryWithVerifyToken = async (
 export const baseApi = createApi({
   reducerPath: "baseApi",
   baseQuery: baseQueryWithVerifyToken,
-  tagTypes: ["carTypes", "cars"],
+  tagTypes: ["carTypes","prices", "cars"],
   endpoints: () => ({}),
 });

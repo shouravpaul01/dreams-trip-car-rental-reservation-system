@@ -14,13 +14,15 @@ import { FaArrowRightToBracket } from "react-icons/fa6";
 
 const SignIn = () => {
   useTitle("Sign In");
-  const navigate = useNavigate();
-  const location = useLocation();
+  
   const [isBtnSubmitDisable, setIsBtnSubmitDisable] = useState<boolean>(false);
   const [authError, setAuthError] = useState<string>("");
   const dispatch = useAppDispatch();
- 
+  const navigate = useNavigate();
+  const location = useLocation();
   const currentLocation = location?.state?.from?.pathname || "/";
+
+  console.log(currentLocation,location,'signin')
   const {
     register,
     handleSubmit,
@@ -30,7 +32,7 @@ const SignIn = () => {
   const [signin] = useSignInMutation();
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-    console.log(data);
+   
 
     setIsBtnSubmitDisable(true);
     try {
@@ -88,11 +90,9 @@ const SignIn = () => {
                 <input
                   type="email"
                   id="email"
-                  className={`input input-bordered w-full ${
-                    errors.email && "input-error"
-                  }`}
+                  className="input input-bordered w-full "
                   placeholder="email@site.com"
-                  {...register("email", { required: "Email is required" })}
+                  {...register("email")}
                 />
                 {errors.email && (
                   <p className="text-red-500 text-sm mt-1">
@@ -107,9 +107,7 @@ const SignIn = () => {
                 </label>
                 <input
                   type="password"
-                  className={`input input-bordered w-full ${
-                    errors.password && "input-error"
-                  }`}
+                  className="input input-bordered w-full "
                   placeholder="Password"
                   {...register("password")}
                 />
@@ -125,6 +123,7 @@ const SignIn = () => {
                 <button
                   type="submit"
                   className="btn btn-success uppercase w-full"
+                  disabled={isBtnSubmitDisable}
                 >
                   <FaArrowRightToBracket /> Sign In
                 </button>

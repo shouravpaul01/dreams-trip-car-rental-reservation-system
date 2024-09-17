@@ -1,7 +1,7 @@
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { SignUpValidation } from "../../validations/signup.validation";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Link } from "react-router-dom";
+import { Link, replace, useNavigate } from "react-router-dom";
 import { useCreateAccountMutation } from "../../redux/features/user/userApi";
 import { toast } from "sonner";
 import { useState } from "react";
@@ -10,9 +10,11 @@ import { RiAccountPinBoxFill } from "react-icons/ri";
 
 const SignUp = () => {
   const [isBtnSubmitDisable, setIsBtnSubmitDisable] = useState<boolean>(false);
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
+    reset,
     setError,
     formState: { errors },
   } = useForm<FieldValues>({ resolver: zodResolver(SignUpValidation) });
@@ -22,7 +24,9 @@ const SignUp = () => {
     setIsBtnSubmitDisable(true);
     try {
       const res = await createAccount(data).unwrap();
+      reset();
       toast.success(res.message);
+      navigate("/signin", { replace: true });
     } catch (error: any) {
       const errorMessages = error?.data.errorMessages;
       if (errorMessages.length > 0) {
@@ -61,11 +65,9 @@ const SignUp = () => {
                 <input
                   type="text"
                   id="name"
-                  className={`input input-bordered w-full ${
-                    errors.name && "input-error"
-                  }`}
+                  className="input input-bordered w-full "
                   placeholder="Full Name"
-                  {...register("name", { required: "Name is required" })}
+                  {...register("name")}
                 />
                 {errors.name && (
                   <p className="text-red-500 text-sm mt-1">
@@ -77,16 +79,14 @@ const SignUp = () => {
               {/* Email Address Field */}
               <div className="form-control w-full">
                 <label className="label-text">
-                  Email  <span className="text-red-500">*</span>
+                  Email <span className="text-red-500">*</span>
                 </label>
                 <input
                   type="email"
                   id="email"
-                  className={`input input-bordered w-full ${
-                    errors.email && "input-error"
-                  }`}
+                  className={"input input-bordered w-full "}
                   placeholder="example@site.com"
-                  {...register("email", { required: "Email is required" })}
+                  {...register("email")}
                 />
                 {errors.email && (
                   <p className="text-red-500 text-sm mt-1">
@@ -96,14 +96,21 @@ const SignUp = () => {
               </div>
               {/* Phone Number Field */}
               <div className="form-control w-full">
-                <label className="label-text">Phone Number</label>
+                <label className="label-text">
+                  Phone Number<span className="text-red-500">*</span>
+                </label>
                 <input
                   type="tel"
                   id="phone"
                   className="input input-bordered w-full"
-                  placeholder="Phone Number"
+                  placeholder="01*********"
                   {...register("phone")}
                 />
+                {errors.phone && (
+                  <p className="text-red-500 text-sm mt-1">
+                    {errors.phone.message as string}
+                  </p>
+                )}
               </div>
               <div className="flex flex-col md:flex-row gap-3">
                 {/* Password Field */}
@@ -113,9 +120,7 @@ const SignUp = () => {
                   </label>
                   <input
                     type="password"
-                    className={`input input-bordered w-full ${
-                      errors.password && "input-error"
-                    }`}
+                    className="input input-bordered w-full "
                     placeholder="Password"
                     {...register("password")}
                   />
@@ -134,9 +139,7 @@ const SignUp = () => {
                   <input
                     type="password"
                     id="confirmPassword"
-                    className={`input input-bordered w-full ${
-                      errors.confirmPassword && "input-error"
-                    }`}
+                    className="input input-bordered w-full "
                     placeholder="Confirm Password"
                     {...register("confirmPassword")}
                   />
@@ -155,7 +158,7 @@ const SignUp = () => {
                   className="btn btn-success w-full"
                   disabled={isBtnSubmitDisable}
                 >
-                 <RiAccountPinBoxFill /> SIGN UP
+                  <RiAccountPinBoxFill /> SIGN UP
                 </button>
               </div>
             </form>

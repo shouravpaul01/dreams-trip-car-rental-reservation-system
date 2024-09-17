@@ -34,7 +34,7 @@ export const router = createBrowserRouter([
       },
       {
         path:"/booking/:id",
-        element:<BookingPage/>
+        element:<PrivateRoute roles={[userRole.user,userRole.admin]}><BookingPage/></PrivateRoute>
       },
       {
         path: "/about",

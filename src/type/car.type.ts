@@ -13,7 +13,8 @@ export type TCar = {
     description?: string;
     color: string;
     features: string[]; 
-    pricePerHour: number;
+    price: number;
+    drivingType:string;
     isActive?: boolean;
     isDeleted?: boolean;
     createdAt?: string;

@@ -2,6 +2,7 @@ import {
   FaArrowRightFromBracket,
   FaBars,
   FaDeleteLeft,
+  FaHouseLock,
   FaUnlockKeyhole,
   FaUserLock,
 } from "react-icons/fa6";
@@ -13,8 +14,8 @@ import { logout } from "../../redux/features/auth/authSlice";
 
 const Header = ({ isScroll }: { isScroll: number }) => {
   const { user } = useAppSelector((state) => state.auth);
-  const dispatch=useAppDispatch()
-  console.log(user)
+  const dispatch = useAppDispatch();
+
   return (
     <div className="drawer z-50">
       <input id="my-drawer-3" type="checkbox" className="drawer-toggle" />
@@ -47,9 +48,7 @@ const Header = ({ isScroll }: { isScroll: number }) => {
                   <NavLink
                     to="/"
                     className={({ isActive }) =>
-                      isActive
-                        ? "nav-item-active"
-                        : "nav-item-hover"
+                      isActive ? "nav-item-active" : "nav-item-hover"
                     }
                   >
                     Home
@@ -59,9 +58,7 @@ const Header = ({ isScroll }: { isScroll: number }) => {
                   <NavLink
                     to="/car-listings"
                     className={({ isActive }) =>
-                      isActive
-                        ? "nav-item-active"
-                        : "nav-item-hover"
+                      isActive ? "nav-item-active" : "nav-item-hover"
                     }
                   >
                     Booking
@@ -71,62 +68,85 @@ const Header = ({ isScroll }: { isScroll: number }) => {
                   <NavLink
                     to="/about"
                     className={({ isActive }) =>
-                      isActive
-                        ? "nav-item-active"
-                        : "nav-item-hover"
+                      isActive ? "nav-item-active" : "nav-item-hover"
                     }
                   >
                     About
                   </NavLink>
-                  </li>
-                  {user ? (
-                    <li>
-                      <div className="dropdown dropdown-end">
-                        <div tabIndex={0} role="button" className="btn btn-circle btn-outline btn-success">
-                        <MdAccountCircle className="text-4xl"/>
-                        </div>
-                        <ul
-                          tabIndex={0}
-                          className="dropdown-content main-menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow"
-                        >
-                          <li>
-                            <a>Item 1</a>
-                          </li>
-                          <li className="">
-                            <button className="menu-item" onClick={()=>dispatch(logout())}><FaArrowRightFromBracket />Logout</button>
-                          </li>
-                        </ul>
+                </li>
+                {user ? (
+                  <li>
+                    <div className="dropdown dropdown-end">
+                      <div
+                        tabIndex={0}
+                        role="button"
+                        className="btn btn-circle btn-outline btn-success"
+                      >
+                        <MdAccountCircle className="text-4xl" />
                       </div>
+                      <ul
+                        tabIndex={0}
+                        className="dropdown-content main-menu bg-base-100 rounded-box z-[1] w-60 p-2 shadow"
+                      >
+                        <li >
+                         {
+                          user.role=="admin"? <NavLink
+                          to={"/admin-dashboard"}
+                          className={({ isActive }) =>
+                            isActive ? "menu-item-active" : "menu-item"
+                          }
+                        >
+                          <FaHouseLock /> Admin Dashboard
+                        </NavLink>: <NavLink
+                            to={"/dashboard"}
+                            className={({ isActive }) =>
+                              isActive ? "menu-item-active" : "menu-item"
+                            }
+                          >
+                            <FaHouseLock />Dashboard
+                          </NavLink>
+                         }
+                        </li>
+                        <li className="">
+                          <button
+                            className="menu-item"
+                            onClick={() => dispatch(logout())}
+                          >
+                            <FaArrowRightFromBracket />
+                            Logout
+                          </button>
+                        </li>
+                      </ul>
+                    </div>
+                  </li>
+                ) : (
+                  <>
+                    <li>
+                      <NavLink
+                        to="/signin"
+                        className={({ isActive }) =>
+                          isActive
+                            ? "btn btn-sm btn-success rounded-full transition"
+                            : "btn btn-sm btn-outline btn-success rounded-full transition"
+                        }
+                      >
+                        <FaUnlockKeyhole /> Sign In
+                      </NavLink>
                     </li>
-                  ):(
-                    <>
-                      <li>
-                        <NavLink
-                          to="/signin"
-                          className={({ isActive }) =>
-                            isActive
-                              ? "btn btn-sm btn-success rounded-full transition"
-                              : "btn btn-sm btn-outline btn-success rounded-full transition"
-                          }
-                        >
-                          <FaUnlockKeyhole /> Sign In
-                        </NavLink>
-                      </li>
-                      <li>
-                        <NavLink
-                          to="/signup"
-                          className={({ isActive }) =>
-                            isActive
-                              ? "btn btn-sm btn-success rounded-full  transition"
-                              : "btn btn-sm btn-outline btn-success rounded-full transition"
-                          }
-                        >
-                          <FaUserLock /> Sign Up
-                        </NavLink>
-                      </li>
-                    </>
-                  ) }
-               
+                    <li>
+                      <NavLink
+                        to="/signup"
+                        className={({ isActive }) =>
+                          isActive
+                            ? "btn btn-sm btn-success rounded-full  transition"
+                            : "btn btn-sm btn-outline btn-success rounded-full transition"
+                        }
+                      >
+                        <FaUserLock /> Sign Up
+                      </NavLink>
+                    </li>
+                  </>
+                )}
               </ul>
             </div>
           </div>

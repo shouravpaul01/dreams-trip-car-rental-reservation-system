@@ -1,41 +1,39 @@
 import { useEffect, useState } from "react";
 import { FaCubesStacked, FaPlus } from "react-icons/fa6";
-import CarForm from "../../../components/form/CarForm";
-import CarTable from "../../../components/table/CarTable";
+import PriceForm from "../../../components/form/PriceForm";
+import PriceTable from "../../../components/table/PriceTable";
 import Pagination from "../../../components/ui/Pagination";
 import InputSearch from "../../../components/ui/InputSearch";
 import Loading from "../../../components/ui/Loading";
 import {
-  useGetAllCarsQuery,
-  useGetSingleCarQuery,
-} from "../../../redux/features/car/carApi";
+  useGetAllPricesQuery,
+  useGetSinglePriceQuery,
+} from "../../../redux/features/price/priceApi";
 import { TCar } from "../../../type/car.type";
 
-const Car = () => {
+const PricePage = () => {
   const [contentManage, setContentManage] = useState<string>("manage");
   const [searchInputValue, setSearchInputValue] = useState<string>("");
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const [carId, setCarId] = useState<string | null>(null);
+  const [priceId, setPriceId] = useState<string | null>(null);
   const [editableData, setEditableData] = useState<TCar | null>(null);
-  const { data: cars, isLoading: isCarsLoading } = useGetAllCarsQuery({
+  const { data: prices, isLoading: isPricesLoading } = useGetAllPricesQuery({
     search: searchInputValue,
     page: currentPage,
   });
-  const { data: car, isLoading: isSingleCarLoading } = useGetSingleCarQuery(
-    carId,
-    { skip: !carId }
-  );
-
+  const { data: price, isLoading: isSinglePriceLoading } =
+    useGetSinglePriceQuery(priceId, { skip: !priceId });
+console.log(price,priceId)
   useEffect(() => {
-    if (carId) {
-      setEditableData(car?.data);
+    if (priceId) {
+      setEditableData(price?.data);
     }
-  }, [carId, isSingleCarLoading]);
+  }, [priceId, isSinglePriceLoading]);
 
-  if (isCarsLoading || isSingleCarLoading) {
+  if (isPricesLoading || isSinglePriceLoading) {
     return <Loading className="h-screen" />;
   }
- 
+
   return (
     <>
       <div className="bg-gray-100 mt-4">
@@ -45,40 +43,36 @@ const Car = () => {
             {contentManage == "manage" && "Manage Car"}{" "}
             {contentManage == "update" && "Edit Car"}
           </p>
-          {contentManage == "update" || contentManage == "manage" && (
+          {contentManage == "update" ||
+            (contentManage == "manage" && (
+              <button
+                onClick={() => {
+                  setContentManage("add"), setPriceId(null);
+                  setEditableData(null);
+                }}
+                className={`btn btn-sm btn-circle btn-warning`}
+              >
+                <FaPlus />
+              </button>
+            ))}
+          {(contentManage == "add" || contentManage == "update") && (
             <button
               onClick={() => {
-                setContentManage( "add"),
-                  setCarId(null);
+                setContentManage((prev) =>
+                  prev == "add" || prev == "update" ? "manage" : "add"
+                ),
+                  setPriceId(null);
                 setEditableData(null);
               }}
-              className={`btn btn-sm btn-circle btn-warning`}
+              className={`btn btn-sm rounded-full btn-warning`}
             >
-              <FaPlus /> 
+              <FaCubesStacked /> Manage
             </button>
           )}
-          {
-           ( contentManage=="add" || contentManage=="update") && <button
-            onClick={() => {
-              setContentManage((prev) =>
-                prev == "add" || prev == "update" ? "manage" : "add"
-              ),
-                setCarId(null);
-              setEditableData(null);
-            }}
-            className={`btn btn-sm rounded-full btn-warning`}
-          >
-            
-            
-                <FaCubesStacked /> Manage
-             
-            
-          </button>
-          }
         </div>
         <div className="px-4 py-5">
           {contentManage == "add" || editableData ? (
-            <CarForm editableData={editableData} />
+            <PriceForm editableData={editableData} />
           ) : (
             <>
               <div className="flex flex-col md:flex-row gap-3 md:gap-0 justify-between">
@@ -92,17 +86,17 @@ const Car = () => {
                 </div>
               </div>
 
-              <CarTable
-                cars={cars?.data?.data}
+              <PriceTable
+                prices={prices?.data?.data}
                 setContentManage={setContentManage}
-                setCarId={setCarId}
+                setPriceId={setPriceId}
               />
 
               <div className="px-2 py-3 ">
                 <Pagination
                   currentPage={currentPage}
                   setCurrentPage={setCurrentPage}
-                  totalPages={cars?.data?.totalPages}
+                  totalPages={prices?.data?.totalPages}
                 />
               </div>
             </>
@@ -113,4 +107,4 @@ const Car = () => {
   );
 };
 
-export default Car;
+export default PricePage;

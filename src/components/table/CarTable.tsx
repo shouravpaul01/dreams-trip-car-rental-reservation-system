@@ -10,7 +10,6 @@ import Modal from "../ui/Modal";
 import { toast } from "sonner";
 import { TCar } from "../../type/car.type";
 import { useGetSingleCarQuery, useUpdateCarStatusMutation } from "../../redux/features/car/carApi";
-import { TCarType } from "../../type/cartype.type";
 import CarDetailsTable from "./CarDetailsTable";
 import Loading from "../ui/Loading";
 
