@@ -13,40 +13,80 @@ import { FaArrowRight, FaCalendarDays, FaClock, FaStar } from "react-icons/fa6";
 import { useAppSelector } from "../../../redux/hook";
 import CreatableSelect from "react-select/creatable";
 import { locationOptions, selectCustomStype } from "../../../constant";
-import { Input } from "react-select/animated";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { bookingValidation } from "../../../validations/booking.validation";
+import { useConfirmBookingMutation } from "../../../redux/features/booking/bookingApi";
+import { useEffect, useState } from "react";
+import { toast } from "sonner";
 
 const BookingPage = () => {
   const { id } = useParams();
+  const [isBtnDisable, setIsBtnDisable] = useState<boolean>(false);
   const { data, isLoading } = useGetSingleCarQuery(id);
   const { user, token } = useAppSelector((state) => state.auth);
   const car = data?.data;
+
   const {
     register,
     handleSubmit,
     control,
     reset,
+    setValue,
     setError,
     watch,
     formState: { errors },
   } = useForm<FieldValues>({
-    defaultValues: {
-      name: user?.name,
-      email: user?.email,
-      phone: user?.phone,
-    },
+    resolver: zodResolver(bookingValidation),
   });
-  const onSubmit: SubmitHandler<FieldValues> = (data) => {
+  const priceType = watch("priceType") ? JSON.parse(watch("priceType")) : null;
+  const [confirmBoooking] = useConfirmBookingMutation();
+
+  useEffect(() => {
+    if (car) {
+      setValue("car", car?._id);
+      setValue("drivingType", car?.drivingType);
+    }
+    if (user?.role == "user") {
+      setValue("user.name", user?.name);
+      setValue("user.email", user?.email);
+      setValue("user.phone", user?.phone);
+    }
+  }, [car, user]);
+  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     console.log(data);
+    setIsBtnDisable(true);
+    try {
+      const res = await confirmBoooking(data).unwrap();
+      console.log(res, "res");
+      toast.success(res?.message);
+    } catch (error: any) {
+      const errorMessages = error?.data.errorMessages;
+      console.log(error);
+      if (errorMessages.length > 0) {
+        errorMessages.forEach((errorMessage: any) => {
+          if (errorMessage.path == "bookingError") {
+            toast.error(errorMessage.message);
+            return
+          }
+          setError(errorMessage.path, {
+            type: "manual",
+            message: errorMessage.message,
+          });
+        });
+      }
+    }
+    setIsBtnDisable(false);
   };
-  console.log(car);
+  console.log(errors);
+  // console.log(car);
   return (
     <div>
       <Breadcrumbs title="Booking" />
       <div className="my-container py-16">
         <div className="flex flex-col md:flex-row gap-4  ">
           <div className="w-full md:w-[65%] space-y-6">
-          
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+              <input type="text" {...register("car")} hidden />
               <div className="bg-green-100 rounded-xl p-5">
                 <p className="font-bold text-2xl border-b pb-2">Rental Type</p>
                 <div className="flex flex-col md:flex-row gap-5 mt-3">
@@ -63,16 +103,13 @@ const BookingPage = () => {
                     />
                     <span className="font-bold">{car?.drivingType}</span>
                   </div>
-                 
                 </div>
               </div>
               <div className="bg-green-100 rounded-xl p-5">
                 <p className="font-bold text-2xl border-b pb-2">
                   Personal Information
                 </p>
-                {user?.role == "user" && (
-                  <input type="text" {...register("user")} hidden />
-                )}
+
                 <div className="pt-1 space-y-1">
                   <div className="flex flex-col md:flex-row gap-4">
                     <label className="form-control w-full md:w-[40%]">
@@ -80,26 +117,36 @@ const BookingPage = () => {
                         Name <span className="text-red-500">*</span>
                       </span>
                       <input
-                        {...register("name")}
+                        {...register("user.name")}
                         type="text"
                         placeholder="Type here"
                         className="input input-bordered w-full "
-                        readOnly={user?.role=="user"}
-                        disabled={user?.role=="user"}
+                        readOnly={user?.role == "user"}
+                        disabled={user?.role == "user"}
                       />
+                      {(errors.user as any)?.name && (
+                        <p className="text-red-500 text-sm mt-1">
+                          {(errors.user as any).name.message as string}
+                        </p>
+                      )}
                     </label>
                     <label className="form-control w-full md:w-[60%]">
                       <span className="label-text">
                         Email <span className="text-red-500">*</span>
                       </span>
                       <input
-                        {...register("email")}
+                        {...register("user.email")}
                         type="text"
                         placeholder="Email"
                         className="input input-bordered w-full "
-                        readOnly={user?.role=="user"}
-                        disabled={user?.role=="user"}
+                        readOnly={user?.role == "user"}
+                        disabled={user?.role == "user"}
                       />
+                      {(errors.user as any)?.email && (
+                        <p className="text-red-500 text-sm mt-1">
+                          {(errors.user as any).email.message as string}
+                        </p>
+                      )}
                     </label>
                   </div>
                   <div className="flex flex-col md:flex-row gap-4">
@@ -108,48 +155,56 @@ const BookingPage = () => {
                         Phone Number <span className="text-red-500">*</span>
                       </span>
                       <input
-                        {...register("phone")}
+                        {...register("user.phone")}
                         type="text"
                         placeholder="Phone Number"
                         className="input input-bordered w-full "
-                        readOnly={user?.role=="user"}
-                        disabled={user?.role=="user"}
+                        readOnly={user?.role == "user"}
+                        disabled={user?.role == "user"}
                       />
+                      {(errors.user as any)?.phone && (
+                        <p className="text-red-500 text-sm mt-1">
+                          {(errors.user as any).phone.message as string}
+                        </p>
+                      )}
                     </label>
                     <label className="form-control w-full md:w-[60%]">
                       <span className="label-text">
                         NID <span className="text-red-500">*</span>
                       </span>
                       <input
-                        {...register("nid")}
-                        type="text"
+                        {...register("user.nid")}
+                        type="number"
                         placeholder="National ID"
                         className="input input-bordered w-full "
                       />
-                      {errors.nid && (
+                      {(errors.user as any)?.nid && (
                         <p className="text-red-500 text-sm mt-1">
-                          {errors.nid.message as string}
+                          {(errors.user as any).nid.message as string}
                         </p>
                       )}
                     </label>
                   </div>
                   {
                     // If the driving type option is selected as 'Self-Driving,' the user must provide a driving license number. The option will be shown.
-                   car?.drivingType== "Self Driving" && (
+                    car?.drivingType == "Self Driving" && (
                       <label className="form-control w-full ">
                         <span className="label-text">
                           Driving License{" "}
                           <span className="text-red-500">*</span>
                         </span>
                         <input
-                          {...register("drivingLicence")}
+                          {...register("user.drivingLicence")}
                           type="text"
                           placeholder="Driving Licence"
                           className="input input-bordered w-full "
                         />
-                        {errors.drivingLicence && (
+                        {(errors.user as any)?.drivingLicence && (
                           <p className="text-red-500 text-sm mt-1">
-                            {errors.drivingLicence.message as string}
+                            {
+                              (errors.user as any).drivingLicence
+                                .message as string
+                            }
                           </p>
                         )}
                       </label>
@@ -164,41 +219,187 @@ const BookingPage = () => {
                     Booking Type & Time
                   </p>
                   <div className="flex flex-wrap gap-5">
-                  <div className="flex flex-col items-center w-36 bg-white rounded-xl p-5 text-center ">
-                    <input
-                      type="radio"
-                      value={JSON.stringify({ price: car?.price?.hourly?.ratePerHour, type: "hourly" })}
-                      className="radio radio-success"
-                      {...register("priceType")}
-                    />
-                    <span className="font-semibold">{car?.price?.hourly?.ratePerHour}TK /</span>
-                    <label className="font-bold">Hourly</label>
-                  </div>
-                  <div className="flex flex-col items-center w-36 bg-white rounded-xl p-5 text-center ">
-                    <input
-                      type="radio"
-                      value={JSON.stringify({ price: car?.price?.daily?.ratePerDay, type: "daily" })}
-                      className="radio radio-success"
-                      {...register("priceType")}
-                    />
-                    <span className="font-semibold">{car?.price?.daily?.ratePerDay}TK /</span>
-                    <label className="font-bold">Day</label>
-                  </div>
+                    <div
+                      className={`flex flex-col items-center w-36 bg-white rounded-xl p-5 text-center ${
+                        errors?.priceType && "border border-red-500"
+                      }`}
+                    >
+                      <input
+                        type="radio"
+                        value={JSON.stringify({
+                          price: car?.price?.hourly?.ratePerHour,
+                          type: "hourly",
+                        })}
+                        className="radio radio-success"
+                        {...register("priceType")}
+                      />
+                      <span className="font-semibold">
+                        {car?.price?.hourly?.ratePerHour}TK /
+                      </span>
+                      <label className="font-bold">Hourly</label>
+                    </div>
+                    <div
+                      className={`flex flex-col items-center w-36 bg-white rounded-xl p-5 text-center ${
+                        errors?.priceType && "border border-red-500"
+                      }`}
+                    >
+                      <input
+                        type="radio"
+                        value={JSON.stringify({
+                          price: car?.price?.daily?.ratePerDay,
+                          type: "daily",
+                        })}
+                        className="radio radio-success"
+                        {...register("priceType")}
+                      />
+                      <span className="font-semibold">
+                        {car?.price?.daily?.ratePerDay}TK /
+                      </span>
+                      <label className="font-bold">Day</label>
+                    </div>
                   </div>
                 </div>
-                {
-                 car?.drivingType=="Company Provided" && <div className="pt-1 space-y-1">
-                  <div className="flex flex-col md:flex-row gap-4">
+                {car?.drivingType == "Company Provided" && (
+                  <div className="pt-1 space-y-1">
+                    <div className="flex flex-col md:flex-row gap-4">
+                      <label className="form-control w-full md:w-[50%]">
+                        {" "}
+                        <span className="label-text font-semibold">
+                          Pickup Time <span className="text-red-500">*</span>
+                        </span>
+                        <label className="input input-bordered flex items-center gap-2">
+                          <Controller
+                            name="startTime"
+                            control={control}
+                            defaultValue={""}
+                            render={({ field }) => (
+                              <Flatpickr
+                                {...field}
+                                className="grow"
+                                placeholder="Select Time"
+                                options={{
+                                  enableTime: true,
+                                  noCalendar: true,
+                                  dateFormat: "H:i",
+                                  minuteIncrement: 30,
+                                  time_24hr: true,
+                                }}
+                                onChange={(time) => {
+                                  const formattedTime = time.length
+                                    ? time[0].toTimeString().substring(0, 5)
+                                    : "";
+                                  field.onChange(formattedTime);
+                                }}
+                              />
+                            )}
+                          />
+                          <FaClock className="text-gray-500" />
+                        </label>
+                        {errors.startTime && (
+                          <p className="text-red-500 text-sm mt-1">
+                            {errors.startTime.message as string}
+                          </p>
+                        )}
+                      </label>
+                      <label className="form-control w-full md:w-[50%]">
+                        <span className="label-text font-semibold">
+                          Pickup Date <span className="text-red-500">*</span>
+                        </span>
+                        <label className="input input-bordered rounded-lg flex items-center gap-2">
+                          <Controller
+                            name="pickupDate"
+                            control={control}
+                            defaultValue={""}
+                            render={({ field }) => (
+                              <Flatpickr
+                                {...field}
+                                className="grow"
+                                placeholder="Select date"
+                                options={{ dateFormat: "Y-m-d" }}
+                                onChange={(date) => field.onChange(date[0])}
+                              />
+                            )}
+                          />
+                          <FaCalendarDays className="text-gray-500" />
+                        </label>
+                        {errors.pickupDate && (
+                          <p className="text-red-500 text-sm mt-1">
+                            {errors.pickupDate.message as string}
+                          </p>
+                        )}
+                      </label>
+                    </div>
+                    <label className="form-control w-full ">
+                      <span className="label-text">
+                        Pickup Location<span className="text-red-500">*</span>
+                      </span>
+
+                      <Controller
+                        name="pickupLocation"
+                        control={control}
+                        defaultValue={""}
+                        render={({ field }) => (
+                          <CreatableSelect
+                            {...field}
+                            styles={selectCustomStype}
+                            options={locationOptions}
+                            isClearable
+                            onChange={(selectedOption) =>
+                              field.onChange(selectedOption)
+                            }
+                            placeholder="Location"
+                          />
+                        )}
+                      />
+                      {errors.pickupLocation && (
+                        <p className="text-red-500 text-sm mt-1">
+                          {errors.pickupLocation.message as string}
+                        </p>
+                      )}
+                    </label>
+                    <label className="form-control w-full ">
+                      <span className="label-text">
+                        Prickup Location<span className="text-red-500">*</span>
+                      </span>
+
+                      <Controller
+                        name="returnLocation"
+                        control={control}
+                        defaultValue={""}
+                        render={({ field }) => (
+                          <CreatableSelect
+                            {...field}
+                            styles={selectCustomStype}
+                            options={locationOptions}
+                            isClearable
+                            onBlur={field.onBlur}
+                            onChange={(selectedOption) =>
+                              field.onChange(selectedOption)
+                            }
+                            placeholder="Location"
+                          />
+                        )}
+                      />
+                      {errors.returnLocation && (
+                        <p className="text-red-500 text-sm mt-1">
+                          {errors.returnLocation.message as string}
+                        </p>
+                      )}
+                    </label>
+                  </div>
+                )}
+                {car?.drivingType == "Self Driving" && (
+                  <div className="flex gap-2">
                     <label className="form-control w-full md:w-[50%]">
                       {" "}
                       <span className="label-text font-semibold">
-                        Start Time <span className="text-red-500">*</span>
+                        start Time <span className="text-red-500">*</span>
                       </span>
                       <label className="input input-bordered flex items-center gap-2">
                         <Controller
                           name="startTime"
                           control={control}
-                          defaultValue={null}
+                          defaultValue={""}
                           render={({ field }) => (
                             <Flatpickr
                               {...field}
@@ -211,64 +412,57 @@ const BookingPage = () => {
                                 minuteIncrement: 30,
                                 time_24hr: true,
                               }}
-                              onChange={(date) => field.onChange(date)}
+                              onChange={(time) => {
+                                const formattedTime = time.length
+                                  ? time[0].toTimeString().substring(0, 5)
+                                  : "";
+                                field.onChange(formattedTime);
+                              }}
                             />
                           )}
                         />
                         <FaClock className="text-gray-500" />
                       </label>
+                      {errors.startTime && (
+                        <p className="text-red-500 text-sm mt-1">
+                          {errors.startTime.message as string}
+                        </p>
+                      )}
                     </label>
                     <label className="form-control w-full md:w-[50%]">
                       <span className="label-text font-semibold">
-                        Pickup Date <span className="text-red-500">*</span>
+                        start Date <span className="text-red-500">*</span>
                       </span>
                       <label className="input input-bordered rounded-lg flex items-center gap-2">
                         <Controller
-                          name="pickupDate"
+                          name="startDate"
                           control={control}
-                          defaultValue={null}
+                          defaultValue={""}
                           render={({ field }) => (
                             <Flatpickr
                               {...field}
                               className="grow"
                               placeholder="Select date"
                               options={{ dateFormat: "Y-m-d" }}
-                              onChange={(date) => field.onChange(date)}
+                              onChange={(date) => field.onChange(date[0])}
                             />
                           )}
                         />
                         <FaCalendarDays className="text-gray-500" />
                       </label>
+                      {errors.startDate && (
+                        <p className="text-red-500 text-sm mt-1">
+                          {errors.startDate.message as string}
+                        </p>
+                      )}
                     </label>
                   </div>
-                  <label className="form-control w-full ">
-                    <span className="label-text">
-                      Prickup Location<span className="text-red-500">*</span>
-                    </span>
-
-                    <Controller
-                      name="pickupLocation"
-                      control={control}
-                      render={({ field }) => (
-                        <CreatableSelect
-                          {...field}
-                          styles={selectCustomStype}
-                          options={locationOptions}
-                          isClearable
-                          placeholder="Location"
-                        />
-                      )}
-                    />
-                    {errors.pickupLocation && (
-                      <p className="text-red-500 text-sm mt-1">
-                        {errors.pickupLocation.message as string}
-                      </p>
-                    )}
-                  </label>
-                </div>
-                }
+                )}
               </div>
-              <button className="btn btn-success rounded-full px-6">
+              <button
+                className="btn btn-success rounded-full px-6"
+                disabled={isBtnDisable}
+              >
                 <FaArrowRight className="animate-bounceLR me-2" /> Confirm
                 Booking
               </button>
@@ -302,8 +496,14 @@ const BookingPage = () => {
               <table className="table  bg-white  mt-3">
                 <tbody>
                   <tr>
-                    <td className="">Booking Security Fee</td>
-                    <td className="font-bold">1000 TK</td>
+                    <td className="">Advanced Deposit</td>
+                    <td className="font-bold">
+                      {priceType
+                        ? priceType?.type == "daily"
+                          ? `${(priceType?.price * 50) / 100} TK`
+                          : `${priceType?.price * 4} TK`
+                        : `0 TK`}
+                    </td>
                   </tr>
                   <tr>
                     <td className="">Tax</td>

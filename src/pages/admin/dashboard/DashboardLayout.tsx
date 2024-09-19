@@ -6,6 +6,7 @@ import CarType from "../car-type/CarType";
 import Car from "../car/Car";
 import PricePage from "../price/PricePage";
 import DashboardPage from "./DashboardPage";
+import BookingPage from "../booking/BookingPage";
 
 
 const DashboardLayout = () => {
@@ -34,10 +35,16 @@ const DashboardLayout = () => {
            <BiSolidCategory />Manage Prices
           </button>
           <button
-            className={`btn btn-sm md:btn-md btn-outline btn-success rounded-none md:rounded-e-full join-item ${tabActive =="cars" &&  "btn-active"}`}
+            className={`btn btn-sm md:btn-md btn-outline btn-success  join-item ${tabActive =="cars" &&  "btn-active"}`}
             onClick={() => setTabActive("cars")}
           >
            <FaCubesStacked />Manage cars
+          </button>
+          <button
+            className={`btn btn-sm md:btn-md btn-outline btn-success rounded-none md:rounded-e-full join-item ${tabActive =="manage-bookings" &&  "btn-active"}`}
+            onClick={() => setTabActive("manage-bookings")}
+          >
+           <FaCubesStacked />Manage Bookings
           </button>
         </div>
       </div>
@@ -46,7 +53,7 @@ const DashboardLayout = () => {
          {tabActive=="carType" && <CarType/>}
          {tabActive=="prices" && <PricePage/>}
         {tabActive=="cars" && <Car/>} 
-
+        {tabActive=="manage-bookings" && <BookingPage/>} 
 
       </div>
     </div>

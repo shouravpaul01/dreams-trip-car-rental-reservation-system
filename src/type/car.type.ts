@@ -1,4 +1,5 @@
 import { TCarType } from "./cartype.type";
+import { TPrice } from "./price.type";
 
 export type TCar = {
     _id?: string;
@@ -13,7 +14,7 @@ export type TCar = {
     description?: string;
     color: string;
     features: string[]; 
-    price: number;
+    price: TPrice;
     drivingType:string;
     isActive?: boolean;
     isDeleted?: boolean;

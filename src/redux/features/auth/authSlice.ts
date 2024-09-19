@@ -1,12 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
-type TUser={
-    name:string,
-    email:string,
-    phone:String,
-    role:string,
-    iat:number,
-    exp:number
-}
+import { TUser } from "../../../type/user.type";
+
 type TInitialState={
     user:TUser | null ,
     token:null | string

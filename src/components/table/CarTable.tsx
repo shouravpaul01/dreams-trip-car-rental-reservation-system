@@ -71,7 +71,7 @@ const CarTable = ({ cars,setContentManage,setCarId }: { cars: TCar[],setContentM
                     </div>
                   </div>
                 </td>
-                <td>{car.pricePerHour} TK</td>
+                <td>{car.price.hourly.ratePerHour && `${car.price.hourly.ratePerHour}Tk/H`}{(car.price.hourly.ratePerHour && car.price.daily.ratePerDay ) && "---"}{car.price.daily.ratePerDay && `${car.price.daily.ratePerDay}Tk/H`}</td>
                 <td>
                   <div className="flex gap-2 items-center ">
                     <FaCircleDot
