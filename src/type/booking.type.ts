@@ -5,6 +5,7 @@ export type TBooking = {
   _id?: string;
   user: TUser;
   car: TCar;
+  drivingType:string;
   startTime: string;
   pickupDate: Date;
   pickupLocation: string;

@@ -13,6 +13,7 @@ import CarDetails from "../pages/main/car-details/CarDetails";
 import AboutUsPage from "../pages/main/about-us/AboutUsPage";
 import PrivateRoute from "./PrivateRoute";
 import { userRole } from "../constant";
+import DashboardPage from "../pages/main/user-dasboard/DashboardPage";
 
 export const router = createBrowserRouter([
   {
@@ -39,6 +40,10 @@ export const router = createBrowserRouter([
       {
         path: "/about",
         element: <AboutUsPage />,
+      },
+      {
+        path: "/dashboard",
+        element: <PrivateRoute roles={[userRole.user]}><DashboardPage /></PrivateRoute>,
       },
       {
         path: "/signup",
