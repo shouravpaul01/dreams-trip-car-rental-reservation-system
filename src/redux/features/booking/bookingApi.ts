@@ -11,10 +11,21 @@ const bookingApi = baseApi.injectEndpoints({
       invalidatesTags: ["bookings"],
     }),
     getAllBookings: build.query({
-      query: (data) => ({
-        url: "/bookings",
-        method: "GET",
-      }),
+      query: (args) => {
+        const params = new URLSearchParams();
+        if (args) {
+          args.forEach((arg: { label: string; value: any }) => {
+            if (arg.value !== "") {
+              params.append(arg.label, arg.value);
+            }
+          });
+        }
+        return {
+          url: "/bookings",
+          method: "GET",
+          params: params,
+        };
+      },
       providesTags: ["bookings"],
     }),
     updateApprovalStatus: build.mutation({
@@ -29,17 +40,16 @@ const bookingApi = baseApi.injectEndpoints({
         const params = new URLSearchParams();
         if (args) {
           args.forEach((arg: { label: string; value: any }) => {
-            if (arg.value !=="") {
+            if (arg.value !== "") {
               params.append(arg.label, arg.value);
             }
-           
           });
         }
 
         return {
           url: `/bookings/my-bookings`,
           method: "GET",
-          params:params
+          params: params,
         };
       },
       providesTags: ["bookings"],

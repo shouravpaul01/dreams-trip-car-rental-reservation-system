@@ -1,7 +1,10 @@
 import {
     FaArrowRightArrowLeft,
+    FaCalendarDays,
     FaCircleDot,
     FaInfo,
+    FaLocationDot,
+    FaRegClock,
     FaRegFaceFrownOpen,
     FaSquarePen,
   } from "react-icons/fa6";
@@ -9,6 +12,7 @@ import {
 import { TBooking } from "../../../type/booking.type";
 import { useUpdateApprovalStatusMutation } from "../../../redux/features/booking/bookingApi";
 import { toast } from "sonner";
+import moment from "moment";
   
   
   
@@ -49,6 +53,7 @@ import { toast } from "sonner";
             <thead className="bg-[#3aa27ea8] text-sm text-black">
               <tr>
                 <th>Name</th>
+                <th>Booking Info</th>
                 <th>Price</th>
                 <th>Approved</th>
                 <th>Action </th>
@@ -70,6 +75,34 @@ import { toast } from "sonner";
                         <div className="text-sm opacity-50">Color: {booking.car.color}</div>
                       </div>
                     </div>
+                  </td>
+                  <td>
+                  <div className="dropdown dropdown-hover dropdown-top ">
+                    <button
+                      tabIndex={0}
+                      className="btn btn-xs btn-outline btn-success"
+                    >
+                      <FaInfo /> Info
+                    </button>
+                    <div
+                      tabIndex={0}
+                      className="dropdown-content menu bg-base-100 rounded-lg z-[1] w-64 p-2 shadow"
+                    >
+                      {
+                        booking.drivingType=="Company Provided"?<div className="space-y-1">
+                        <p className="font-semibold">Start Time: <span className="badge badge-neutral"><FaRegClock  className="me-2" />{booking.startTime}</span></p>
+                        <p className="font-semibold">Start Date: <span className="badge badge-neutral"><FaCalendarDays className="me-2" />{moment(booking.startDate).format('ll')}</span></p>
+                        </div>:<div className="space-y-1">
+                        <p className="font-semibold">Pickup Time: <span className="badge badge-neutral"><FaRegClock  className="me-2" />{booking.startTime}</span></p>
+                        <p className="font-semibold">Pickup Date: <span className="badge badge-neutral"><FaCalendarDays className="me-2" />{moment(booking.pickupDate).format('ll')}</span></p>
+                       
+                        <p className="font-semibold">Pickup Location: <span className="badge badge-neutral"><FaLocationDot className="me-2" />{booking.pickupLocation}</span></p>
+                        <p className="font-semibold">Return Location: <span className="badge badge-neutral"><FaLocationDot className="me-2" />{booking.returnLocation}</span></p>
+                        </div>
+                      }
+                    
+                    </div>
+                  </div>
                   </td>
                   <td><span className="font-semibold">{booking.priceType.type=="daily"?`${booking.priceType.price}TK/D`:`${booking.priceType.price}TK/H`}</span></td>
                   <td>

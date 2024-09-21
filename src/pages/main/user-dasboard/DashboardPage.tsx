@@ -15,7 +15,7 @@ const DashboardPage = () => {
           setSearchParams({ tab: 'profile' }); 
         }
       }, [searchParams, setSearchParams]);
-    console.log(searchParams.get("tab"))
+    
   return (
     <div>
       <Breadcrumbs title="My Dasboard" />

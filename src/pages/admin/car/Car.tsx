@@ -10,74 +10,67 @@ import {
   useGetSingleCarQuery,
 } from "../../../redux/features/car/carApi";
 import { TCar } from "../../../type/car.type";
+import { NavLink, useSearchParams } from "react-router-dom";
 
 const Car = () => {
-  const [contentManage, setContentManage] = useState<string>("manage");
+  const [searchParams] = useSearchParams();
   const [searchInputValue, setSearchInputValue] = useState<string>("");
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const [carId, setCarId] = useState<string | null>(null);
   const [editableData, setEditableData] = useState<TCar | null>(null);
+
+  const tab = searchParams.get("tab");
+  const tabCreate = searchParams.get("create");
+  const tabId = searchParams.get("_id");
+
   const { data: cars, isLoading: isCarsLoading } = useGetAllCarsQuery({
     search: searchInputValue,
     page: currentPage,
   });
   const { data: car, isLoading: isSingleCarLoading } = useGetSingleCarQuery(
-    carId,
-    { skip: !carId }
+    tabId,
+    { skip: !tabId }
   );
 
   useEffect(() => {
-    if (carId) {
+    if (tabId) {
       setEditableData(car?.data);
     }
-  }, [carId, isSingleCarLoading]);
+    if (tabCreate == "true") {
+      setEditableData(null);
+    }
+  }, [tabId, isSingleCarLoading, tabCreate]);
 
   if (isCarsLoading || isSingleCarLoading) {
     return <Loading className="h-screen" />;
   }
- 
   return (
     <>
       <div className="bg-gray-100 mt-4">
         <div className="flex items-center bg-[#3aa27ea8] gap-2 py-2 px-4">
           <p className="font-bold text-black flex-1">
-            {contentManage == "add" && "Add Car"}
-            {contentManage == "manage" && "Manage Car"}{" "}
-            {contentManage == "update" && "Edit Car"}
+            {tabCreate == "true" && "Add Car"}
+            {tab == "manage-cars" && !tabCreate && !tabId && "Manage Car"}{" "}
+            {tabId && tab && "Edit Car"}
           </p>
-          {contentManage == "update" || contentManage == "manage" && (
-            <button
-              onClick={() => {
-                setContentManage( "add"),
-                  setCarId(null);
-                setEditableData(null);
-              }}
-              className={`btn btn-sm btn-circle btn-warning`}
-            >
-              <FaPlus /> 
-            </button>
-          )}
           {
-           ( contentManage=="add" || contentManage=="update") && <button
-            onClick={() => {
-              setContentManage((prev) =>
-                prev == "add" || prev == "update" ? "manage" : "add"
-              ),
-                setCarId(null);
-              setEditableData(null);
-            }}
-            className={`btn btn-sm rounded-full btn-warning`}
-          >
-            
-            
-                <FaCubesStacked /> Manage
-             
-            
-          </button>
+            <NavLink
+              to={`?tab=manage-cars&create=true`}
+              className={`btn btn-sm btn-circle btn-outline btn-warning ${tabCreate=="true" && "btn-active"}`}
+            >
+              <FaPlus />
+            </NavLink>
+          }
+          {
+            <NavLink
+              to={"?tab=manage-cars"}
+              className={`btn btn-sm rounded-full btn-outline btn-warning ${tab=="manage-cars" && !tabCreate && "btn-active"}`}
+            >
+              <FaCubesStacked /> Manage
+            </NavLink>
           }
         </div>
         <div className="px-4 py-5">
-          {contentManage == "add" || editableData ? (
+          {tabCreate == "true" || editableData ? (
             <CarForm editableData={editableData} />
           ) : (
             <>
@@ -92,11 +85,7 @@ const Car = () => {
                 </div>
               </div>
 
-              <CarTable
-                cars={cars?.data?.data}
-                setContentManage={setContentManage}
-                setCarId={setCarId}
-              />
+              <CarTable cars={cars?.data?.data} />
 
               <div className="px-2 py-3 ">
                 <Pagination

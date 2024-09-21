@@ -12,10 +12,11 @@ import { TCar } from "../../type/car.type";
 import { useGetSingleCarQuery, useUpdateCarStatusMutation } from "../../redux/features/car/carApi";
 import CarDetailsTable from "./CarDetailsTable";
 import Loading from "../ui/Loading";
+import { NavLink } from "react-router-dom";
 
 
 
-const CarTable = ({ cars,setContentManage,setCarId }: { cars: TCar[],setContentManage:(value:string)=>void,setCarId:(value:string)=>void }) => {
+const CarTable = ({ cars}: { cars: TCar[]}) => {
   const [modalId, setModalId] = useState<string>("");
   const [updateStatusCar] = useUpdateCarStatusMutation();
   const { data: car, isLoading: isSingleCarLoading } = useGetSingleCarQuery(
@@ -93,14 +94,12 @@ const CarTable = ({ cars,setContentManage,setCarId }: { cars: TCar[],setContentM
                 </td>
                 <td >
                 <div className="flex gap-2">
-                <button
+                <NavLink to={`?tab=manage-cars&_id=${car._id}`}
                     className="btn btn-sm btn-outline btn-success"
-                    onClick={() => {
-                      setContentManage("update"), setCarId(car._id!);
-                    }}
+                    
                   >
                     <FaSquarePen />
-                  </button>
+                  </NavLink>
                   <button
                     className="btn btn-sm btn-outline btn-success"
                     onClick={() => {
