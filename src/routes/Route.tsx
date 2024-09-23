@@ -14,6 +14,7 @@ import AboutUsPage from "../pages/main/about-us/AboutUsPage";
 import PrivateRoute from "./PrivateRoute";
 import { userRole } from "../constant";
 import DashboardPage from "../pages/main/user-dasboard/DashboardPage";
+import PaymentCencel from "../pages/payment/PaymentCencel";
 
 export const router = createBrowserRouter([
   {
@@ -53,7 +54,10 @@ export const router = createBrowserRouter([
         path: "/signin",
         element: <SignIn />,
       },
-      
+      {
+        path: "/payment-cencel",
+        element: <PaymentCencel />,
+      },
     ],
   },
   {

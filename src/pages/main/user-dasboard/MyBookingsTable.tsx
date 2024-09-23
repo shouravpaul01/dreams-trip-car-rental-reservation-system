@@ -7,22 +7,26 @@ import {
   FaRegClock,
   FaRegFaceFrownOpen,
   FaRegRectangleXmark,
-
 } from "react-icons/fa6";
 import { useState } from "react";
 import { TBooking } from "../../../type/booking.type";
 import { LiaAmazonPay } from "react-icons/lia";
 import moment from "moment";
+import { usePaymentAfterReturningCarMutation } from "../../../redux/features/payment/paymentApi";
+import { toast } from "sonner";
 
-const MyBookingsTable = ({
-  myBookings,
-  drivingType,
-}: {
-  myBookings: TBooking[];
-  drivingType: string;
-}) => {
+const MyBookingsTable = ({ myBookings }: { myBookings: TBooking[] }) => {
   const [modalId, setModalId] = useState<string>("");
+  const [paymentAfterReturningCar] = usePaymentAfterReturningCarMutation();
 
+  const handlePayment = async (_id: string) => {
+    const res = await paymentAfterReturningCar(_id);
+    console.log(res)
+    if (res?.status == true) {
+      window.location.href = res.data.payment_url;
+      toast.success("Make Payment!.");
+    }
+  };
   const hanleCloseModal = () => {
     setModalId("");
   };
@@ -43,7 +47,7 @@ const MyBookingsTable = ({
             <tr>
               <th>Name</th>
               <th>Booking Info</th>
-              <th>Approved</th>
+              <th>TotalCost</th>
               <th>Action </th>
             </tr>
           </thead>
@@ -68,8 +72,12 @@ const MyBookingsTable = ({
                       <div className="text-sm opacity-50">
                         Type: {booking.car.type?.name}
                       </div>
-                      <div className="text-sm opacity-50">
-                        Color: {booking.car.color}
+                      <div
+                        className={`font-semibold uppercase badge ${
+                          booking.isApproved ? "badge-primary" : "badge-error"
+                        }`}
+                      >
+                        {booking.isApproved ? "Approved" : "Pending"}
                       </div>
                     </div>
                   </div>
@@ -86,31 +94,63 @@ const MyBookingsTable = ({
                       tabIndex={0}
                       className="dropdown-content menu bg-base-100 rounded-lg z-[1] w-64 p-2 shadow"
                     >
-                      {
-                        booking.drivingType=="Company Provided"?<div className="space-y-1">
-                        <p className="font-semibold">Start Time: <span className="badge badge-neutral"><FaRegClock  className="me-2" />{booking.startTime}</span></p>
-                        <p className="font-semibold">Start Date: <span className="badge badge-neutral"><FaCalendarDays className="me-2" />{moment(booking.startDate).format('ll')}</span></p>
-                        </div>:<div className="space-y-1">
-                        <p className="font-semibold">Pickup Time: <span className="badge badge-neutral"><FaRegClock  className="me-2" />{booking.startTime}</span></p>
-                        <p className="font-semibold">Pickup Date: <span className="badge badge-neutral"><FaCalendarDays className="me-2" />{moment(booking.pickupDate).format('ll')}</span></p>
-                       
-                        <p className="font-semibold">Pickup Location: <span className="badge badge-neutral"><FaLocationDot className="me-2" />{booking.pickupLocation}</span></p>
-                        <p className="font-semibold">Return Location: <span className="badge badge-neutral"><FaLocationDot className="me-2" />{booking.returnLocation}</span></p>
+                      {booking.drivingType == "Company Provided" ? (
+                        <div className="space-y-1">
+                          <p className="font-semibold">
+                            Pickup Time:{" "}
+                            <span className="badge badge-neutral">
+                              <FaRegClock className="me-2" />
+                              {booking.startTime}
+                            </span>
+                          </p>
+                          <p className="font-semibold">
+                            Pickup Date:{" "}
+                            <span className="badge badge-neutral">
+                              <FaCalendarDays className="me-2" />
+                              {moment(booking.pickupDate).format("ll")}
+                            </span>
+                          </p>
+
+                          <p className="font-semibold">
+                            Pickup Location:{" "}
+                            <span className="badge badge-neutral">
+                              <FaLocationDot className="me-2" />
+                              {booking.pickupLocation}
+                            </span>
+                          </p>
+                          <p className="font-semibold">
+                            Return Location:{" "}
+                            <span className="badge badge-neutral">
+                              <FaLocationDot className="me-2" />
+                              {booking.returnLocation}
+                            </span>
+                          </p>
                         </div>
-                      }
-                    
+                      ) : (
+                        <div className="space-y-1">
+                          <p className="font-semibold">
+                            Start Time:{" "}
+                            <span className="badge badge-neutral">
+                              <FaRegClock className="me-2" />
+                              {booking.startTime}
+                            </span>
+                          </p>
+                          <p className="font-semibold">
+                            Start Date:{" "}
+                            <span className="badge badge-neutral">
+                              <FaCalendarDays className="me-2" />
+                              {moment(booking.startDate).format("ll")}
+                            </span>
+                          </p>
+                        </div>
+                      )}
                     </div>
                   </div>
                 </td>
                 <td>
-                  <div className="flex gap-2 items-center ">
-                    <FaCircleDot
-                      className={
-                        booking.isApproved ? "text-primary" : "text-error"
-                      }
-                    />
-                    <span>{booking.isApproved ? "Approved" : "Pending"}</span>
-                  </div>
+                  <span className="font-bold">
+                    {booking.totalCost ? booking.totalCost : "--"}TK
+                  </span>
                 </td>
                 <td>
                   <div className="flex gap-2">
@@ -123,15 +163,16 @@ const MyBookingsTable = ({
                       }`}
                     >
                       <button
-                        className="btn btn-xs btn-outline btn-success"
+                        className={`btn btn-xs btn-outline btn-success ${booking.paymentDetails.paymentStatus=="Paid" && "btn-disabled"}`}
                         data-tip="primary"
                         disabled={!booking?.returnStatus}
+                        onClick={() => handlePayment(booking._id!)}
                       >
                         <LiaAmazonPay /> Payment
                       </button>
                     </div>
-                    {
-                      !booking.returnStatus &&  <div
+                    {!booking.returnStatus && (
+                      <div
                         className="tooltip tooltip-success"
                         data-tip={"Cencel Booking."}
                       >
@@ -143,7 +184,7 @@ const MyBookingsTable = ({
                           <FaRegRectangleXmark /> Cencel
                         </button>
                       </div>
-                    }
+                    )}
                   </div>
                 </td>
               </tr>

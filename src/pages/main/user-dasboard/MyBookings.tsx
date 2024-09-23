@@ -22,11 +22,7 @@ const MyBookings = () => {
       { label: "drivingType", value: drivingType },
     ]);
 
-  //   const { data: car, isLoading: isSingleCarLoading } = useGetSingleCarQuery(
-  //     carId,
-  //     { skip: !carId }
-  //   );
-console.log(drivingType)
+ 
   if (isMyBookingsLoading) {
     return <Loading className="h-screen" />;
   }

@@ -21,8 +21,6 @@ const SignIn = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const currentLocation = location?.state?.from?.pathname || "/";
-
-  console.log(currentLocation,location,'signin')
   const {
     register,
     handleSubmit,

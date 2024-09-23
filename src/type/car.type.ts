@@ -16,6 +16,7 @@ export type TCar = {
     features: string[]; 
     price: TPrice;
     drivingType:string;
+    isAvailable?: boolean;
     isActive?: boolean;
     isDeleted?: boolean;
     createdAt?: string;

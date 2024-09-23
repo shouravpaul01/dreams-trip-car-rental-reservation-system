@@ -1,7 +1,7 @@
 import { undefined, z } from "zod";
 
 const userInfoValidation = z.object({
-  car:z.string(),
+  car: z.string(),
   drivingType: z.string().nonempty("The field is required."),
   user: z.object({
     name: z.string().nonempty("The field is required."),
@@ -19,7 +19,6 @@ const userInfoValidation = z.object({
         message: "NID must be either 13 or 17 digits long.",
       }),
     drivingLicence: z.string().optional(),
-
    
   }),
   priceType: z.preprocess(
@@ -38,6 +37,9 @@ const userInfoValidation = z.object({
       type: z.string().nonempty("The field is required."),
     })
   ),
+  quantity: z
+  .number({ required_error: "Quantity is required" })
+  .min(1, "Quantity must be at least 1")
 });
 
 // Company provided driving validation schema

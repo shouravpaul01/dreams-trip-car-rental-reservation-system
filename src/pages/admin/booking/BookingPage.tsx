@@ -8,7 +8,6 @@ import BookingTable from "./BookingTable";
 import { drivingOptions } from "../../../constant";
 
 const BookingPage = () => {
-  const [contentManage, setContentManage] = useState<string>("manage");
   const [searchInputValue, setSearchInputValue] = useState<string>("");
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [drivingType, setDrivingType] = useState<string>("");
@@ -17,15 +16,12 @@ const BookingPage = () => {
     useGetAllBookingsQuery( [{ label: "search", value: searchInputValue },
       { label: "page", value: currentPage },
       { label: "drivingType", value: drivingType }]);
-  //   const { data: car, isLoading: isSingleCarLoading } = useGetSingleCarQuery(
-  //     carId,
-  //     { skip: !carId }
-  //   );
+  
 
   if (isBookingsLoading) {
     return <Loading className="h-screen" />;
   }
-console.log(bookings)
+
   return (
     <>
       <div className="bg-gray-100 mt-4">

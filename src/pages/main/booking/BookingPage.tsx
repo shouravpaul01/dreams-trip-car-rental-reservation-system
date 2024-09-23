@@ -18,12 +18,13 @@ import { bookingValidation } from "../../../validations/booking.validation";
 import { useConfirmBookingMutation } from "../../../redux/features/booking/bookingApi";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
+import Loading from "../../../components/ui/Loading";
 
 const BookingPage = () => {
   const { id } = useParams();
   const [isBtnDisable, setIsBtnDisable] = useState<boolean>(false);
   const { data, isLoading } = useGetSingleCarQuery(id);
-  const { user, token } = useAppSelector((state) => state.auth);
+  const { user } = useAppSelector((state) => state.auth);
   const car = data?.data;
 
   const {
@@ -40,7 +41,7 @@ const BookingPage = () => {
   });
   const priceType = watch("priceType") ? JSON.parse(watch("priceType")) : null;
   const [confirmBoooking] = useConfirmBookingMutation();
-
+ 
   useEffect(() => {
     if (car) {
       setValue("car", car?._id);
@@ -52,21 +53,34 @@ const BookingPage = () => {
       setValue("user.phone", user?.phone);
     }
   }, [car, user]);
+  console.log(car);
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-    console.log(data);
     setIsBtnDisable(true);
+
     try {
+      console.log(data.quantity, car.quantity);
+      if (data.quantity > car.quantity) {
+        setError("quantity", {
+          type: "manual",
+          message: `Booking availability is ${car?.quantity}`,
+        });
+        setIsBtnDisable(true);
+        return;
+      }
       const res = await confirmBoooking(data).unwrap();
-      console.log(res, "res");
-      toast.success(res?.message);
+     if (res?.status==true) {
+      window.location.href=res.data.payment_url
+      toast.success("Make Payment!.");
+     }
+     
     } catch (error: any) {
       const errorMessages = error?.data.errorMessages;
-      console.log(error);
+     
       if (errorMessages.length > 0) {
         errorMessages.forEach((errorMessage: any) => {
           if (errorMessage.path == "bookingError") {
             toast.error(errorMessage.message);
-            return
+            return;
           }
           setError(errorMessage.path, {
             type: "manual",
@@ -77,8 +91,9 @@ const BookingPage = () => {
     }
     setIsBtnDisable(false);
   };
-  console.log(errors);
-  // console.log(car);
+  if (isLoading) {
+    return <Loading className="h-screen" />;
+  }
   return (
     <div>
       <Breadcrumbs title="Booking" />
@@ -212,7 +227,25 @@ const BookingPage = () => {
                   }
                 </div>
               </div>
-
+              <div className="bg-green-100 rounded-xl p-5">
+                <p className="font-bold text-2xl border-b pb-2">Quantity</p>
+                <label className="form-control w-full md:w-[40%]">
+                  <span className="label-text">
+                    Quantity <span className="text-red-500">*</span>
+                  </span>
+                  <input
+                    {...register("quantity", { valueAsNumber: true })}
+                    type="number"
+                    placeholder="Quantity"
+                    className="input input-bordered w-full "
+                  />
+                  {errors.quantity && (
+                    <p className="text-red-500 text-sm mt-1">
+                      {errors.quantity.message as string}
+                    </p>
+                  )}
+                </label>
+              </div>
               <div className="bg-green-100 rounded-xl p-5 ">
                 <div className="border-b pb-2 space-y-2">
                   <p className="font-bold text-2xl border-b pb-2">
@@ -498,10 +531,10 @@ const BookingPage = () => {
                   <tr>
                     <td className="">Advanced Deposit</td>
                     <td className="font-bold">
-                      {priceType
-                        ? priceType?.type == "daily"
-                          ? `${(priceType?.price * 50) / 100} TK`
-                          : `${priceType?.price * 4} TK`
+                      {(priceType && watch("quantity"))
+                        ? priceType?.type == "daily" 
+                          ? `${((priceType?.price * 50) / 100)*watch("quantity")} TK`
+                          : `${(priceType?.price * 4)*watch("quantity")} TK`
                         : `0 TK`}
                     </td>
                   </tr>
