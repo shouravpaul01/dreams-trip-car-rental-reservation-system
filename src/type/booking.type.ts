@@ -22,6 +22,7 @@ export type TBooking = {
   advancedDeposit: number;
   priceType: { price: number; type: string };
   totalCost: number;
+  quantity:number;
   paymentDetails:TPaymentDetails;
   startDate: Date;
   isApproved: boolean;

@@ -20,7 +20,7 @@ const MyBookingsTable = ({ myBookings }: { myBookings: TBooking[] }) => {
   const [paymentAfterReturningCar] = usePaymentAfterReturningCarMutation();
 
   const handlePayment = async (_id: string) => {
-    const res = await paymentAfterReturningCar(_id);
+    const res = await paymentAfterReturningCar(_id).unwrap();
     console.log(res)
     if (res?.status == true) {
       window.location.href = res.data.payment_url;
@@ -97,6 +97,13 @@ const MyBookingsTable = ({ myBookings }: { myBookings: TBooking[] }) => {
                       {booking.drivingType == "Company Provided" ? (
                         <div className="space-y-1">
                           <p className="font-semibold">
+                            Booking Qty:{" "}
+                            <span className="badge badge-neutral">
+                             
+                              {booking.quantity}
+                            </span>
+                          </p>
+                          <p className="font-semibold">
                             Pickup Time:{" "}
                             <span className="badge badge-neutral">
                               <FaRegClock className="me-2" />
@@ -128,6 +135,13 @@ const MyBookingsTable = ({ myBookings }: { myBookings: TBooking[] }) => {
                         </div>
                       ) : (
                         <div className="space-y-1">
+                          <p className="font-semibold">
+                            Booking Qty:{" "}
+                            <span className="badge badge-neutral">
+                             
+                              {booking.quantity}
+                            </span>
+                          </p>
                           <p className="font-semibold">
                             Start Time:{" "}
                             <span className="badge badge-neutral">

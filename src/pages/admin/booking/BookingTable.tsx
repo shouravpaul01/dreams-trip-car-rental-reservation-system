@@ -116,6 +116,13 @@ const BookingTable = ({ bookings }: { bookings: TBooking[] }) => {
                       {booking.drivingType == "Company Provided" ? (
                         <div className="space-y-1">
                           <p className="font-semibold">
+                            Booking Qty:{" "}
+                            <span className="badge badge-neutral">
+                              
+                              {booking.quantity}
+                            </span>
+                          </p>
+                          <p className="font-semibold">
                             Pickup Time:{" "}
                             <span className="badge badge-neutral">
                               <FaRegClock className="me-2" />
@@ -147,6 +154,13 @@ const BookingTable = ({ bookings }: { bookings: TBooking[] }) => {
                         </div>
                       ) : (
                         <div className="space-y-1">
+                          <p className="font-semibold">
+                            Booking Qty:{" "}
+                            <span className="badge badge-neutral">
+                              
+                              {booking.quantity}
+                            </span>
+                          </p>
                           <p className="font-semibold">
                             Start Time:{" "}
                             <span className="badge badge-neutral">
