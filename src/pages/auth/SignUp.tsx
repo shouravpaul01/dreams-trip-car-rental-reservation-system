@@ -1,15 +1,18 @@
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { SignUpValidation } from "../../validations/signup.validation";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Link, replace, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useCreateAccountMutation } from "../../redux/features/user/userApi";
 import { toast } from "sonner";
 import { useState } from "react";
 import Breadcrumbs from "../../components/ui/Breadcrumbs";
 import { RiAccountPinBoxFill } from "react-icons/ri";
+import useTitle from "../../hook/useTitle";
 
 const SignUp = () => {
+  useTitle("Sign Up")
   const [isBtnSubmitDisable, setIsBtnSubmitDisable] = useState<boolean>(false);
+  const [authError, setAuthError] = useState<string>('');
   const navigate = useNavigate();
   const {
     register,
@@ -28,13 +31,19 @@ const SignUp = () => {
       toast.success(res.message);
       navigate("/signin", { replace: true });
     } catch (error: any) {
+      
       const errorMessages = error?.data.errorMessages;
       if (errorMessages.length > 0) {
         errorMessages.forEach((errorMessage: any) =>
+         {
+          if(errorMessage.path=="userError") {
+            setAuthError(errorMessage.message)
+          }
           setError(errorMessage.path, {
             type: "manual",
             message: errorMessage.message,
           })
+         }
         );
       }
     }
@@ -46,7 +55,7 @@ const SignUp = () => {
       <div className="flex justify-center items-center my-20">
         <div className="max-w-xl w-full mx-auto p-4">
           <div className="bg-white  shadow-md rounded-md px-10 md:px-16  py-10">
-            <div className="border-b border-dashed border-success pb-2 mb-5">
+            <div className="border-b border-dashed border-success pb-2 ">
               <h2 className=" text-2xl font-Spicy_Rice">Create an Account</h2>
               <p className="">
                 Already a member?{" "}
@@ -56,7 +65,10 @@ const SignUp = () => {
                 here
               </p>
             </div>
-            <form onSubmit={handleSubmit(onSubmit)} className="space-y-2 ">
+            {
+              authError && <p className="text-red-500">{authError}</p>
+            }
+            <form onSubmit={handleSubmit(onSubmit)} className="space-y-2 mt-5">
               {/* Name Field */}
               <div className="form-control w-full">
                 <label className="label-text">

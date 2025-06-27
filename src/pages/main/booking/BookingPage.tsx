@@ -31,7 +31,6 @@ const BookingPage = () => {
     register,
     handleSubmit,
     control,
-    reset,
     setValue,
     setError,
     watch,
@@ -53,7 +52,7 @@ const BookingPage = () => {
       setValue("user.phone", user?.phone);
     }
   }, [car, user]);
-  console.log(car);
+
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     setIsBtnDisable(true);
 
@@ -521,7 +520,11 @@ const BookingPage = () => {
                   </span>
                   <p>
                     Price:{" "}
-                    <span className="font-bold">{car?.pricePerHour}</span>/hr
+                    <span className="font-bold">{priceType
+                        ? priceType?.type == "daily" 
+                          ? `${priceType?.price} TK/D`
+                          : `${priceType?.price} TK/hr`
+                        : `0 TK`}</span>
                   </p>
                 </div>
                 ​
@@ -542,10 +545,7 @@ const BookingPage = () => {
                     <td className="">Tax</td>
                     <td className="font-bold">100 TK</td>
                   </tr>
-                  <tr>
-                    <td className="">Michigan</td>
-                    <td className="">Detroit</td>
-                  </tr>
+                 
                 </tbody>
               </table>
             </div>

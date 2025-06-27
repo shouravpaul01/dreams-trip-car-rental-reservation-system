@@ -35,7 +35,7 @@ const carTypeApi=baseApi.injectEndpoints({
             invalidatesTags:["carTypes"]
         }),
         getAllActiveCarTypes:build.query({
-            query:(data)=>({
+            query:()=>({
                 url:`/car-types/active-car-types`,
                 method:"GET",
 

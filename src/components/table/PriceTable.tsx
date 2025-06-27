@@ -11,21 +11,14 @@ import { toast } from "sonner";
 import { TPrice } from "../../type/price.type";
 import {
   useGetSinglePriceQuery,
-  useUpdatePriceStatusMutation
+  useUpdatePriceStatusMutation,
 } from "../../redux/features/price/priceApi";
 
 import CarDetailsTable from "./CarDetailsTable";
 import Loading from "../ui/Loading";
+import { NavLink } from "react-router-dom";
 
-const PriceTable = ({
-  prices,
-  setContentManage,
-  setPriceId,
-}: {
-  prices: TPrice[];
-  setContentManage: (value: string) => void;
-  setPriceId: (value: string) => void;
-}) => {
+const PriceTable = ({ prices }: { prices: TPrice[] }) => {
   const [modalId, setModalId] = useState<string>("");
   const [updatePriceStatus] = useUpdatePriceStatusMutation();
   const { data: car, isLoading: isSinglePriceLoading } = useGetSinglePriceQuery(
@@ -67,8 +60,18 @@ const PriceTable = ({
           <tbody>
             {prices?.map((price: TPrice, index: number) => (
               <tr key={index}>
-                <td><span className="font-semibold">{price.hourly.ratePerHour}</span> TK</td>
-                <td><span className="font-semibold">{price.daily.ratePerDay}</span> TK</td>
+                <td>
+                  <span className="font-semibold">
+                    {price.hourly.ratePerHour}
+                  </span>{" "}
+                  TK
+                </td>
+                <td>
+                  <span className="font-semibold">
+                    {price.daily.ratePerDay}
+                  </span>{" "}
+                  TK
+                </td>
                 <td>
                   <div className="flex gap-2 items-center ">
                     <FaCircleDot
@@ -90,14 +93,13 @@ const PriceTable = ({
                 </td>
                 <td>
                   <div className="flex gap-2">
-                    <button
+                    <NavLink
+                    to={`?tab=manage-prices&_id=${price._id}`}
                       className="btn btn-sm btn-outline btn-success"
-                      onClick={() => {
-                        setContentManage("update"), setPriceId(price._id!);
-                      }}
+                      
                     >
                       <FaSquarePen />
-                    </button>
+                    </NavLink>
                     <button
                       className="btn btn-sm btn-outline btn-success"
                       onClick={() => {

@@ -1,4 +1,4 @@
-import { FaArrowLeft, FaArrowRight, FaStar } from "react-icons/fa6";
+import { FaArrowLeft, FaArrowRight } from "react-icons/fa6";
 import { useGetAllCarsQuery } from "../../../redux/features/car/carApi";
 import { TCar } from "../../../type/car.type";
 import CarCard from "../../../components/cards/CarCard";

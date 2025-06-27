@@ -61,7 +61,7 @@ const Header = ({ isScroll }: { isScroll: number }) => {
                       isActive ? "nav-item-active" : "nav-item-hover"
                     }
                   >
-                    Booking
+                    Car-Listings
                   </NavLink>
                 </li>
                 <li>

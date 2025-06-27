@@ -4,12 +4,6 @@ export default {
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
-  theme: {
-    extend: {
-      fontFamily: {
-        Spicy_Rice:["Spicy Rice", "serif"]
-      },
-    },
-  },
-  plugins: [require('daisyui'),require('tailwind-scrollbar')],
+
+ 
 }

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import  { useEffect } from "react";
 import Breadcrumbs from "../../../components/ui/Breadcrumbs";
 import { NavLink, useSearchParams } from "react-router-dom";
 import { FaRegCircleCheck, FaUserLarge, FaXmark } from "react-icons/fa6";
@@ -64,8 +64,8 @@ const DashboardPage = () => {
             </ul>
           </div>
           <div className="w-full md:w-[75%]">
-          <div className=" bg-green-100 gap-2 py-2 px-4">
-          <p className="font-bold text-black ">
+          <div className=" bg-green-100 gap-2 py-3 px-4 rounded-lg">
+          <p className="font-Spicy_Rice text-black text-xl ">
             {tab=="profile" && "Profile"}
             {tab=="my-bookings" && "My Bookings"}
             {tab=="change-password" && "Change Password"}

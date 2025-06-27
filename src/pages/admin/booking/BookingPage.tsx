@@ -1,5 +1,4 @@
 import { useState } from "react";
-import CarTable from "../../../components/table/CarTable";
 import Pagination from "../../../components/ui/Pagination";
 import InputSearch from "../../../components/ui/InputSearch";
 import Loading from "../../../components/ui/Loading";
@@ -26,7 +25,7 @@ const BookingPage = () => {
     <>
       <div className="bg-gray-100 mt-4">
         <div className=" bg-[#3aa27ea8] gap-2 py-2 px-4">
-          <p className="font-bold text-black ">Manage Bookings</p>
+          <p className="font-Spicy_Rice text-xl ">Manage Bookings</p>
         </div>
         <div className="px-4 py-5">
           <div className="flex flex-col md:flex-row gap-3 md:gap-0 items-center justify-between mb-3 ">

@@ -1,4 +1,12 @@
-const Breadcrumbs = ({title,links}:{title:string,links?:string[]}) => {
+import { Link, NavLink } from "react-router-dom";
+
+const Breadcrumbs = ({
+  title,
+  links,
+}: {
+  title: string;
+  links?: { linkUrl: string; label: string }[];
+}) => {
   return (
     <div className=" bg-slate-100  h-[260px] relative -mt-16">
       {/* Background Image */}
@@ -13,17 +21,21 @@ const Breadcrumbs = ({title,links}:{title:string,links?:string[]}) => {
         />
       </div>
       <div className="my-container h-full flex items-center justify-center  flex-col  gap-2  pt-16 md:pt-16 z-10">
-        
-          <p className="font-Spicy_Rice text-3xl">{title}</p>
-          <div className="breadcrumbs  text-sm">
-            <ul>
-              <li>Long text 1</li>
-              <li>Long text 2</li>
-              <li>Long text 3</li>
-              
-            </ul>
-          </div>
-       
+        <p className="font-Spicy_Rice text-3xl">{title}</p>
+        <div className="breadcrumbs  text-sm">
+          <ul>
+            <li>
+              <Link to={"/"} className="link">
+                home
+              </Link>
+            </li>
+            {links?.map((item: any, index: number) => (
+              <li key={index}>
+                <NavLink to={`${item?.linkUrl}`}>{item.label}</NavLink>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </div>
   );

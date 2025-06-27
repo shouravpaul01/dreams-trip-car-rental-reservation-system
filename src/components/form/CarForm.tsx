@@ -55,8 +55,16 @@ const CarForm = ({ editableData }: { editableData?: FieldValues | null }) => {
       setValue("_id", editableData._id);
       setValue("name", editableData.name);
       setValue("type", editableData.type._id);
+      setValue("price", editableData.price._id);
+      setValue("quantity", editableData.quantity);
       setValue("color", editableData.color);
-      setValue("price", editableData.price);
+      setValue("seats", editableData.seats);
+      setValue("bagCapability", editableData.bagCapability);
+      setValue("transmission", editableData.transmission);
+      setValue("airConditioning", editableData.airConditioning);
+      setValue("drivingType", editableData.drivingType);
+      setValue("fuelType", editableData.fuelType);
+    
       setValue("features", editableData.features);
       setValue("description", editableData.description);
     }
@@ -64,9 +72,9 @@ const CarForm = ({ editableData }: { editableData?: FieldValues | null }) => {
       reset();
     }
   }, [editableData, isLoading]);
-
+console.log(editableData)
   const handleSubmitCar: SubmitHandler<FieldValues> = async (data) => {
-
+    console.log(data)
     const formData = new FormData();
     if (Object.keys(data.image).length!==0) {
       formData.append("file", data.image[0]);
@@ -75,6 +83,7 @@ const CarForm = ({ editableData }: { editableData?: FieldValues | null }) => {
     }
     
     formData.append("data", JSON.stringify(data));
+   
     const uppdateData = {
       _id: data._id,
       data: formData,
@@ -127,7 +136,7 @@ const CarForm = ({ editableData }: { editableData?: FieldValues | null }) => {
             </span>
           )}
         </label>
-        <label className="form-control w-full  md:w-[75%]">
+        <label className="form-control w-full  md:w-[50%]">
           <span className="label-text ">
             Name <span className="text-red-500">*</span>
           </span>
@@ -140,6 +149,22 @@ const CarForm = ({ editableData }: { editableData?: FieldValues | null }) => {
           {errors.name && (
             <span className="text-red-500">
               {errors.name.message as string}
+            </span>
+          )}
+        </label>
+        <label className="form-control w-full  md:w-[25%]">
+          <span className="label-text ">
+            Quantity <span className="text-red-500">*</span>
+          </span>
+          <input
+            type="number"
+            {...register("quantity",{valueAsNumber:true})}
+            placeholder="Name"
+            className="input input-bordered  w-full"
+          />
+          {errors.quantity && (
+            <span className="text-red-500">
+              {errors.quantity.message as string}
             </span>
           )}
         </label>
@@ -218,8 +243,8 @@ const CarForm = ({ editableData }: { editableData?: FieldValues | null }) => {
           <span className="label-text ">
             Bag Capability <span className="text-red-500">*</span>
           </span>
-          <select className="select select-bordered " {...register("bagCapability")}>
-            <option value={""}>--Select Seats--</option>
+          <select className="select select-bordered " {...register("bagCapability",{valueAsNumber:true})}>
+            <option value={""}>--Select Bags Capacity--</option>
             {bagCapabilityOptions?.map((option, index: number) => (
               <option key={index} value={option.value}>
                 {option.label}

@@ -26,12 +26,13 @@ const SignIn = () => {
     handleSubmit,
     setError,
     formState: { errors },
-  } = useForm<FieldValues>({ resolver: zodResolver(SignInValidation) });
+  } = useForm<FieldValues>({ resolver: zodResolver(SignInValidation) ,defaultValues:{
+    email:"admin@gmail.com",
+    password:"admin@gmail"
+  }});
   const [signin] = useSignInMutation();
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-   
-
     setIsBtnSubmitDisable(true);
     try {
       const res = await signin(data).unwrap();

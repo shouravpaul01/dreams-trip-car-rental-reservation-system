@@ -10,25 +10,33 @@ import {
   useGetSinglePriceQuery,
 } from "../../../redux/features/price/priceApi";
 import { TCar } from "../../../type/car.type";
+import { NavLink, useSearchParams } from "react-router-dom";
 
 const PricePage = () => {
-  const [contentManage, setContentManage] = useState<string>("manage");
+  const [searchParams] = useSearchParams();
   const [searchInputValue, setSearchInputValue] = useState<string>("");
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const [priceId, setPriceId] = useState<string | null>(null);
   const [editableData, setEditableData] = useState<TCar | null>(null);
+
+  const tab = searchParams.get("tab");
+  const tabCreate = searchParams.get("create"); 
+  const tabId = searchParams.get("_id");
+
   const { data: prices, isLoading: isPricesLoading } = useGetAllPricesQuery({
     search: searchInputValue,
     page: currentPage,
   });
   const { data: price, isLoading: isSinglePriceLoading } =
-    useGetSinglePriceQuery(priceId, { skip: !priceId });
-console.log(price,priceId)
+    useGetSinglePriceQuery(tabId, { skip: !tabId });
+
   useEffect(() => {
-    if (priceId) {
+    if (tabId) {
       setEditableData(price?.data);
     }
-  }, [priceId, isSinglePriceLoading]);
+    if (tabCreate == "true") {
+      setEditableData(null);
+    }
+  }, [tabId, isSinglePriceLoading]);
 
   if (isPricesLoading || isSinglePriceLoading) {
     return <Loading className="h-screen" />;
@@ -38,40 +46,30 @@ console.log(price,priceId)
     <>
       <div className="bg-gray-100 mt-4">
         <div className="flex items-center bg-[#3aa27ea8] gap-2 py-2 px-4">
-          <p className="font-bold text-black flex-1">
-            {contentManage == "add" && "Add Car"}
-            {contentManage == "manage" && "Manage Car"}{" "}
-            {contentManage == "update" && "Edit Car"}
+          <p className="font-Spicy_Rice text-xl flex-1">
+            {tabCreate == "true" && "Add Price"}
+            {tab == "manage-prices" && !tabCreate && !tabId && "Manage Prices"}{" "}
+            {tabId && tab && "Edit Price"}
           </p>
-          {contentManage == "update" ||
-            (contentManage == "manage" && (
-              <button
-                onClick={() => {
-                  setContentManage("add"), setPriceId(null);
-                  setEditableData(null);
-                }}
-                className={`btn btn-sm btn-circle btn-warning`}
-              >
-                <FaPlus />
-              </button>
-            ))}
-          {(contentManage == "add" || contentManage == "update") && (
-            <button
-              onClick={() => {
-                setContentManage((prev) =>
-                  prev == "add" || prev == "update" ? "manage" : "add"
-                ),
-                  setPriceId(null);
-                setEditableData(null);
-              }}
-              className={`btn btn-sm rounded-full btn-warning`}
+          {
+            <NavLink
+              to={`?tab=manage-prices&create=true`}
+              className={`btn btn-sm btn-circle btn-outline btn-warning ${tabCreate=="true" && "btn-active"}`}
+            >
+              <FaPlus />
+            </NavLink>
+          }
+          {
+            <NavLink
+              to={"?tab=manage-prices"}
+              className={`btn btn-sm rounded-full btn-outline btn-warning ${tab=="manage-prices" && !tabCreate && "btn-active"}`}
             >
               <FaCubesStacked /> Manage
-            </button>
-          )}
+            </NavLink>
+          }
         </div>
         <div className="px-4 py-5">
-          {contentManage == "add" || editableData ? (
+          {tabCreate == "true" || editableData ? (
             <PriceForm editableData={editableData} />
           ) : (
             <>
@@ -88,8 +86,7 @@ console.log(price,priceId)
 
               <PriceTable
                 prices={prices?.data?.data}
-                setContentManage={setContentManage}
-                setPriceId={setPriceId}
+               
               />
 
               <div className="px-2 py-3 ">

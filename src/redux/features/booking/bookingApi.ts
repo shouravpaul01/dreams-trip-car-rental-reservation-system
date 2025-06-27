@@ -37,6 +37,7 @@ const bookingApi = baseApi.injectEndpoints({
     }),
     getAllMyBookings: build.query({
       query: (args) => {
+        console.log(args)
         const params = new URLSearchParams();
         if (args) {
           args.forEach((arg: { label: string; value: any }) => {

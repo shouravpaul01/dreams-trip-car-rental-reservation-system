@@ -1,14 +1,13 @@
 import {
-  FaArrowRightArrowLeft,
+  
   FaCalendarDays,
-  FaCircleDot,
+
   FaInfo,
   FaLocationDot,
   FaRegClock,
   FaRegFaceFrownOpen,
   FaRegRectangleXmark,
 } from "react-icons/fa6";
-import { useState } from "react";
 import { TBooking } from "../../../type/booking.type";
 import { LiaAmazonPay } from "react-icons/lia";
 import moment from "moment";
@@ -16,7 +15,7 @@ import { usePaymentAfterReturningCarMutation } from "../../../redux/features/pay
 import { toast } from "sonner";
 
 const MyBookingsTable = ({ myBookings }: { myBookings: TBooking[] }) => {
-  const [modalId, setModalId] = useState<string>("");
+  // const [modalId, setModalId] = useState<string>("");
   const [paymentAfterReturningCar] = usePaymentAfterReturningCarMutation();
 
   const handlePayment = async (_id: string) => {
@@ -27,9 +26,9 @@ const MyBookingsTable = ({ myBookings }: { myBookings: TBooking[] }) => {
       toast.success("Make Payment!.");
     }
   };
-  const hanleCloseModal = () => {
-    setModalId("");
-  };
+  // const hanleCloseModal = () => {
+  //   setModalId("");
+  // };
 
   return (
     <>

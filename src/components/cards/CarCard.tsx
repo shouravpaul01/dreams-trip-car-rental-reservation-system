@@ -11,7 +11,10 @@ const CarCard = ({ car }: { car: TCar }) => {
     <div className="card bg-base-100 border hover:shadow-2xl hover:scale-105 transition-all duration-300 ease-in-out p-3 rounded-lg relative overflow-hidden">
       <figure className="overflow-hidden ">
         <img
-          src={car.image}
+          src={
+            car.image ||
+            "https://res.cloudinary.com/dcrui4h7s/image/upload/v1725394535/dreams-trip-car-rental-reservation-system/bdps6lbobe3klgnwoa8c.png"
+          }
           alt={car.name}
           className="w-full h-[250px] object-cover hover:scale-110 transition-transform duration-300 ease-in-out"
         />
@@ -21,9 +24,11 @@ const CarCard = ({ car }: { car: TCar }) => {
         <p className="badge font-bold absolute -top-[10px] right-2">
           <FaStar className="text-xl text-warning pe-2" /> 4.5
         </p>
-        {
-          !car.isAvailable && <p className="badge badge-error absolute -top-[10px] left-2">Unavailable</p>
-        }
+        {!car.isAvailable && (
+          <p className="badge badge-error absolute -top-[10px] left-2">
+            Unavailable
+          </p>
+        )}
       </div>
 
       <div className="card-body p-3">
@@ -31,19 +36,27 @@ const CarCard = ({ car }: { car: TCar }) => {
           {car.name}
         </h2>
 
-       <div className="flex flex-wrap gap-2">
-        <span className="badge badge-outline badge-neutral font-semibold"><TbArmchair className="me-2" /> {car.seats} Seats</span>
-        <span className="badge badge-outline badge-neutral font-semibold"><MdLuggage className="me-2" /> {car.bagCapability} Bags</span>
-        <span className="badge badge-outline badge-neutral font-semibold"><BsFillFuelPumpDieselFill className="me-2" /> {car.fuelType} </span>
-        <span className="badge badge-outline badge-neutral font-semibold"><IoSettingsOutline className="me-2" /> {car.transmission} </span>
-        
-       </div>
-       <p className="text-gray-700">
-            Price:{" "}
-            <span className="font-bold text-black">{car.price.hourly.ratePerHour} /hr--{car.price.daily.ratePerDay}/D</span>
-          </p>
+        <div className="flex flex-wrap gap-2">
+          <span className="badge badge-outline badge-neutral font-semibold">
+            <TbArmchair className="me-2" /> {car.seats} Seats
+          </span>
+          <span className="badge badge-outline badge-neutral font-semibold">
+            <MdLuggage className="me-2" /> {car.bagCapability} Bags
+          </span>
+          <span className="badge badge-outline badge-neutral font-semibold">
+            <BsFillFuelPumpDieselFill className="me-2" /> {car.fuelType}{" "}
+          </span>
+          <span className="badge badge-outline badge-neutral font-semibold">
+            <IoSettingsOutline className="me-2" /> {car.transmission}{" "}
+          </span>
+        </div>
+        <p className="text-gray-700">
+          Price:{" "}
+          <span className="font-bold text-black">
+            {car.price.hourly.ratePerHour} /hr--{car.price.daily.ratePerDay}/D
+          </span>
+        </p>
         <div className="card-actions justify-end items-center mt-4 space-x-2">
-          
           <div className="flex items-center gap-2">
             <Link
               to={`/car-listings/${car._id}`}
@@ -53,8 +66,9 @@ const CarCard = ({ car }: { car: TCar }) => {
             </Link>
             <Link
               to={`/booking/${car._id}`}
-              className={`btn btn-sm btn-success rounded-full flex items-center gap-2 hover:scale-105 transition-transform duration-300 ${!car.isAvailable && "btn-disabled"}`}
-           
+              className={`btn btn-sm btn-success rounded-full flex items-center gap-2 hover:scale-105 transition-transform duration-300 ${
+                !car.isAvailable && "btn-disabled"
+              }`}
             >
               <FaArrowRight /> Book Now
             </Link>

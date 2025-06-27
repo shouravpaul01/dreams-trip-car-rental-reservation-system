@@ -6,10 +6,11 @@ import { contactInfo, teamInformations } from "../../../constant";
 import CarCard from "../../../components/cards/CarCard";
 import { TCar } from "../../../type/car.type";
 import { useGetAllCarsQuery } from "../../../redux/features/car/carApi";
+import useTitle from "../../../hook/useTitle";
 
 const AboutUsPage = () => {
-
-  const { data: cars,} = useGetAllCarsQuery(undefined);
+  useTitle("About");
+  const { data: cars } = useGetAllCarsQuery(undefined);
   return (
     <div>
       <Breadcrumbs title="About Us" />
@@ -43,7 +44,11 @@ const AboutUsPage = () => {
                 alt="Logo"
                 className="w-[150px] md:w-[200px] absolute top-0"
               />
-              <img src={dreamstrip_logo} alt="logo" className="w-[80%] mt-32 md:mt-20" />
+              <img
+                src={dreamstrip_logo}
+                alt="logo"
+                className="w-[80%] mt-32 md:mt-20"
+              />
             </div>
           </div>
         </div>
@@ -74,20 +79,18 @@ const AboutUsPage = () => {
         {/* Our Fleet Section */}
         <div className="mb-10 bg-green-50 py-10">
           <div className="my-container">
-          <h2 className="text-2xl font-Spicy_Rice mb-4">Our Fleet</h2>
-          <p className="text-gray-600 mb-7">
-            From economy cars for budget-friendly trips to luxurious vehicles
-            for special occasions, our fleet has it all. We offer a wide
-            selection of cars, including sedans, SUVs, and luxury options to
-            suit your needs.
-          </p>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-            
-              {cars?.data?.data.slice(0,3).map((car: TCar, index: number) => (
+            <h2 className="text-2xl font-Spicy_Rice mb-4">Our Fleet</h2>
+            <p className="text-gray-600 mb-7">
+              From economy cars for budget-friendly trips to luxurious vehicles
+              for special occasions, our fleet has it all. We offer a wide
+              selection of cars, including sedans, SUVs, and luxury options to
+              suit your needs.
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+              {cars?.data?.data.slice(0, 3).map((car: TCar, index: number) => (
                 <CarCard key={index} car={car} />
               ))}
-            
-          </div>
+            </div>
           </div>
         </div>
 
@@ -111,8 +114,6 @@ const AboutUsPage = () => {
             would take them there with ease.
           </p>
         </div>
-
-       
       </section>
     </div>
   );

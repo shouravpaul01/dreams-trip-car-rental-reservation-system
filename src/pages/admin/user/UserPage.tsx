@@ -1,26 +1,20 @@
 import { useState } from "react";
-import Modal from "../../../components/ui/Modal";
-import { FaPlus } from "react-icons/fa6";
-import CarTypeForm from "../../../components/form/CarTypeForm";
-import CarTypeTable from "../../../components/table/CarTypeTable";
-import { useGetAllCarTypeQuery } from "../../../redux/features/car-type/carTypeApi";
+import { useGetAllUsersQuery } from "../../../redux/features/user/userApi";
+import UserTable from "./UserTable";
 import Pagination from "../../../components/ui/Pagination";
 import InputSearch from "../../../components/ui/InputSearch";
 import Loading from "../../../components/ui/Loading";
 
 
-const CarType = () => {
-  const [modalId, setModalId] = useState<string>("");
+
+
+const UserPage = () => {
+ 
   const [searchInputValue, setSearchInputValue] = useState<string>("");
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const { data: carTypes, isLoading } = useGetAllCarTypeQuery({
-    search: searchInputValue,
-    page: currentPage,
-  });
+  const { data: users, isLoading } = useGetAllUsersQuery([{label:"search",value:searchInputValue},{label:"page",value:currentPage}]);
  
-  const hanleCloseModal = () => {
-    setModalId("");
-  };
+
 
   if (isLoading) {
     return <Loading className="h-screen"/>;
@@ -29,13 +23,8 @@ const CarType = () => {
     <>
       <div className="bg-gray-100 mt-4">
         <div className="flex items-center bg-[#3aa27ea8] gap-2 py-2 px-4">
-          <p className="font-Spicy_Rice text-xl flex-1">Manage Types</p>
-          <button
-            onClick={() => setModalId("openModal")}
-            className={`btn btn-sm btn-circle  btn-warning`}
-          >
-            <FaPlus />
-          </button>
+          <p className="font-Spicy_Rice text-xl flex-1">Manage User</p>
+          
         </div>
         <div className="px-4 py-5">
           <div className="flex flex-col md:flex-row gap-3 md:gap-0 justify-between">
@@ -49,26 +38,20 @@ const CarType = () => {
             </div>
           </div>
 
-          <CarTypeTable carTypes={carTypes?.data?.data} />
+          <UserTable users={users?.data?.data} />
 
           <div className="px-2 py-3">
             <Pagination
               currentPage={currentPage}
               setCurrentPage={setCurrentPage}
-              totalPages={carTypes?.data?.totalPages}
+              totalPages={users?.data?.totalPages}
             />
           </div>
         </div>
       </div>
-      <Modal
-        modalId={modalId}
-        modalTitle="Add Car Type"
-        hanleCloseModal={hanleCloseModal}
-      >
-        <CarTypeForm />
-      </Modal>
+      
     </>
   );
 };
 
-export default CarType;
+export default UserPage;

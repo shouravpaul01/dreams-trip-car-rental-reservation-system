@@ -8,7 +8,6 @@ import {
   FaRegClock,
   FaRegFaceFrownOpen,
 } from "react-icons/fa6";
-import { useState } from "react";
 import { TBooking } from "../../../type/booking.type";
 import {
   useUpdateApprovalStatusMutation,
@@ -20,7 +19,7 @@ import matchedBookingandCurrentDate from "../../../utils/matchedBookingandCurren
 
 
 const BookingTable = ({ bookings }: { bookings: TBooking[] }) => {
-  const [modalId, setModalId] = useState<string>("");
+  // const [modalId, setModalId] = useState<string>("");
   const [updateApprovalStatus] = useUpdateApprovalStatusMutation();
   const [updateReturnedStatus] = useUpdateReturnedStatusMutation();
   // const { data: car, isLoading: isSingleCarLoading } = useGetSingleCarQuery(
@@ -36,15 +35,14 @@ const BookingTable = ({ bookings }: { bookings: TBooking[] }) => {
     toast.success(res.message);
   };
   const handleReturnCar = async (_id: string) => {
-    console.log(_id);
-    const res = await updateReturnedStatus(_id)
-    console.log(res);
+    await updateReturnedStatus(_id)
+   
     // toast.success(res.message);
   };
 
-  const hanleCloseModal = () => {
-    setModalId("");
-  };
+  // const hanleCloseModal = () => {
+  //   setModalId("");
+  // };
 
   return (
     <>

@@ -44,7 +44,7 @@ const priceApi=baseApi.injectEndpoints({
             invalidatesTags:["prices"]
         }),
         getAllActivePrices:build.query({
-            query:(data)=>({
+            query:()=>({
                 url:`/prices/active-prices`,
                 method:"GET",
 

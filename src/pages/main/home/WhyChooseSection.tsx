@@ -8,9 +8,9 @@ const WhyChooseSection = () => {
         Discover what sets us apart from the competition.
       </p>
       <div className="relative">
-        <div className="w-[1px] md:w-full md:h-[1px] border border-success border-dashed  absolute top-0 md:top-[48%] bottom-0 left-[48%] md:left-0 md:right-0  "></div>
+        <div className="w-[1px] md:w-full md:h-[1px] border border-success border-dashed   absolute top-0 md:top-[48%] bottom-0 left-[48%] md:left-0 md:right-0  "></div>
         <div className="flex flex-col md:flex-row justify-around items-center gap-14">
-          <div className="flex flex-col items-center text-center bg-white border rounded-xl   p-8 z-10">
+          <div className="flex flex-col items-center text-center bg-white border rounded-xl   p-8 z-10 shadow-sm shadow-green-300">
             <div className="text-5xl text-green-500 mb-4">
               <FaDollarSign />
             </div>
@@ -20,7 +20,7 @@ const WhyChooseSection = () => {
             </p>
           </div>
 
-          <div className="flex flex-col items-center text-center bg-white border rounded-xl p-8 z-10">
+          <div className="flex flex-col items-center text-center bg-white border shadow-sm shadow-green-300 rounded-xl p-8 z-10">
             <div className="text-5xl text-blue-500 mb-4">
               <FaCar />
             </div>
@@ -29,7 +29,7 @@ const WhyChooseSection = () => {
               Choose from a wide variety of vehicles to fit your needs.
             </p>
           </div>
-          <div className="flex flex-col items-center text-center bg-white border rounded-xl p-8 z-10">
+          <div className="flex flex-col items-center text-center bg-white shadow-sm shadow-green-300 border rounded-xl p-8 z-10">
             <div className="text-5xl text-yellow-500 mb-4">
               <FaHeadset />
             </div>

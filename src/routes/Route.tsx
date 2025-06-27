@@ -4,8 +4,6 @@ import SignIn from "../pages/auth/SignIn";
 import SignUp from "../pages/auth/SignUp";
 import NotFound from "../pages/not-found/NotFound";
 import DashboardLayout from "../pages/admin/dashboard/DashboardLayout";
-import CarType from "../pages/admin/car-type/CarType";
-import Car from "../pages/admin/car/Car";
 import HomePage from "../pages/main/home/HomePage";
 import CarListingPage from "../pages/main/car-listing/CarListingPage";
 import BookingPage from "../pages/main/booking/BookingPage";
@@ -70,14 +68,8 @@ export const router = createBrowserRouter([
         path: "/admin-dashboard",
         element: <DashboardLayout />,
       },
-      {
-        path: "/admin-dashboard/car-types",
-        element: <CarType />,
-      },
-      // {
-      //   path: "/car",
-      //   element: <Car />,
-      // },
+     
+    
       
     ],
   },

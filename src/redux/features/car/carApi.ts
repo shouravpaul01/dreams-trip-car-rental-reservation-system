@@ -12,9 +12,21 @@ const carApi = baseApi.injectEndpoints({
     }),
     getAllCars: build.query({
       query: (args) => {
+      
+        const params=new URLSearchParams()
+        if (args) {
+          
+          args?.forEach((arg:{ label: string; value: any })=> {
+            if (arg?.value) {
+              
+              params.append(arg.label, arg.value);
+            }
+          })
+        }
         return {
           url: `/cars`,
           method: "GET",
+          params:params
         };
       },
       providesTags: ["cars"],
@@ -46,7 +58,7 @@ const carApi = baseApi.injectEndpoints({
       invalidatesTags: ["cars"],
     }),
     getAllActiveCar: build.query({
-      query: (data) => ({
+      query: () => ({
         url: `/cars/active-car`,
         method: "GET",
       }),

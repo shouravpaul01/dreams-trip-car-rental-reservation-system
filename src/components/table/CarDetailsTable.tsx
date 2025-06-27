@@ -1,4 +1,4 @@
-import { number } from "zod";
+
 import { TCar } from "../../type/car.type";
 
 const CarDetailsTable = ({ details }: { details: TCar }) => {
@@ -38,7 +38,7 @@ const CarDetailsTable = ({ details }: { details: TCar }) => {
               <tr>
                 <td>
                   Price Per Hour :{" "}
-                  <span className="font-bold ">{details?.pricePerHour} TK</span>
+                  <span className="font-bold ">{`${details?.price.hourly.ratePerHour} TK/Hr---${details?.price.daily.ratePerDay} TK/D`}</span>
                 </td>
               </tr>
               <tr>

@@ -22,10 +22,7 @@ const Car = () => {
   const tabCreate = searchParams.get("create");
   const tabId = searchParams.get("_id");
 
-  const { data: cars, isLoading: isCarsLoading } = useGetAllCarsQuery({
-    search: searchInputValue,
-    page: currentPage,
-  });
+  const { data: cars, isLoading: isCarsLoading } = useGetAllCarsQuery([{label:"search",value:searchInputValue},{label:"page",value:currentPage}]);
   const { data: car, isLoading: isSingleCarLoading } = useGetSingleCarQuery(
     tabId,
     { skip: !tabId }
@@ -35,7 +32,7 @@ const Car = () => {
     if (tabId) {
       setEditableData(car?.data);
     }
-    if (tabCreate == "true") {
+    if (tabCreate == "true" || editableData) {
       setEditableData(null);
     }
   }, [tabId, isSingleCarLoading, tabCreate]);
@@ -47,7 +44,7 @@ const Car = () => {
     <>
       <div className="bg-gray-100 mt-4">
         <div className="flex items-center bg-[#3aa27ea8] gap-2 py-2 px-4">
-          <p className="font-bold text-black flex-1">
+          <p className="font-Spicy_Rice text-xl  flex-1">
             {tabCreate == "true" && "Add Car"}
             {tab == "manage-cars" && !tabCreate && !tabId && "Manage Car"}{" "}
             {tabId && tab && "Edit Car"}

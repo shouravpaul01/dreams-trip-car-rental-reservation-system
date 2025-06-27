@@ -7,6 +7,7 @@ import {
 import Flatpickr from "react-flatpickr";
 import "flatpickr/dist/flatpickr.css";
 import { Controller, useForm } from "react-hook-form";
+import { Link } from "react-router-dom";
 
 const HeroSection = () => {
   const { control } = useForm({});
@@ -64,7 +65,7 @@ const HeroSection = () => {
       {/* Form Section */}
       <div className="md:absolute md:-bottom-8 md:left-0 md:right-0 w-full py-8 md:py-0">
         <div className="my-container flex flex-col items-center justify-center gap-2 px-4">
-          <form className="flex flex-col md:flex-row md:items-center gap-4 bg-green-100 outline-dashed outline-2 outline-success outline-offset-4 px-4 md:px-6 py-6 rounded-lg z-40 w-full max-w-[90%] ">
+          <form className="flex flex-col md:flex-row md:items-center gap-4 bg-green-200 outline-dashed outline-2 outline-success outline-offset-4 px-4 md:px-6 py-6 rounded-lg z-40 w-full max-w-[90%] ">
             {/* Pickup Date */}
             <div className="form-control w-full md:w-[30%]">
               <span className="label-text font-semibold">Pickup Date</span>
@@ -123,9 +124,9 @@ const HeroSection = () => {
             </div>
 
             {/* Search Button */}
-            <button className="btn btn-success rounded-full px-6 mt-0  md:mt-6 w-full md:w-auto">
+            <Link to={"/car-listings"} className="btn btn-success rounded-full px-6 mt-0  md:mt-6 w-full md:w-auto">
               Search <FaMagnifyingGlass className="ml-2" />
-            </button>
+            </Link>
           </form>
         </div>
       </div>

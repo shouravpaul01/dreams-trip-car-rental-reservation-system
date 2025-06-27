@@ -1,5 +1,4 @@
-import { useEffect, useState } from "react";
-import CarTable from "../../../components/table/CarTable";
+import {  useState } from "react";
 import Pagination from "../../../components/ui/Pagination";
 import InputSearch from "../../../components/ui/InputSearch";
 import Loading from "../../../components/ui/Loading";
@@ -49,7 +48,7 @@ const MyBookings = () => {
           </div>
         </div>
 
-        <MyBookingsTable myBookings={myBookings?.data?.data} drivingType={drivingType}/>
+        <MyBookingsTable myBookings={myBookings?.data?.data} />
 
         <div className="px-2 py-3 ">
           <Pagination

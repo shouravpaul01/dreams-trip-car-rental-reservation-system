@@ -4,6 +4,7 @@ import Footer from "../ui/Footer";
 import { useEffect, useState } from "react";
 import { FaArrowUp } from "react-icons/fa6";
 
+
 const MainLayout = () => {
   const [isScroll, setIsScroll] = useState(0);
 

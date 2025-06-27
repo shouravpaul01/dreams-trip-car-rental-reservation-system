@@ -1,10 +1,18 @@
-import React from "react";
+
+import Loading from "../../../components/ui/Loading";
+import { useGetAllBookingsQuery } from "../../../redux/features/booking/bookingApi";
 import { useGetAllCarsQuery } from "../../../redux/features/car/carApi";
 import { FaCubesStacked } from "react-icons/fa6";
 
 const DashboardPage = () => {
   const { data: cars, isLoading: isCarsLoading } =
     useGetAllCarsQuery(undefined);
+    const { data: bookings, isLoading: isBookingsLoading } =
+    useGetAllBookingsQuery(undefined);
+
+    if (isCarsLoading || isBookingsLoading) {
+      return <Loading className="h-screen" />
+    }
   return (
     <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-5">
       <div className="flex bg-purple-300 p-4 rounded-xl">
@@ -22,7 +30,7 @@ const DashboardPage = () => {
         </p>
         <div className="text-xl font-bold">
           <p>Total Bookings</p>
-          <p className="text-right"> {cars?.data?.data?.length}</p>
+          <p className="text-right"> {bookings?.data?.data?.length}</p>
         </div>
       </div>
       <div className="flex bg-purple-300 p-4 rounded-xl">

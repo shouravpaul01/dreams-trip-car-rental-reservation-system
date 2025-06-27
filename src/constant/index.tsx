@@ -31,13 +31,14 @@ export const seatOptions =[
   { "value": 15, "label": "15 Seats" }
 ]
 export const bagCapabilityOptions=[
+  { "value": 0, "label": "0 Bag" },
   { "value": 1, "label": "1 Bag" },
   { "value": 2, "label": "2 Bags" },
   { "value": 3, "label": "3 Bags" },
   { "value": 4, "label": "4 Bags" },
   { "value": 5, "label": "5 Bags" },
   { "value": 6, "label": "6 Bags" },
-  { "value": "10+", "label": "10+ Bags" }
+ 
 ]
 
 export const fuelOptions=[
@@ -52,9 +53,9 @@ export const fuelOptions=[
   { "value": "diesel-electric", "label": "Diesel & Electric" }
 ]
 export const transmissionOptions=[
-  { "value": "automatic", "label": "Automatic" },
-  { "value": "manual", "label": "Manual" },
-  { "value": "semi-automatic", "label": "Semi-Automatic" }
+  { "value": "automatic", "label": "automatic" },
+  { "value": "manual", "label": "manual" },
+  { "value": "semi-automatic", "label": "semi-automatic" }
 ]
 export const airConditioningOptions=[
   { "value": "Yes", "label": "Yes" },
@@ -184,3 +185,28 @@ export const contactInfo = [
     subTitle: "Cox's Bazar, Bangladesh",
   },
 ];
+
+
+export const testimonials = [
+  {
+    review: 'I had a great experience renting a car from this service. The sedan was in excellent condition, and the customer support was helpful. Highly recommend for anyone looking for a reliable rental service!',
+    rating: 4,
+    image: 'https://res.cloudinary.com/dcrui4h7s/image/upload/v1726161621/dreams-trip-car-rental-reservation-system/o9ogwuhoadptb1kidzzd.webp',
+    date: 'September 24, 2024',
+  },
+  {
+  
+    review: 'The service was excellent, and the car was in perfect condition. The booking process was easy, and the customer service was very responsive.',
+    rating: 5,
+    image: 'https://res.cloudinary.com/dcrui4h7s/image/upload/v1726175059/dreams-trip-car-rental-reservation-system/o5uwmcmian2fuhxlrilg.jpg',
+    date: 'September 20, 2024',
+  },
+  {
+  
+    review: 'The car was clean, and the pickup and return process was smooth. However, I think the rental cost could have been more affordable.',
+    rating: 3,
+    image: 'https://res.cloudinary.com/dcrui4h7s/image/upload/v1726175236/dreams-trip-car-rental-reservation-system/ecfa1j6ncy2k5pzzkrmg.jpg',
+    date: 'September 18, 2024',
+  },
+];
+
