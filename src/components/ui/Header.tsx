@@ -28,7 +28,7 @@ const Header = ({ isScroll }: { isScroll: number }) => {
               : ""
           }`}
         >
-          <div className="my-container ">
+          <div className="my-container flex">
             <div className="flex-none lg:hidden">
               <label
                 htmlFor="my-drawer-3"

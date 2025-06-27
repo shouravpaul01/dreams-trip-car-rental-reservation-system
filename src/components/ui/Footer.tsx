@@ -13,18 +13,22 @@ const Footer = () => {
   return (
     <footer className=" bg-black ">
       <div className="my-container  pt-7">
-      <div className={`flex flex-col md:flex-row gap-5 md:gap-0 justify-around text-black border  border-slate-50 border-opacity-30  rounded-lg px-7 py-7 `}>
-        {contactInfo?.map((info,index)=><ContactInfoCard key={index} info={info} index={index}/>)}
+        <div
+          className={`flex flex-col md:flex-row gap-5 md:gap-0 justify-around text-black border  border-slate-50 border-opacity-30  rounded-lg px-7 py-7 `}
+        >
+          {contactInfo?.map((info, index) => (
+            <ContactInfoCard key={index} info={info} index={index} />
+          ))}
         </div>
-        <div className="footer gap-10 md:gap-20 text-white py-10">
-          <aside>
+        <div className="footer sm:footer-horizontal gap-10  md:gap-20  text-white py-10">
+          <aside >
             <img
               src={dreamstrip_logo}
               alt="dreams trip logo"
               className="w-[300px]"
             />
-            <p>
-              Dreams Trip provides car rental reservation services, <br />
+            <p >
+              Dreams Trip provides car rental reservation services,
               offering a wide range of premium vehicles to suit your travel
               needs.
             </p>
@@ -60,33 +64,51 @@ const Footer = () => {
               </a>
             </div>
           </aside>
-          <nav>
+          <nav >
             <h6 className="footer-title">Quick Links</h6>
-            <Link to={"/car-listings"} className="link link-hover">Car-Listings</Link>
-            <Link to={"/about"} className="link link-hover">About us</Link>
-            
-            
-           
+            <Link to={"/car-listings"} className="link link-hover">
+              Car-Listings
+            </Link>
+            <Link to={"/about"} className="link link-hover">
+              About us
+            </Link>
           </nav>
-          <form>
-            <h6 className="footer-title">Subscribe</h6>
-            <fieldset className="form-control w-80">
-              <label className="label">
-                <span className="label-text text-white">
-                  Want to be notified about our services. Just sign up and we'll
-                  send you a notification by email.
-                </span>
-              </label>
-              <div className="join rounded-full">
-                <input
-                  type="text"
-                  placeholder="username@site.com"
-                  className="input input-bordered join-item"
-                />
+          <div>
+            <form>
+              <h6 className="footer-title">Subscribe</h6>
+              <p className=" text-white pb-3">
+                Want to be notified about our services. Just sign up and we'll
+                send you a notification by email.
+              </p>
+              <div className="join">
+                <div>
+                  <label className="input  join-item">
+                    <svg
+                      className="h-[1em] opacity-50"
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                    >
+                      <g
+                        strokeLinejoin="round"
+                        strokeLinecap="round"
+                        strokeWidth="2.5"
+                        fill="none"
+                        stroke="currentColor"
+                      >
+                        <rect width="20" height="16" x="2" y="4" rx="2"></rect>
+                        <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+                      </g>
+                    </svg>
+                    <input type="email" placeholder="mail@site.com" required />
+                  </label>
+                  <div className="validator-hint hidden">
+                    Enter valid email address
+                  </div>
+                </div>
                 <button className="btn btn-success join-item">Subscribe</button>
               </div>
-            </fieldset>
-          </form>
+            </form>
+          </div>
         </div>
         <div className="footer text-white  border-t  border-slate-50 border-opacity-30  py-4">
           <p className="flex items-center">
