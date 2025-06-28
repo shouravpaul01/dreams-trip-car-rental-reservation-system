@@ -1,6 +1,8 @@
 import { FaLocationDot, FaPhone, FaRegEnvelope } from "react-icons/fa6";
 import { TRole } from "../type";
 
+export const dreamstripLogo="/dreamstrip-logo.png";
+export const dreamstripLogo2="/dreamstrip-logo2.png";
 export const userRole:TRole={
   admin:"admin",
   user:"user"

@@ -12,7 +12,7 @@ import {
 import { TCar } from "../../../type/car.type";
 import { NavLink, useSearchParams } from "react-router-dom";
 
-const Car = () => {
+export const CarPage = () => {
   const [searchParams] = useSearchParams();
   const [searchInputValue, setSearchInputValue] = useState<string>("");
   const [currentPage, setCurrentPage] = useState<number>(1);
@@ -99,4 +99,4 @@ const Car = () => {
   );
 };
 
-export default Car;
+

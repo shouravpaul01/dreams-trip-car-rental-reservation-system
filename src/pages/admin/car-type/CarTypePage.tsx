@@ -9,7 +9,7 @@ import InputSearch from "../../../components/ui/InputSearch";
 import Loading from "../../../components/ui/Loading";
 
 
-const CarType = () => {
+export const CarTypePage = () => {
   const [modalId, setModalId] = useState<string>("");
   const [searchInputValue, setSearchInputValue] = useState<string>("");
   const [currentPage, setCurrentPage] = useState<number>(1);
@@ -71,4 +71,4 @@ const CarType = () => {
   );
 };
 
-export default CarType;
+

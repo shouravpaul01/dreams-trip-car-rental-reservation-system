@@ -2,14 +2,15 @@ import { useEffect } from "react";
 import { BiSolidCategory } from "react-icons/bi";
 import { FaHome } from "react-icons/fa";
 import { FaCubesStacked, FaPeopleGroup } from "react-icons/fa6";
-import CarType from "../car-type/CarType";
-import Car from "../car/Car";
+
 import PricePage from "../price/PricePage";
 import DashboardPage from "./DashboardPage";
 import BookingPage from "../booking/BookingPage";
 import { NavLink, useSearchParams } from "react-router-dom";
 import UserPage from "../user/UserPage";
 import useTitle from "../../../hook/useTitle";
+import { CarPage } from "../car/CarPage";
+import { CarTypePage } from "../car-type/CarTypePage";
 
 
 const DashboardLayout = () => {
@@ -67,9 +68,9 @@ const DashboardLayout = () => {
       <div className="my-8">
         {tab=="home" && <DashboardPage/>}
         {tab=="manage-users" && <UserPage/>}
-         {tab=="manage-types" && <CarType/>}
+         {tab=="manage-types" && <CarTypePage/>}
          {tab=="manage-prices" && <PricePage/>}
-        {tab=="manage-cars" && <Car/>} 
+        {tab=="manage-cars" && <CarPage/>} 
         {tab=="manage-bookings" && <BookingPage/>} 
 
       </div>

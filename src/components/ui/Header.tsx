@@ -6,11 +6,12 @@ import {
   FaUnlockKeyhole,
   FaUserLock,
 } from "react-icons/fa6";
-import dreamstrip_logo from "/dreamstrip-logo.png";
+
 import { NavLink } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../redux/hook";
 import { MdAccountCircle } from "react-icons/md";
 import { logout } from "../../redux/features/auth/authSlice";
+import { dreamstripLogo } from "../../constant";
 
 const Header = ({ isScroll }: { isScroll: number }) => {
   const { user } = useAppSelector((state) => state.auth);
@@ -39,7 +40,7 @@ const Header = ({ isScroll }: { isScroll: number }) => {
               </label>
             </div>
             <div className="mx-2 flex-1">
-              <img src={dreamstrip_logo} alt="" className="w-[250px]" />
+              <img src={dreamstripLogo} alt="" className="w-[250px]" />
             </div>
             <div className="hidden flex-none lg:block">
               <ul className="nav-menu font-semibold">
@@ -162,7 +163,7 @@ const Header = ({ isScroll }: { isScroll: number }) => {
         <div className=" bg-base-200 min-h-full w-80 ">
           {/* Sidebar content here */}
           <div className="flex justify-between items-center bg-success h-[60px] py-8 px-4">
-            <img src={dreamstrip_logo} alt="" className="w-[220px] " />
+            <img src={dreamstripLogo} alt="" className="w-[220px] " />
             <span
               className="text-3xl animate-bounce"
               onClick={() => {

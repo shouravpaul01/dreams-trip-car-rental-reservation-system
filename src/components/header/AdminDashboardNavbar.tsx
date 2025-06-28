@@ -3,8 +3,8 @@ import { HiOutlineBars3 } from "react-icons/hi2";
 
 export default function AdminDashboardNavbar({toggleSidebar}:{toggleSidebar:()=>void}) {
   return (
-    <div className="navbar sticky top-0  bg-base-100 shadow-sm px-8">
-      <div className="flex-1 ">
+    <div className="navbar sticky top-0  bg-base-100 shadow-sm px-3.5 md:px-8 z-30">
+      <div className="navbar-start">
        <div className="flex items-center gap-2">
         <label htmlFor="my-drawer-2" className="link ">
       <HiOutlineBars3  className="size-5"/>
@@ -13,11 +13,12 @@ export default function AdminDashboardNavbar({toggleSidebar}:{toggleSidebar:()=>
         <label className="text-xl font-bold">Dashboard</label>
        </div>
       </div>
-      <div className="flex gap-2">
+      
+      <div className="navbar-end gap-4">
         <input
           type="text"
           placeholder="Search"
-          className="input input-bordered w-24 md:w-auto"
+          className="input input-bordered rounded-full w-24 md:w-72"
         />
         <div className="dropdown dropdown-end">
           <div
@@ -50,7 +51,7 @@ export default function AdminDashboardNavbar({toggleSidebar}:{toggleSidebar:()=>
             </li>
           </ul>
         </div>
-      </div>
+        </div>
     </div>
   );
 }

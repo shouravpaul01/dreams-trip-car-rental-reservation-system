@@ -13,6 +13,11 @@ import PrivateRoute from "./PrivateRoute";
 import { userRole } from "../constant";
 import DashboardPage from "../pages/main/user-dasboard/DashboardPage";
 import PaymentCencel from "../pages/payment/PaymentCencel";
+import AdminDashboardLayout from "../components/layout/AdminDashboardLayout";
+import UserPage from "../pages/admin/user/UserPage";
+import { CarTypePage } from "../pages/admin/car-type/CarTypePage";
+import PricePage from "../pages/admin/price/PricePage";
+import { CarPage } from "../pages/admin/car/CarPage";
 
 export const router = createBrowserRouter([
   {
@@ -59,18 +64,31 @@ export const router = createBrowserRouter([
     ],
   },
   {
-    path: "admin-dashboard",
-    element: <PrivateRoute roles={[userRole.admin]}><MainLayout /></PrivateRoute>,
+    path: "/admin/dashboard",
+    element: <PrivateRoute roles={[userRole.admin]}><AdminDashboardLayout /></PrivateRoute>,
     errorElement:<NotFound/>,
     children: [
      
       {
-        path: "/admin-dashboard",
+        path: "/admin/dashboard",
         element: <DashboardLayout />,
       },
-     
-    
-      
+     {
+        path: "/admin/dashboard/manage-users",
+        element: <UserPage />,
+      },
+     {
+        path: "/admin/dashboard/manage-Types",
+        element: <CarTypePage />,
+      },
+     {
+        path: "/admin/dashboard/manage-prices",
+        element: <PricePage />,
+      },
+      {
+        path: "/admin/dashboard/manage-cars",
+        element: <CarPage />,
+      },
     ],
   },
 ]);

@@ -26,11 +26,11 @@ export default function AdminDashboardLayout() {
         {/* Page content here */}
         <AdminDashboardNavbar toggleSidebar={toggleSidebar} />
 
-        <main className="p-7 bg-gray-50">
+        <main className="p-3.5 md:px-8 bg-gray-50">
           <Outlet />
         </main>
       </div>
-      <div className={`drawer-side  `}>
+      <div className={`drawer-side  z-40`}>
         <label
           htmlFor="my-drawer-2"
           aria-label="close sidebar"
