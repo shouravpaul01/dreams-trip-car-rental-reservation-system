@@ -8,9 +8,9 @@ import {
 import { RootState } from "../store";
 import { logout } from "../features/auth/authSlice";
 import { toast } from "sonner";
-// "http://localhost:3000/api"
+// "https://car-rental-reservation-system-api.vercel.app/api/"
 const baseQuery = fetchBaseQuery({
-  baseUrl: "https://car-rental-reservation-system-api.vercel.app/api/",
+  baseUrl: "http://localhost:3000/api",
   prepareHeaders: (headers, { getState }) => {
     const token = (getState() as RootState).auth.token;
     if (token) {
@@ -35,6 +35,6 @@ const baseQueryWithVerifyToken = async (
 export const baseApi = createApi({
   reducerPath: "baseApi",
   baseQuery: baseQueryWithVerifyToken,
-  tagTypes: ["users","carTypes","prices", "cars","bookings"],
+  tagTypes: ["users","single-user","carTypes","prices", "cars","bookings"],
   endpoints: () => ({}),
 });

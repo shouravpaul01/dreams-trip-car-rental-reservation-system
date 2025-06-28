@@ -92,7 +92,7 @@ const Header = ({ isScroll }: { isScroll: number }) => {
                         <li >
                          {
                           user.role=="admin"? <NavLink
-                          to={"/admin-dashboard"}
+                          to={"/admin/dashboard"}
                           className={({ isActive }) =>
                             isActive ? "menu-item-active" : "menu-item"
                           }

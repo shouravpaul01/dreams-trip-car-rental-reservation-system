@@ -1,8 +1,11 @@
 import { FaLocationDot, FaPhone, FaRegEnvelope } from "react-icons/fa6";
 import { TRole } from "../type";
-
+import blankImagePng from "../assets/images/blank-image.png";
+import accountpngImage from "../assets/images/account.png";
 export const dreamstripLogo="/dreamstrip-logo.png";
 export const dreamstripLogo2="/dreamstrip-logo2.png";
+export const accounticon=accountpngImage;
+export const blankImage=blankImagePng
 export const userRole:TRole={
   admin:"admin",
   user:"user"
@@ -211,4 +214,7 @@ export const testimonials = [
     date: 'September 18, 2024',
   },
 ];
-
+export const userRoles =[
+  { value: "admin", label: "Admin" },
+  { value: "user", label: "User" },
+]

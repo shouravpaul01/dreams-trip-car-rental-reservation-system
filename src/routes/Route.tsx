@@ -6,7 +6,7 @@ import NotFound from "../pages/not-found/NotFound";
 import DashboardLayout from "../pages/admin/dashboard/DashboardLayout";
 import HomePage from "../pages/main/home/HomePage";
 import CarListingPage from "../pages/main/car-listing/CarListingPage";
-import BookingPage from "../pages/main/booking/BookingPage";
+
 import CarDetails from "../pages/main/car-details/CarDetails";
 import AboutUsPage from "../pages/main/about-us/AboutUsPage";
 import PrivateRoute from "./PrivateRoute";
@@ -18,6 +18,9 @@ import UserPage from "../pages/admin/user/UserPage";
 import { CarTypePage } from "../pages/admin/car-type/CarTypePage";
 import PricePage from "../pages/admin/price/PricePage";
 import { CarPage } from "../pages/admin/car/CarPage";
+
+import ProfilePage from "../pages/admin/profile/ProfilePage";
+import BookingPage from "../pages/main/booking/BookingPage";
 
 export const router = createBrowserRouter([
   {
@@ -47,7 +50,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "/dashboard",
-        element: <PrivateRoute roles={[userRole.user]}><DashboardPage /></PrivateRoute>,
+        element: <PrivateRoute roles={[userRole.user,userRole.admin]}><DashboardPage /></PrivateRoute>,
       },
       {
         path: "/signup",
@@ -77,6 +80,10 @@ export const router = createBrowserRouter([
         path: "/admin/dashboard/manage-users",
         element: <UserPage />,
       },
+      {
+        path: "/admin/dashboard/profile",
+        element: <ProfilePage />,
+      },
      {
         path: "/admin/dashboard/manage-Types",
         element: <CarTypePage />,
@@ -89,6 +96,10 @@ export const router = createBrowserRouter([
         path: "/admin/dashboard/manage-cars",
         element: <CarPage />,
       },
+      //  {
+      //   path: "/admin/dashboard/manage-bookings",
+      //   element: <BookingPage />,
+      // },
     ],
   },
 ]);

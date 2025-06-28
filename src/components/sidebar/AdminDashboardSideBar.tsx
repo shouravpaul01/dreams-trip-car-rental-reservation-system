@@ -1,9 +1,12 @@
-import { BiSolidCategory } from "react-icons/bi";
-import { FaHome } from "react-icons/fa";
 import { FaCubesStacked } from "react-icons/fa6";
 import { IoIosPeople } from "react-icons/io";
 import { NavLink } from "react-router-dom";
-import { dreamstripLogo, dreamstripLogo2 } from "../../constant";
+import {  dreamstripLogo2 } from "../../constant";
+import { LuListTodo } from "react-icons/lu";
+import { RiPriceTag2Line } from "react-icons/ri";
+import { MdDashboard } from "react-icons/md";
+import { GrTree } from "react-icons/gr";
+
 
 export default function AdminDashboardSideBar({
   sidebarOpen,
@@ -22,7 +25,7 @@ export default function AdminDashboardSideBar({
       <ul className="menu space-y-2 p-0 w-full">
          <li>
           <NavLink to={"/admin/dashboard"} end className={({ isActive }) => (isActive ? "menu-item-active " : "menu-item")}>
-              <FaHome className="text-xl me-1"/>
+              <MdDashboard className="text-xl me-1"/>
            Dashboard
           </NavLink>
         </li>
@@ -34,13 +37,13 @@ export default function AdminDashboardSideBar({
         </li>
         <li>
           <NavLink to={"/admin/dashboard/manage-types"} className={({ isActive }) => (isActive ? "menu-item-active " : "menu-item")}>
-            <BiSolidCategory className="text-xl  me-1"/>
+            <GrTree  className="text-xl  me-1"/>
             Manage Types
           </NavLink>
         </li>
          <li>
           <NavLink to={"/admin/dashboard/manage-prices"} className={({ isActive }) => (isActive ? "menu-item-active " : "menu-item")}>
-            <BiSolidCategory className="text-xl  me-1"/>
+            <RiPriceTag2Line  className="text-xl  me-1"/>
             Manage Prices
           </NavLink>
         </li>
@@ -51,7 +54,12 @@ export default function AdminDashboardSideBar({
           </NavLink>
         </li>
 
-       
+         <li>
+          <NavLink to={"/admin/dashboard/manage-bookings"} className={({ isActive }) => (isActive ? "menu-item-active " : "menu-item")}>
+            <LuListTodo  className="text-xl  me-1"/>
+            Manage Bookings
+          </NavLink>
+        </li>
       </ul>
     </div>
   );

@@ -15,7 +15,7 @@ import { usePaymentAfterReturningCarMutation } from "../../../redux/features/pay
 import { toast } from "sonner";
 
 const MyBookingsTable = ({ myBookings }: { myBookings: TBooking[] }) => {
-  // const [modalId, setModalId] = useState<string>("");
+ 
   const [paymentAfterReturningCar] = usePaymentAfterReturningCarMutation();
 
   const handlePayment = async (_id: string) => {

@@ -10,14 +10,15 @@ import { useEffect, useState } from "react";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { userValidation } from "../../../validations/user.validation";
-import { useUpdateAccountMutation } from "../../../redux/features/user/userApi";
+
 import { toast } from "sonner";
+import { useUpdateUserMutation } from "../../../redux/features/user/userApi";
 
 const ProfileInfo = () => {
   const [isBtnSubmitDisable, setIsBtnSubmitDisable] = useState<boolean>(false);
-  const [userError, setUserError] = useState<string>('');
+  const [userError, setUserError] = useState<string>("");
   const { user } = useAppSelector((state) => state.auth);
-  const [updateAccount] = useUpdateAccountMutation();
+  const [updateUser] = useUpdateUserMutation();
   const {
     register,
     handleSubmit,
@@ -34,15 +35,26 @@ const ProfileInfo = () => {
     }
   }, [user]);
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-    
     setIsBtnSubmitDisable(true);
     try {
-      const res = await updateAccount(data).unwrap();
+      const formData = new FormData();
+      if (Object.keys(data.image).length !== 0) {
+        formData.append("file", data.image[0]);
+      } else {
+        delete data["image"];
+      }
+
+      formData.append("data", JSON.stringify(data));
+
+      const updateData = {
+        _id: data._id,
+        payload: formData,
+      };
+      const res = await updateUser(updateData).unwrap();
       if (res.status) {
         toast.success(res.message);
       }
-    } catch (error:any) {
-      
+    } catch (error: any) {
       const errorMessages = error?.data?.errorMessages;
       if (errorMessages.length > 0) {
         errorMessages.forEach((errorMessage: any) => {
@@ -54,21 +66,24 @@ const ProfileInfo = () => {
             message: errorMessage.message,
           });
         });
+      }
     }
-  }
     setIsBtnSubmitDisable(false);
   };
   return (
     <div className="p-3">
-     {
-      userError &&  <div role="alert" className="alert alert-error rounded-lg py-1 mb-3">
-      <FaRegFaceSadCry className="text-xl" />
-      <span>{userError}</span>
-      <button className="btn btn-sm btn-circle" onClick={()=>setUserError("")}>
-        <FaXmark />
-      </button>
-    </div>
-     }
+      {userError && (
+        <div role="alert" className="alert alert-error rounded-lg py-1 mb-3">
+          <FaRegFaceSadCry className="text-xl" />
+          <span>{userError}</span>
+          <button
+            className="btn btn-sm btn-circle"
+            onClick={() => setUserError("")}
+          >
+            <FaXmark />
+          </button>
+        </div>
+      )}
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-3 ">
         <label className="w-32 h-32 flex items-center justify-center rounded-full border-2 border-dashed border-gray-300 cursor-pointer hover:bg-gray-100 relative">
           <input type="file" className="hidden" accept="image/*" />
@@ -78,51 +93,51 @@ const ProfileInfo = () => {
           </div>
         </label>
         <div className="flex flex-col md:flex-row gap-5">
-          <label className="form-control w-full md:w-[40%]">
-            <span className="label-text">
+          <fieldset className="fieldset w-full md:w-[40%]">
+            <legend className="fieldset-legend">
               Name <span className="text-red-500">*</span>
-            </span>
+            </legend>
             <input
-              {...register("name")}
               type="text"
+              {...register("name")}
               placeholder="Name"
-              className="input input-bordered w-full "
+              className="input w-full"
             />
             {errors.name && (
-              <p className="text-red-500 text-sm mt-1">
-                {errors.name.message as string}
-              </p>
+              <span className="text-red-500">
+                {errors?.name.message as string}
+              </span>
             )}
-          </label>
-          <label className="form-control w-full md:w-[60%]">
-            <span className="label-text">
+          </fieldset>
+
+          <fieldset className="fieldset w-full md:w-[60%]">
+            <legend className="fieldset-legend">
               Email <span className="text-red-500">*</span>
-            </span>
+            </legend>
             <input
               {...register("email")}
               type="email"
               placeholder="Email"
               className="input input-bordered w-full "
             />
-          </label>
+          </fieldset>
         </div>
         <div className="flex flex-col md:flex-row gap-5">
-          <label className="form-control w-full md:w-[40%]">
-            <span className="label-text">
+          <fieldset className="fieldset w-full md:w-[40%]">
+            <legend className="fieldset-legend">
               Phone Number <span className="text-red-500">*</span>
-            </span>
+            </legend>
             <input
               {...register("phone")}
               type="text"
               placeholder="Phone Number"
-              className="input input-bordered w-full "
-              disabled={user ? true : false}
+              className="input  w-full "
             />
-          </label>
-          <label className="form-control w-full md:w-[60%]">
-            <span className="label-text">
+          </fieldset>
+          <fieldset className="fieldset w-full md:w-[60%]">
+            <legend className="fieldset-legend">
               NID <span className="text-red-500">*</span>
-            </span>
+            </legend>
             <input
               {...register("nid")}
               type="text"
@@ -134,32 +149,29 @@ const ProfileInfo = () => {
                 {errors.nid.message as string}
               </p>
             )}
-          </label>
+          </fieldset>
         </div>
-        <label className="form-control w-full ">
-          <span className="label-text">
+        <fieldset className="fieldset w-full ">
+          <legend className="fieldset-legend">
             Driving Licence<span className="text-red-500">*</span>
-          </span>
+          </legend>
           <input
             {...register("drivingLicence")}
             type="text"
             placeholder="Driving Licence"
             className="input input-bordered w-full "
           />
-        </label>
-        <label className="form-control w-full ">
-          <span className="label-text">Address</span>
+        </fieldset>
+        <fieldset className="fieldset w-full ">
+          <legend className="fieldset-legend">Address</legend>
           <input
             {...register("address")}
             type="text"
             placeholder="Address"
             className="input input-bordered w-full "
           />
-        </label>
-        <button
-          className="btn btn-success rounded-full px-8"
-          disabled={isBtnSubmitDisable}
-        >
+        </fieldset>
+        <button className="btn btn-success px-8" disabled={isBtnSubmitDisable}>
           <FaArrowRight className="me-2 animate-bounceLR" /> Update
         </button>
       </form>

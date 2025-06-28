@@ -14,7 +14,7 @@ import { FaArrowRightToBracket } from "react-icons/fa6";
 
 const SignIn = () => {
   useTitle("Sign In");
-  
+
   const [isBtnSubmitDisable, setIsBtnSubmitDisable] = useState<boolean>(false);
   const [authError, setAuthError] = useState<string>("");
   const dispatch = useAppDispatch();
@@ -26,10 +26,13 @@ const SignIn = () => {
     handleSubmit,
     setError,
     formState: { errors },
-  } = useForm<FieldValues>({ resolver: zodResolver(SignInValidation) ,defaultValues:{
-    email:"admin@gmail.com",
-    password:"admin@gmail"
-  }});
+  } = useForm<FieldValues>({
+    resolver: zodResolver(SignInValidation),
+    defaultValues: {
+      email: "admin@gmail.com",
+      password: "admin@gmail",
+    },
+  });
   const [signin] = useSignInMutation();
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
@@ -41,7 +44,7 @@ const SignIn = () => {
         token: res.data.token,
       };
       dispatch(setUser(userdata));
-      navigate(currentLocation,{replace:true})
+      navigate(currentLocation, { replace: true });
       toast.success(res.message);
     } catch (error: any) {
       const errorMessages = error?.data?.errorMessages;
@@ -56,8 +59,9 @@ const SignIn = () => {
           });
         });
       }
+    } finally {
+      setIsBtnSubmitDisable(false);
     }
-    setIsBtnSubmitDisable(false);
   };
   return (
     <div>
@@ -77,9 +81,7 @@ const SignIn = () => {
                 here
               </p>
             </div>
-            {
-              authError && <p className="text-red-500 pb-2">{authError}</p>
-            }
+            {authError && <p className="text-red-500 pb-2">{authError}</p>}
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-2">
               {/* Email Address Field */}
               <div className="form-control w-full">

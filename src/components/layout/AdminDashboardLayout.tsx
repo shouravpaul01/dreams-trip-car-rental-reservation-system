@@ -26,7 +26,7 @@ export default function AdminDashboardLayout() {
         {/* Page content here */}
         <AdminDashboardNavbar toggleSidebar={toggleSidebar} />
 
-        <main className="p-3.5 md:px-8 bg-gray-50">
+        <main className="p-3.5 md:px-8">
           <Outlet />
         </main>
       </div>

@@ -1,10 +1,22 @@
-import { FaRegFaceFrownOpen, FaUserLarge, FaUserShield } from "react-icons/fa6";
+import {
+  FaArrowRightArrowLeft,
+  FaCircleDot,
+  FaRegFaceFrownOpen,
+  FaUserLarge,
+  FaUserShield,
+} from "react-icons/fa6";
 import { TUserInfo } from "../../../type/user.type";
-import { useUpdateUserRoleMutation } from "../../../redux/features/user/userApi";
+import {
+  useUpdateUserRoleMutation,
+  useUpdateUserStatusMutation,
+} from "../../../redux/features/user/userApi";
 import { toast } from "sonner";
+import { blankImage } from "../../../constant";
+import { FaEdit } from "react-icons/fa";
 
-const UserTable = ({ users }: { users: TUserInfo[] }) => {
+const UserTable = ({ users,setUserEmail }: { users: TUserInfo[], setUserEmail: (email: string) => void }) => {
   const [updateUserRole] = useUpdateUserRoleMutation();
+  const [updateUserStatus] = useUpdateUserStatusMutation();
 
   const handleUpdateRole = async (email: string, role: string) => {
     const updateData = {
@@ -15,7 +27,15 @@ const UserTable = ({ users }: { users: TUserInfo[] }) => {
     console.log(res);
     toast.success(res.message);
   };
-
+  const handleStatusUpdate = async (email: string, isBlocked: boolean) => {
+    const updateData = {
+      email,
+      isBlocked,
+    };
+    const res = await updateUserStatus(updateData).unwrap();
+    console.log(res);
+    toast.success(res.message);
+  };
   return (
     <>
       <div className="overflow-x-auto">
@@ -31,17 +51,33 @@ const UserTable = ({ users }: { users: TUserInfo[] }) => {
           <thead className="bg-[#3aa27ea8] text-sm text-black">
             <tr>
               <th>Name</th>
+              <th>Role</th>
               <th>Status</th>
+              <th>Action</th>
             </tr>
           </thead>
           <tbody>
             {users?.map((user: TUserInfo, index: number) => (
               <tr key={index}>
                 <td>
-                  <div>
-                    <div className="font-bold">Name: {user.name}</div>
-                    <div className="font-bold text-gray-500">Email: {user.email}</div>
-                    <div className="font-bold text-gray-500">Phone: {user.phone}</div>
+                  <div className="flex items-center gap-3">
+                    <div>
+                      <img
+                        className="mask mask-squircle size-12"
+                        src={user?.image || blankImage}
+                      />
+                    </div>
+                    <div>
+                      <p className="font-bold"> {user.name}</p>
+                      <p className=" text-gray-500">
+                        Email:
+                        <span className="font-semibold"> {user.email}</span>
+                      </p>
+                      <p className=" text-gray-500">
+                        Phone:
+                        <span className="font-semibold"> {user.phone}</span>
+                      </p>
+                    </div>
                   </div>
                 </td>
 
@@ -75,13 +111,39 @@ const UserTable = ({ users }: { users: TUserInfo[] }) => {
                     </button>
                   </div>
                 </td>
+                <td>
+                  <div className="flex gap-2 items-center ">
+                    <FaCircleDot
+                      className={user.isBlocked ? "text-primary" : "text-error"}
+                    />
+                    <span>{user.isBlocked ? "Block" : "Unblock"}</span>
+                    <button
+                      className={`btn btn-sm btn-outline btn-success `}
+                      onClick={() =>
+                        handleStatusUpdate(
+                          user.email!,
+                          user.isBlocked ? false : true
+                        )
+                      }
+                    >
+                      <FaArrowRightArrowLeft />
+                    </button>
+                  </div>
+                </td>
+                <td>
+                  <label
+                    htmlFor="my_modal_6"
+                    className={`btn btn-sm btn-success btn-outline `}
+                    onClick={() => setUserEmail(user.email!)}
+                  >
+                    <FaEdit />
+                  </label>
+                </td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
-
-
     </>
   );
 };
