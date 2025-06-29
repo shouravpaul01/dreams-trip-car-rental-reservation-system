@@ -9,9 +9,10 @@ import {
 
 import { NavLink } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../redux/hook";
-import { MdAccountCircle } from "react-icons/md";
+import { MdAccountCircle, MdListAlt } from "react-icons/md";
 import { logout } from "../../redux/features/auth/authSlice";
-import { dreamstripLogo } from "../../constant";
+import { dreamstripLogo, dreamstripLogo2 } from "../../constant";
+import { FaHome } from "react-icons/fa";
 
 const Header = ({ isScroll }: { isScroll: number }) => {
   const { user } = useAppSelector((state) => state.auth);
@@ -45,6 +46,7 @@ const Header = ({ isScroll }: { isScroll: number }) => {
             <div className="hidden flex-none lg:block">
               <ul className="nav-menu font-semibold">
                 {/* Navbar menu content here */}
+
                 <li>
                   <NavLink
                     to="/"
@@ -65,6 +67,16 @@ const Header = ({ isScroll }: { isScroll: number }) => {
                     Car-Listings
                   </NavLink>
                 </li>
+                {user &&  <li>
+                  <NavLink
+                    to="/dashboard?tab=my-bookings"
+                    className={({ isActive }) =>
+                      isActive ? "nav-item-active" : "nav-item-hover"
+                    }
+                  >
+                    My Bookings
+                  </NavLink>
+                </li>}
                 <li>
                   <NavLink
                     to="/about"
@@ -89,24 +101,38 @@ const Header = ({ isScroll }: { isScroll: number }) => {
                         tabIndex={0}
                         className="dropdown-content main-menu bg-base-100 rounded-box z-[1] w-60 p-2 shadow"
                       >
-                        <li >
-                         {
-                          user.role=="admin"? <NavLink
-                          to={"/admin/dashboard"}
-                          className={({ isActive }) =>
-                            isActive ? "menu-item-active" : "menu-item"
-                          }
-                        >
-                          <FaHouseLock /> Admin Dashboard
-                        </NavLink>: <NavLink
-                            to={"/dashboard"}
-                            className={({ isActive }) =>
-                              isActive ? "menu-item-active" : "menu-item"
-                            }
-                          >
-                            <FaHouseLock />Dashboard
-                          </NavLink>
-                         }
+                        <li>
+                          {user.role == "admin" ? (
+                            <>
+                              <NavLink
+                                to={"/admin/dashboard"}
+                                className={({ isActive }) =>
+                                  isActive ? "menu-item-active" : "menu-item"
+                                }
+                              >
+                                <FaHouseLock /> Admin Dashboard
+                              </NavLink>
+                              <NavLink
+                                to={"/dashboard"}
+                                className={({ isActive }) =>
+                                  isActive ? "menu-item-active " : "menu-item"
+                                }
+                              >
+                                <FaHouseLock />
+                                Dashboard
+                              </NavLink>
+                            </>
+                          ) : (
+                            <NavLink
+                              to={"/dashboard"}
+                              className={({ isActive }) =>
+                                isActive ? "menu-item-active" : "menu-item"
+                              }
+                            >
+                              <FaHouseLock />
+                              Dashboard
+                            </NavLink>
+                          )}
                         </li>
                         <li className="">
                           <button
@@ -160,28 +186,111 @@ const Header = ({ isScroll }: { isScroll: number }) => {
           className="drawer-overlay"
         ></label>
 
-        <div className=" bg-base-200 min-h-full w-80 ">
+        <div className=" bg-[#f1f5f9] min-h-full w-80 p-5 ">
           {/* Sidebar content here */}
-          <div className="flex justify-between items-center bg-success h-[60px] py-8 px-4">
-            <img src={dreamstripLogo} alt="" className="w-[220px] " />
-            <span
-              className="text-3xl animate-bounce"
-              onClick={() => {
-                const drawer = document.getElementById("my-drawer-3");
-                if (drawer) {
-                  (drawer as HTMLInputElement).checked = false;
-                }
-              }}
-            >
-              <FaDeleteLeft />
-            </span>
+          <div className="flex justify-between items-center   py-8 px-4">
+            <img src={dreamstripLogo2} alt="" className="w-[220px] " />
           </div>
-          <li>
-            <a>Sidebar Item 1</a>
-          </li>
-          <li>
-            <a>Sidebar Item 2</a>
-          </li>
+          <ul className="menu space-y-2 p-0 w-full">
+            <li>
+              <NavLink
+                to={"/"}
+                end
+                className={({ isActive }) =>
+                  isActive ? "menu-item-active " : "menu-item"
+                }
+              >
+                <FaHome className="text-xl me-1" />
+                Home
+              </NavLink>
+            </li>
+
+            <li>
+              <NavLink
+                to={"/car-listings"}
+                end
+                className={({ isActive }) =>
+                  isActive ? "menu-item-active " : "menu-item"
+                }
+              >
+                <MdListAlt className="text-xl me-1" />
+                Car Listings
+              </NavLink>
+            </li>
+            {user ? (
+              <>
+                <li>
+                  {user.role == "admin" ? (
+                    <>
+                      <NavLink
+                        to={"/admin/dashboard"}
+                        className={({ isActive }) =>
+                          isActive ? "menu-item-active" : "menu-item"
+                        }
+                      >
+                        <FaHouseLock className="text-xl me-1" /> Admin Dashboard
+                      </NavLink>{" "}
+                      <NavLink
+                        to={"/dashboard"}
+                        className={({ isActive }) =>
+                          isActive ? "menu-item-active " : "menu-item"
+                        }
+                      >
+                        <FaHouseLock className="text-xl me-1" />
+                        Dashboard
+                      </NavLink>
+                    </>
+                  ) : (
+                    <NavLink
+                      to={"/dashboard"}
+                      className={({ isActive }) =>
+                        isActive ? "menu-item-active " : "menu-item"
+                      }
+                    >
+                      <FaHouseLock className="text-xl me-1" />
+                      Dashboard
+                    </NavLink>
+                  )}
+                </li>
+                <li>
+                  <button
+                    className="menu-item"
+                    onClick={() => dispatch(logout())}
+                  >
+                    <FaArrowRightFromBracket className="text-xl me-1" />
+                    Logout
+                  </button>
+                </li>
+              </>
+            ) : (
+              <>
+                <li>
+                  <NavLink
+                    to="/signin"
+                    className={({ isActive }) =>
+                      isActive
+                        ? "btn btn-sm btn-success rounded-full transition"
+                        : "btn btn-sm btn-outline btn-success rounded-full transition"
+                    }
+                  >
+                    <FaUnlockKeyhole /> Sign In
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    to="/signup"
+                    className={({ isActive }) =>
+                      isActive
+                        ? "btn btn-sm btn-success rounded-full  transition"
+                        : "btn btn-sm btn-outline btn-success rounded-full transition"
+                    }
+                  >
+                    <FaUserLock /> Sign Up
+                  </NavLink>
+                </li>
+              </>
+            )}
+          </ul>
         </div>
       </div>
     </div>

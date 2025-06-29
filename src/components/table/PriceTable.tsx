@@ -16,9 +16,9 @@ import {
 
 import CarDetailsTable from "./CarDetailsTable";
 import Loading from "../ui/Loading";
-import { NavLink } from "react-router-dom";
 
-const PriceTable = ({ prices }: { prices: TPrice[] }) => {
+
+const PriceTable = ({ prices , setEditId }: { prices: TPrice[] , setEditId: (id: string | null) => void    }) => {
   const [modalId, setModalId] = useState<string>("");
   const [updatePriceStatus] = useUpdatePriceStatusMutation();
   const { data: car, isLoading: isSinglePriceLoading } = useGetSinglePriceQuery(
@@ -93,13 +93,15 @@ const PriceTable = ({ prices }: { prices: TPrice[] }) => {
                 </td>
                 <td>
                   <div className="flex gap-2">
-                    <NavLink
-                    to={`?tab=manage-prices&_id=${price._id}`}
+                    <label
+                      htmlFor="my_modal_6"
                       className="btn btn-sm btn-outline btn-success"
-                      
+                      onClick={() => {
+                        setEditId(price._id!);
+                      }}
                     >
                       <FaSquarePen />
-                    </NavLink>
+                    </label>
                     <button
                       className="btn btn-sm btn-outline btn-success"
                       onClick={() => {

@@ -6,7 +6,7 @@ import { useGetAllBookingsQuery } from "../../../redux/features/booking/bookingA
 import BookingTable from "./BookingTable";
 import { drivingOptions } from "../../../constant";
 
-const BookingPage = () => {
+export const AdminBookingPage = () => {
   const [searchInputValue, setSearchInputValue] = useState<string>("");
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [drivingType, setDrivingType] = useState<string>("");
@@ -68,4 +68,3 @@ const BookingPage = () => {
   );
 };
 
-export default BookingPage;

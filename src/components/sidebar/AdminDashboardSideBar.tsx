@@ -1,6 +1,6 @@
 import { FaCubesStacked } from "react-icons/fa6";
 import { IoIosPeople } from "react-icons/io";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import {  dreamstripLogo2 } from "../../constant";
 import { LuListTodo } from "react-icons/lu";
 import { RiPriceTag2Line } from "react-icons/ri";
@@ -20,7 +20,9 @@ export default function AdminDashboardSideBar({
       }`}
     >
       <div className="py-6 flex justify-center items-center">
-         <img src={dreamstripLogo2} alt="dreamstrip logo" className="w-[170px]" />
+         <Link to={"/"}>
+           <img src={dreamstripLogo2} alt="dreamstrip logo" className="w-[170px]" />
+         </Link>
       </div>
       <ul className="menu space-y-2 p-0 w-full">
          <li>

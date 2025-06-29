@@ -10,13 +10,16 @@ import { jwtDecode } from "jwt-decode";
 import { useAppDispatch } from "../../redux/hook";
 import { setUser } from "../../redux/features/auth/authSlice";
 import Breadcrumbs from "../../components/ui/Breadcrumbs";
-import { FaArrowRightToBracket } from "react-icons/fa6";
+import { FaArrowRightToBracket, FaEye, FaEyeSlash } from "react-icons/fa6";
 
 const SignIn = () => {
   useTitle("Sign In");
 
   const [isBtnSubmitDisable, setIsBtnSubmitDisable] = useState<boolean>(false);
+  const [showPassword, setShowPassword] = useState<boolean>(false);
   const [authError, setAuthError] = useState<string>("");
+
+ 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const location = useLocation();
@@ -25,12 +28,12 @@ const SignIn = () => {
     register,
     handleSubmit,
     setError,
+    setValue,
     formState: { errors },
   } = useForm<FieldValues>({
     resolver: zodResolver(SignInValidation),
     defaultValues: {
-      email: "admin@gmail.com",
-      password: "admin@gmail",
+      
     },
   });
   const [signin] = useSignInMutation();
@@ -68,8 +71,8 @@ const SignIn = () => {
       <Breadcrumbs title="Login" />
       <div className="flex justify-center items-center my-20">
         <div className="max-w-xl w-full mx-auto p-4">
-          <div className="bg-white  shadow-md rounded-md px-10 md:px-20  py-10">
-            <div className="border-b border-dashed border-success pb-2 mb-5">
+          <div className="bg-white  shadow-md rounded-md px-10 md:px-20  py-10 space-y-3.5">
+            <div className="border-b border-dashed border-success pb-2">
               <h2 className=" text-2xl font-Spicy_Rice">
                 Welcome to Dreams Trip
               </h2>
@@ -81,13 +84,17 @@ const SignIn = () => {
                 here
               </p>
             </div>
-            {authError && <p className="text-red-500 pb-2">{authError}</p>}
+            <div className="flex gap-1.5">
+              <button className="btn btn-xs btn-soft btn-success" onClick={() => {setValue("email", "user@gmail.com"); setValue("password", "user@gmail");}}>User Credentials</button>
+              <button className="btn btn-xs btn-soft btn-success" onClick={() => {setValue("email", "admin@gmail.com"); setValue("password", "admin@gmail");}}>Admin Credentials</button>
+            </div>
+            {authError && <p className="text-red-500 ">{authError}</p>}
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-2">
               {/* Email Address Field */}
-              <div className="form-control w-full">
-                <label className="label-text">
+               <fieldset className="fieldset w-full">
+                    <legend className="fieldset-legend">
                   Email <span className="text-red-500">*</span>
-                </label>
+                </legend>
                 <input
                   type="email"
                   id="email"
@@ -100,24 +107,33 @@ const SignIn = () => {
                     {errors.email.message as string}
                   </p>
                 )}
-              </div>
+              </fieldset>
 
-              <div className="form-control w-full">
-                <label className="label-text">
+              <fieldset className="fieldset w-full">
+                    <legend className="fieldset-legend">
                   Password <span className="text-red-500">*</span>
+                </legend>
+                <label className="input w-full">
+                  <input
+                    type={showPassword ? "text" : "password"}
+                    className="grow "
+                    placeholder="Password"
+                    {...register("password")}
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword((prev) => !prev)}
+                  >
+                    {showPassword ? <FaEyeSlash /> : <FaEye />}
+                  </button>
                 </label>
-                <input
-                  type="password"
-                  className="input input-bordered w-full "
-                  placeholder="Password"
-                  {...register("password")}
-                />
+
                 {errors.password && (
                   <p className="text-red-500 text-sm mt-1">
                     {errors.password.message as string}
                   </p>
                 )}
-              </div>
+              </fieldset>
 
               {/* Submit Button */}
               <div className="text-center">

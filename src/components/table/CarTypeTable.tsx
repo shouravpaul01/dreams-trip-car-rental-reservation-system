@@ -4,17 +4,14 @@ import {
   FaRegFaceFrownOpen,
   FaSquarePen,
 } from "react-icons/fa6";
-import { useState } from "react";
-import Modal from "../ui/Modal";
+
 
 import { toast } from "sonner";
 import { TCarType } from "../../type/cartype.type";
-import CarTypeForm from "../form/CarTypeForm";
+
 import { useUpdateCarTypeStatusMutation } from "../../redux/features/car-type/carTypeApi";
 
-const CarTypeTable = ({ carTypes }: { carTypes: TCarType[] }) => {
-  const [modalId, setModalId] = useState<string>("");
-  const [editableData, setEditableData] = useState<TCarType | null>(null);
+const CarTypeTable = ({ carTypes ,setEditId}: { carTypes: TCarType[] , setEditId: (id: string) => void }) => {
 
   const [updateStatusCarType] = useUpdateCarTypeStatusMutation();
 
@@ -27,10 +24,7 @@ const CarTypeTable = ({ carTypes }: { carTypes: TCarType[] }) => {
     console.log(res);
     toast.success(res.message);
   };
-  const hanleCloseModal = () => {
-    setEditableData(null);
-    setModalId("")
-  };
+
   return (
     <>
       <div className="overflow-x-auto">
@@ -85,14 +79,15 @@ const CarTypeTable = ({ carTypes }: { carTypes: TCarType[] }) => {
                   </div>
                 </td>
                 <td>
-                  <button
+                  <label
+            htmlFor="my_modal_6"
                     className="btn btn-sm btn-outline btn-success"
                     onClick={() => {
-                      setModalId(type._id), setEditableData(type);
+                      setEditId(type._id);
                     }}
                   >
                     <FaSquarePen />
-                  </button>
+                  </label>
                 </td>
               </tr>
             ))}
@@ -100,13 +95,7 @@ const CarTypeTable = ({ carTypes }: { carTypes: TCarType[] }) => {
         </table>
       </div>
 
-      <Modal
-        modalId={modalId}
-        modalTitle="Edit Car Type"
-        hanleCloseModal={hanleCloseModal}
-      >
-        <CarTypeForm editableData={editableData} />
-      </Modal>
+  
     </>
   );
 };

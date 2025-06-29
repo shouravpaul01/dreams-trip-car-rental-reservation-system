@@ -19,6 +19,15 @@ const carTypeApi=baseApi.injectEndpoints({
             },
             providesTags:["carTypes"]
         }),
+          getSingleCarType:build.query({
+            query:(id)=>{
+                return {
+                    url:`/car-types/single-car-type/${id}`,
+                    method:"GET",
+                }
+            },
+            providesTags:["single-car-type"]
+        }),
         updateCarType:build.mutation({
             query:(data)=>({
                 url:`/car-types/${data._id}`,
@@ -44,4 +53,4 @@ const carTypeApi=baseApi.injectEndpoints({
         }),
     })
 })
-export const {useCreateCarTypeMutation,useGetAllCarTypeQuery,useUpdateCarTypeMutation,useUpdateCarTypeStatusMutation,useGetAllActiveCarTypesQuery}=carTypeApi
+export const {useCreateCarTypeMutation,useGetAllCarTypeQuery,useGetSingleCarTypeQuery,useUpdateCarTypeMutation,useUpdateCarTypeStatusMutation,useGetAllActiveCarTypesQuery}=carTypeApi

@@ -39,43 +39,19 @@ export default function CreateUpdateUserForm({userEmail}:{userEmail:string}
     }
   }, [userEmail,user?.data]);
 
-  const handleCreate: SubmitHandler<FieldValues> = async (data) => {
+  const handleSubmitUser: SubmitHandler<FieldValues> = async (data) => {
     setIsBtnSubmit(true);
     console.log(data, "form");
     try {
-      
-
-      const res = await createUserByAdmin(data).unwrap();
-      
-      toast.success(res.message);
-    
-    } catch (error: any) {
-      console.log(error, "error");
-      const errorMessages = error?.data.errorMessages;
-      if (errorMessages?.length > 0) {
-        errorMessages.forEach((errorMessage: any) =>
-          setError(errorMessage.path, {
-            type: "manual",
-            message: errorMessage.message,
-          })
-        );
-      }
-    } finally {
-      setIsBtnSubmit(false);
-    }
-  };
-   const handleUpdate: SubmitHandler<FieldValues> = async (data) => {
-    setIsBtnSubmit(true);
-    console.log(data, "form");
-    try {
-       const updateData = {
+      const updateData = {
         _id: data._id,
         payload: data,
       };
-      const res = await updateUser(updateData).unwrap();
+      const res = userEmail ? await updateUser(updateData).unwrap() : await createUserByAdmin(data).unwrap();
+
       console.log(res, "res");
       toast.success(res.message);
-      
+    !userEmail && reset();
     } catch (error: any) {
       console.log(error, "error");
       const errorMessages = error?.data.errorMessages;
@@ -91,6 +67,7 @@ export default function CreateUpdateUserForm({userEmail}:{userEmail:string}
       setIsBtnSubmit(false);
     }
   };
+  
   return (
     <>
       <input type="checkbox" id="my_modal_6" className="modal-toggle" />
@@ -109,7 +86,7 @@ export default function CreateUpdateUserForm({userEmail}:{userEmail:string}
           {isLoading || isFetching ? (
             <Loading className="h-32" />
           ) : (
-            <form onSubmit={handleSubmit(userEmail ? handleUpdate : handleCreate)} className="pt-4">
+            <form onSubmit={handleSubmit(handleSubmitUser)} className="pt-4">
               {userEmail && (
                 <input type="text" {...register("_id")} hidden />
               )}
