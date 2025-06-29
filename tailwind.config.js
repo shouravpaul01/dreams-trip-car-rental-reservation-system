@@ -4,6 +4,10 @@ export default {
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
-
+extend: {
+      animation: {
+        'spin-slow': 'spin 3s linear infinite',
+      }
+    }
  
 }

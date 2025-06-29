@@ -101,9 +101,10 @@ const Header = ({ isScroll }: { isScroll: number }) => {
                         tabIndex={0}
                         className="dropdown-content main-menu bg-base-100 rounded-box z-[1] w-60 p-2 shadow"
                       >
-                        <li>
+                        <>
                           {user.role == "admin" ? (
                             <>
+                            <li>
                               <NavLink
                                 to={"/admin/dashboard"}
                                 className={({ isActive }) =>
@@ -112,6 +113,8 @@ const Header = ({ isScroll }: { isScroll: number }) => {
                               >
                                 <FaHouseLock /> Admin Dashboard
                               </NavLink>
+                              </li>
+                              <li>
                               <NavLink
                                 to={"/dashboard"}
                                 className={({ isActive }) =>
@@ -121,8 +124,10 @@ const Header = ({ isScroll }: { isScroll: number }) => {
                                 <FaHouseLock />
                                 Dashboard
                               </NavLink>
+                              </li>
                             </>
                           ) : (
+                            <li>
                             <NavLink
                               to={"/dashboard"}
                               className={({ isActive }) =>
@@ -132,8 +137,10 @@ const Header = ({ isScroll }: { isScroll: number }) => {
                               <FaHouseLock />
                               Dashboard
                             </NavLink>
+                            </li>
                           )}
-                        </li>
+                       
+                        </>
                         <li className="">
                           <button
                             className="menu-item"

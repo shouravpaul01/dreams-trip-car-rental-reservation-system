@@ -12,7 +12,7 @@ import { Link } from "react-router-dom";
 const HeroSection = () => {
   const { control } = useForm({});
   return (
-    <div className=" bg-slate-100  md:h-[650px] relative -mt-16">
+    <div className=" bg-slate-100  md:h-[550px] relative -mt-16">
       {/* Background Image */}
       <div className="absolute inset-0 bg-[url('https://res.cloudinary.com/dcrui4h7s/image/upload/v1725826388/dreams-trip-car-rental-reservation-system/ytn22rn1uisbbcvjzb1b.png')] bg-cover opacity-10"></div>
 

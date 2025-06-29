@@ -4,7 +4,7 @@ import { useGetAllBookingsQuery } from "../../../redux/features/booking/bookingA
 import { useGetAllCarsQuery } from "../../../redux/features/car/carApi";
 import { FaCubesStacked } from "react-icons/fa6";
 
-const DashboardPage = () => {
+export const AdminDashboardPage = () => {
   const { data: cars, isLoading: isCarsLoading } =
     useGetAllCarsQuery(undefined);
     const { data: bookings, isLoading: isBookingsLoading } =
@@ -46,4 +46,4 @@ const DashboardPage = () => {
   );
 };
 
-export default DashboardPage;
+

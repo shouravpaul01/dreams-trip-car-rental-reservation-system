@@ -21,6 +21,7 @@ import { CarPage } from "../pages/admin/car/CarPage";
 import ProfilePage from "../pages/admin/profile/ProfilePage";
 import BookingPage from "../pages/main/booking/BookingPage";
 import { AdminBookingPage } from "../pages/admin/booking/BookingPage";
+import { AdminDashboardPage } from "../pages/admin/dashboard/DashboardPage";
 
 export const router = createBrowserRouter([
   {
@@ -74,7 +75,7 @@ export const router = createBrowserRouter([
      
       {
         path: "/admin/dashboard",
-        element: <DashboardPage />,
+        element: <AdminDashboardPage />,
       },
      {
         path: "/admin/dashboard/manage-users",

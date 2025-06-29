@@ -8,7 +8,7 @@ import { IoSettingsOutline } from "react-icons/io5";
 
 const CarCard = ({ car }: { car: TCar }) => {
   return (
-    <div className="card bg-base-100 border hover:shadow-2xl hover:scale-105 transition-all duration-300 ease-in-out p-3 rounded-lg relative overflow-hidden">
+    <div className="card bg-base-100 shadow-sm shadow-green-300 hover:shadow-2xl hover:scale-105 transition-all duration-300 ease-in-out  rounded-lg relative overflow-hidden">
       <figure className="overflow-hidden ">
         <img
           src={
@@ -20,14 +20,12 @@ const CarCard = ({ car }: { car: TCar }) => {
         />
       </figure>
 
-      <div className="border-t relative">
-        <p className="badge font-bold absolute -top-[10px] right-2">
+      <div className="border-t border-gray-300 relative">
+        <p className="badge font-bold absolute -top-[12px] right-2">
           <FaStar className="text-xl text-warning pe-2" /> 4.5
         </p>
         {!car.isAvailable && (
-          <p className="badge badge-error absolute -top-[10px] left-2">
-            Unavailable
-          </p>
+          <p className="badge badge-error absolute -top-[12px] left-2">Unavailable</p>
         )}
       </div>
 
@@ -37,17 +35,17 @@ const CarCard = ({ car }: { car: TCar }) => {
         </h2>
 
         <div className="flex flex-wrap gap-2">
-          <span className="badge badge-outline badge-neutral font-semibold">
-            <TbArmchair className="me-2" /> {car.seats} Seats
+          <span className="badge badge-sm badge-dash badge-outline badge-neutral font-semibold">
+            <TbArmchair className="me-0.5" /> {car.seats} Seats
           </span>
-          <span className="badge badge-outline badge-neutral font-semibold">
-            <MdLuggage className="me-2" /> {car.bagCapability} Bags
+          <span className="badge badge-sm badge-dash badge-outline badge-neutral font-semibold">
+            <MdLuggage className="me-0.5" /> {car.bagCapability} Bags
           </span>
-          <span className="badge badge-outline badge-neutral font-semibold">
-            <BsFillFuelPumpDieselFill className="me-2" /> {car.fuelType}{" "}
+          <span className="badge badge-sm badge-dash badge-outline badge-neutral font-semibold">
+            <BsFillFuelPumpDieselFill className="me-0.5" /> {car.fuelType}{" "}
           </span>
-          <span className="badge badge-outline badge-neutral font-semibold">
-            <IoSettingsOutline className="me-2" /> {car.transmission}{" "}
+          <span className="badge badge-sm badge-dash badge-outline badge-neutral font-semibold">
+            <IoSettingsOutline className="me-0.5" /> {car.transmission}{" "}
           </span>
         </div>
         <p className="text-gray-700">
@@ -75,8 +73,6 @@ const CarCard = ({ car }: { car: TCar }) => {
           </div>
         </div>
       </div>
-
-      {/* <div className="absolute inset-0 bg-gradient-to-t from-black opacity-0 hover:opacity-10 transition-opacity duration-300 rounded-lg pointer-events-none"></div> */}
     </div>
   );
 };

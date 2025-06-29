@@ -106,13 +106,13 @@ export const selectCustomStype={
     padding: "5px",
     boxShadow: "none",
     border: state.isFocused
-      ? "1px solid #D7DDE4"
+      ? "1px solid black"
       : provided.border,
-    outline: state.isFocused ? "2px solid #D7DDE4" : "none",
+    outline: state.isFocused ? "2px solid black" : "none",
     outlineOffset: state.isFocused ? "2px" : "",
-    borderRadius: "10px",
+    borderRadius: "5px",
     "&:hover": {
-      border: state.isFocused ? "1px solid #D7DDE4" : provided.border,
+      border: state.isFocused ? "1px solid black" : provided.border,
     },
   }),
 }

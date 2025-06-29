@@ -95,14 +95,14 @@ const BookingPage = () => {
   }
   return (
     <div>
-      <Breadcrumbs title="Booking" />
+      <Breadcrumbs title="Booking"  links={[{ linkUrl: "/booking", label: "booking" }]}/>
       <div className="my-container py-16">
         <div className="flex flex-col md:flex-row gap-4  ">
           <div className="w-full md:w-[65%] space-y-6">
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
               <input type="text" {...register("car")} hidden />
               <div className="bg-green-100 rounded-xl p-5">
-                <p className="font-bold text-2xl border-b pb-2">Rental Type</p>
+                <p className="font-Spicy_Rice  font-thin text-2xl text-gray-700  border-b border-gray-300 pb-2">Rental Type</p>
                 <div className="flex flex-col md:flex-row gap-5 mt-3">
                   <div
                     className="w-full md:w-[50%] flex flex-col items-center gap-2  bg-white rounded-xl p-5 tooltip  tooltip-bottom tooltip-success"
@@ -120,7 +120,7 @@ const BookingPage = () => {
                 </div>
               </div>
               <div className="bg-green-100 rounded-xl p-5">
-                <p className="font-bold text-2xl border-b pb-2">
+                <p className="font-Spicy_Rice font-thin text-2xl text-gray-700 border-b border-gray-300 pb-2">
                   Personal Information
                 </p>
 
@@ -227,7 +227,7 @@ const BookingPage = () => {
                 </div>
               </div>
               <div className="bg-green-100 rounded-xl p-5">
-                <p className="font-bold text-2xl border-b pb-2">Quantity</p>
+                <p className="font-Spicy_Rice  text-2xl border-b border-gray-300 pb-2">Quantity</p>
                 <label className="form-control w-full md:w-[40%]">
                   <span className="label-text">
                     Quantity <span className="text-red-500">*</span>
@@ -246,8 +246,8 @@ const BookingPage = () => {
                 </label>
               </div>
               <div className="bg-green-100 rounded-xl p-5 ">
-                <div className="border-b pb-2 space-y-2">
-                  <p className="font-bold text-2xl border-b pb-2">
+                <div className=" pb-2 space-y-2">
+                  <p className="font-Spicy_Rice font-thin text-2xl text-gray-700 border-b border-gray-300 pb-2">
                     Booking Type & Time
                   </p>
                   <div className="flex flex-wrap gap-5">
@@ -337,7 +337,7 @@ const BookingPage = () => {
                         <span className="label-text font-semibold">
                           Pickup Date <span className="text-red-500">*</span>
                         </span>
-                        <label className="input input-bordered rounded-lg flex items-center gap-2">
+                        <label className="input   flex items-center gap-2">
                           <Controller
                             name="pickupDate"
                             control={control}
@@ -345,7 +345,7 @@ const BookingPage = () => {
                             render={({ field }) => (
                               <Flatpickr
                                 {...field}
-                                className="grow"
+                                className="grow "
                                 placeholder="Select date"
                                 options={{ dateFormat: "Y-m-d" }}
                                 onChange={(date) => field.onChange(date[0])}
@@ -409,6 +409,7 @@ const BookingPage = () => {
                               field.onChange(selectedOption)
                             }
                             placeholder="Location"
+                            
                           />
                         )}
                       />
@@ -502,11 +503,11 @@ const BookingPage = () => {
           </div>
           <div className="w-full md:w-[35%] ">
             <div className="bg-green-100 rounded-xl p-4">
-              <p className="text-2xl font-bold border-b pb-2 mb-2">
+              <p className="font-Spicy_Rice font-thin text-2xl text-gray-700   border-b border-gray-600 pb-2 mb-2">
                 Car Details
               </p>
               <div className="flex gap-4">
-                <div className="bg-white border rounded-xl p-1">
+                <div className="bg-white border border-gray-700 border-dashed rounded-xl p-1">
                   <img
                     src={car?.image}
                     alt=""

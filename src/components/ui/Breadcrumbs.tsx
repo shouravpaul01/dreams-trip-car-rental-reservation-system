@@ -31,7 +31,7 @@ const Breadcrumbs = ({
             </li>
             {links?.map((item: any, index: number) => (
               <li key={index}>
-                <NavLink to={`${item?.linkUrl}`}>{item.label}</NavLink>
+                <Link to={`${item?.linkUrl}`}>{item.label}</Link>
               </li>
             ))}
           </ul>
