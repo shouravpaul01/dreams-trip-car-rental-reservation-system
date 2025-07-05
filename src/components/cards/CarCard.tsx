@@ -16,7 +16,7 @@ const CarCard = ({ car }: { car: TCar }) => {
             "https://res.cloudinary.com/dcrui4h7s/image/upload/v1725394535/dreams-trip-car-rental-reservation-system/bdps6lbobe3klgnwoa8c.png"
           }
           alt={car.name}
-          className="w-full h-[250px] object-cover hover:scale-110 transition-transform duration-300 ease-in-out"
+          className="w-full h-[250px] object-cover skeleton  hover:scale-110 transition-transform duration-300 ease-in-out"
         />
       </figure>
 

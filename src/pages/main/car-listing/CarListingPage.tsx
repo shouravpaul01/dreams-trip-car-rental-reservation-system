@@ -5,7 +5,6 @@ import Pagination from "../../../components/ui/Pagination";
 import { sortByOptions } from "../../../constant/index";
 import { TCar } from "../../../type/car.type";
 import { useGetAllCarsQuery } from "../../../redux/features/car/carApi";
-import Loading from "../../../components/ui/Loading";
 import { FaRegFaceSadCry } from "react-icons/fa6";
 import FilterSideBar from "./FilterSideBar";
 import { IoFilter } from "react-icons/io5";

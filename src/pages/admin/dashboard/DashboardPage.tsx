@@ -1,10 +1,12 @@
 
 import Loading from "../../../components/ui/Loading";
+import useTitle from "../../../hook/useTitle";
 import { useGetAllBookingsQuery } from "../../../redux/features/booking/bookingApi";
 import { useGetAllCarsQuery } from "../../../redux/features/car/carApi";
 import { FaCubesStacked } from "react-icons/fa6";
 
 export const AdminDashboardPage = () => {
+  useTitle("Admin Dashboard");
   const { data: cars, isLoading: isCarsLoading } =
     useGetAllCarsQuery(undefined);
     const { data: bookings, isLoading: isBookingsLoading } =

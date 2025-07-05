@@ -50,7 +50,7 @@ const userApi = baseApi.injectEndpoints({
         headers: { "Cache-Control": "no-cache" },
         method: "GET",
       }),
-      providesTags: (result, error, email) => [
+      providesTags: ( email) => [
         { type: "single-user", email: email },
       ],
 

@@ -5,24 +5,29 @@ import {
   FaRegFaceFrownOpen,
   FaSquarePen,
 } from "react-icons/fa6";
-import { useState } from "react";
-import Modal from "../ui/Modal";
+
+
 import { toast } from "sonner";
 import { TCar } from "../../type/car.type";
-import { useGetSingleCarQuery, useUpdateCarStatusMutation } from "../../redux/features/car/carApi";
-import CarDetailsTable from "./CarDetailsTable";
-import Loading from "../ui/Loading";
-import { NavLink } from "react-router-dom";
+import {
+  
+  useUpdateCarStatusMutation,
+} from "../../redux/features/car/carApi";
 
 
+const CarTable = ({
+  cars,
+  setCarId,
+}: {
+  cars: TCar[];
+  setCarId: (id: string) => void;
+}) => {
 
-const CarTable = ({ cars}: { cars: TCar[]}) => {
-  const [modalId, setModalId] = useState<string>("");
   const [updateStatusCar] = useUpdateCarStatusMutation();
-  const { data: car, isLoading: isSingleCarLoading } = useGetSingleCarQuery(
-    modalId,
-    { skip: !modalId }
-  );
+  // const { data: car, isLoading: isSingleCarLoading } = useGetSingleCarQuery(
+  //   modalId,
+  //   { skip: !modalId }
+  // );
   const handleStatusUpdate = async (_id: string, isActive: boolean) => {
     const updateData = {
       _id: _id,
@@ -31,10 +36,8 @@ const CarTable = ({ cars}: { cars: TCar[]}) => {
     const res = await updateStatusCar(updateData).unwrap();
     toast.success(res.message);
   };
-  const hanleCloseModal = () => {
-    setModalId("");
-  };
- 
+  
+
   return (
     <>
       <div className="overflow-x-auto">
@@ -67,12 +70,24 @@ const CarTable = ({ cars}: { cars: TCar[]}) => {
                     </div>
                     <div>
                       <div className="font-bold">{car.name}</div>
-                      <div className="text-sm opacity-50">Type: {car.type?.name  }</div>
-                      <div className="text-sm opacity-50">Color: {car.color}</div>
+                      <div className="text-sm opacity-50">
+                        Type: {car.type?.name}
+                      </div>
+                      <div className="text-sm opacity-50">
+                        Color: {car.color}
+                      </div>
                     </div>
                   </div>
                 </td>
-                <td>{car.price.hourly.ratePerHour && `${car.price.hourly.ratePerHour}Tk/H`}{(car.price.hourly.ratePerHour && car.price.daily.ratePerDay ) && "---"}{car.price.daily.ratePerDay && `${car.price.daily.ratePerDay}Tk/H`}</td>
+                <td>
+                  {car.price.hourly.ratePerHour &&
+                    `${car.price.hourly.ratePerHour}Tk/H`}
+                  {car.price.hourly.ratePerHour &&
+                    car.price.daily.ratePerDay &&
+                    "---"}
+                  {car.price.daily.ratePerDay &&
+                    `${car.price.daily.ratePerDay}Tk/H`}
+                </td>
                 <td>
                   <div className="flex gap-2 items-center ">
                     <FaCircleDot
@@ -92,23 +107,27 @@ const CarTable = ({ cars}: { cars: TCar[]}) => {
                     </button>
                   </div>
                 </td>
-                <td >
-                <div className="flex gap-2">
-                <NavLink to={`?tab=manage-cars&_id=${car._id}`}
-                    className="btn btn-sm btn-outline btn-success"
-                    
-                  >
-                    <FaSquarePen />
-                  </NavLink>
-                  <button
-                    className="btn btn-sm btn-outline btn-success"
-                    onClick={() => {
-                      setModalId(car._id!);
-                    }}
-                  >
-                    <FaInfo />
-                  </button>
-                  </div> 
+                <td>
+                  <div className="flex gap-2">
+                    <label
+                      htmlFor="my_modal_6"
+                      className="btn btn-sm btn-outline btn-success"
+                      onClick={() => {
+                        setCarId(car._id!);
+                      }}
+                    >
+                      <FaSquarePen />
+                    </label>
+                   <label
+                      htmlFor="details"
+                      className="btn btn-sm btn-outline btn-success"
+                      onClick={() => {
+                        setCarId(car._id!);
+                      }}
+                    >
+                      <FaInfo />
+                    </label>
+                  </div>
                 </td>
               </tr>
             ))}
@@ -116,14 +135,7 @@ const CarTable = ({ cars}: { cars: TCar[]}) => {
         </table>
       </div>
 
-      <Modal
-        modalId={modalId}
-        width="max-w-3xl"
-        modalTitle="Car Details"
-        hanleCloseModal={hanleCloseModal}
-      >
-      {isSingleCarLoading ?<Loading className="h-[400px]"/>:<CarDetailsTable details={car?.data}/>}
-      </Modal>
+      
     </>
   );
 };

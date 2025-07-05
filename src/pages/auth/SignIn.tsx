@@ -85,7 +85,7 @@ const SignIn = () => {
               </p>
             </div>
             <div className="flex gap-1.5">
-              <button className="btn btn-xs btn-soft btn-success" onClick={() => {setValue("email", "user@gmail.com"); setValue("password", "user@gmail");}}>User Credentials</button>
+              <button className="btn btn-xs btn-soft btn-success" onClick={() => {setValue("email", "paul.shourav01@gmail.com"); setValue("password", "paul.shourav01@gmail");}}>User Credentials</button>
               <button className="btn btn-xs btn-soft btn-success" onClick={() => {setValue("email", "admin@gmail.com"); setValue("password", "admin@gmail");}}>Admin Credentials</button>
             </div>
             {authError && <p className="text-red-500 ">{authError}</p>}

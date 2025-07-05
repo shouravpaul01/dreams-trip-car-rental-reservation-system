@@ -4,11 +4,12 @@ import { TCar } from "../../../type/car.type";
 import CarCard from "../../../components/cards/CarCard";
 import { SectionHeader } from "../../../components/ui/SectionHeader";
 import CarSkeleton from "../../../components/ui/CarSkeleton";
+import { NavLink } from "react-router-dom";
 
 const FeaturedCarSection = () => {
-  const { data: cars, isLoading } = useGetAllCarsQuery(undefined);
+  const { data: cars, isLoading } = useGetAllCarsQuery([{label: "limit", value: 8 }]);
   return (
-    <div className="my-container py-10">
+    <div className="my-container ">
       <div className="flex">
         <div className="flex-1 ">
           <SectionHeader
@@ -18,12 +19,12 @@ const FeaturedCarSection = () => {
           />
         </div>
         <div className="flex gap-2">
-          <button className="btn btn-sm btn-outline btn-success btn-circle ">
+          <NavLink to={"/car-listings"} className="btn btn-sm btn-outline btn-success btn-circle ">
             <FaArrowLeft />
-          </button>
-          <button className="btn btn-sm btn-outline btn-success btn-circle">
+          </NavLink>
+          <NavLink to={"/car-listings"}  className="btn btn-sm btn-outline btn-success btn-circle">
             <FaArrowRight />
-          </button>
+          </NavLink>
         </div>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mt-8">

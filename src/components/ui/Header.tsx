@@ -1,7 +1,7 @@
 import {
   FaArrowRightFromBracket,
   FaBars,
-  FaDeleteLeft,
+ 
   FaHouseLock,
   FaUnlockKeyhole,
   FaUserLock,
@@ -21,7 +21,7 @@ const Header = ({ isScroll }: { isScroll: number }) => {
   return (
     <div className="drawer z-50">
       <input id="my-drawer-3" type="checkbox" className="drawer-toggle" />
-      <div className="drawer-content flex flex-col">
+      <div className="drawer-content text-black flex flex-col ">
         {/* Navbar */}
         <div
           className={`navbar w-full h-[50px] transition-all duration-300 ${

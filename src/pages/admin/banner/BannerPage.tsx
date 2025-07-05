@@ -1,35 +1,33 @@
 import { useState } from "react";
 import { FaPlus } from "react-icons/fa6";
-import CarForm from "../../../components/form/CarForm";
-import CarTable from "../../../components/table/CarTable";
-import Pagination from "../../../components/ui/Pagination";
-import InputSearch from "../../../components/ui/InputSearch";
-import Loading from "../../../components/ui/Loading";
-import { useGetAllCarsQuery } from "../../../redux/features/car/carApi";
-import CarDetailsTable from "../../../components/table/CarDetailsTable";
 
-export const CarPage = () => {
+import InputSearch from "../../../components/ui/InputSearch";
+import CreateUpdateBannerForm from "../../../components/form/CreateUpdateBannerForm";
+import BannerTable from "../../../components/table/BannerTable";
+import { useGetAllBannersQuery } from "../../../redux/banner/bannerAPi";
+import Loading from "../../../components/ui/Loading";
+import Pagination from "../../../components/ui/Pagination";
+
+export default function BannerPage() {
   const [searchInputValue, setSearchInputValue] = useState<string>("");
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const [carId, setCarId] = useState<string | null>(null);
-
-  const { data: cars, isLoading: isCarsLoading } = useGetAllCarsQuery([
+  const [bannerId, setBannerId] = useState("");
+  const { data: banners, isLoading } = useGetAllBannersQuery([
     { label: "search", value: searchInputValue },
     { label: "page", value: currentPage },
   ]);
-
-  if (isCarsLoading) {
+  if (isLoading) {
     return <Loading className="h-screen" />;
   }
   return (
     <>
-      <div className="bg-gray-100 mt-4">
-        <div className="flex items-center bg-[#3aa27ea8] gap-2 py-2 px-4">
-          <p className="font-Spicy_Rice text-xl  flex-1">Manage Car</p>
+      <div className="bg-base-100 text-base mt-4">
+        <div className="flex items-center bg-[#3aa27ea8] rounded-md gap-2 py-2 px-4">
+          <p className="font-Spicy_Rice text-xl  flex-1">Manage Banner</p>
           <label
             htmlFor="my_modal_6"
             className={`btn btn-sm btn-circle  btn-secondary`}
-            onClick={() => setCarId("")}
+            onClick={() => setBannerId("")}
           >
             <FaPlus />
           </label>
@@ -46,19 +44,22 @@ export const CarPage = () => {
             </div>
           </div>
 
-          <CarTable cars={cars?.data?.data} setCarId={setCarId} />
+          <BannerTable
+            banners={banners?.data?.data}
+            setBannerId={setBannerId}
+          />
 
           <div className="px-2 py-3 ">
             <Pagination
-              currentPage={currentPage}
-              setCurrentPage={setCurrentPage}
-              totalPages={cars?.data?.totalPages}
-            />
+                  currentPage={currentPage}
+                  setCurrentPage={setCurrentPage}
+                  totalPages={banners?.data?.totalPages}
+                />
           </div>
         </div>
       </div>
-      <CarForm carId={carId} />
-      <CarDetailsTable carId={carId!} />
+      <CreateUpdateBannerForm bannerId={bannerId} />
+      
     </>
   );
-};
+}

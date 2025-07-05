@@ -7,11 +7,14 @@ import { RouterProvider } from "react-router-dom";
 import { router } from "./routes/Route";
 import { Toaster } from "sonner";
 import { PersistGate } from "redux-persist/integration/react";
+// Import Swiper styles
+import 'swiper/css';
+import 'swiper/css/pagination';
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <Provider store={store}>
-    <PersistGate loading={null} persistor={persistor}>
+    <PersistGate loading={null} persistor={persistor} >
       <RouterProvider router={router} />
       <Toaster position="top-center" richColors/>
       </PersistGate>

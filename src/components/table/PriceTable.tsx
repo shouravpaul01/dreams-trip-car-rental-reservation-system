@@ -5,26 +5,21 @@ import {
   FaRegFaceFrownOpen,
   FaSquarePen,
 } from "react-icons/fa6";
-import { useState } from "react";
-import Modal from "../ui/Modal";
+
+
 import { toast } from "sonner";
 import { TPrice } from "../../type/price.type";
 import {
-  useGetSinglePriceQuery,
+  
   useUpdatePriceStatusMutation,
 } from "../../redux/features/price/priceApi";
 
-import CarDetailsTable from "./CarDetailsTable";
-import Loading from "../ui/Loading";
 
 
 const PriceTable = ({ prices , setEditId }: { prices: TPrice[] , setEditId: (id: string | null) => void    }) => {
-  const [modalId, setModalId] = useState<string>("");
+
   const [updatePriceStatus] = useUpdatePriceStatusMutation();
-  const { data: car, isLoading: isSinglePriceLoading } = useGetSinglePriceQuery(
-    modalId,
-    { skip: !modalId }
-  );
+  
   const handleStatusUpdate = async (_id: string, isActive: boolean) => {
     const updateData = {
       _id: _id,
@@ -33,9 +28,7 @@ const PriceTable = ({ prices , setEditId }: { prices: TPrice[] , setEditId: (id:
     const res = await updatePriceStatus(updateData).unwrap();
     toast.success(res.message);
   };
-  const hanleCloseModal = () => {
-    setModalId("");
-  };
+
 
   return (
     <>
@@ -104,9 +97,7 @@ const PriceTable = ({ prices , setEditId }: { prices: TPrice[] , setEditId: (id:
                     </label>
                     <button
                       className="btn btn-sm btn-outline btn-success"
-                      onClick={() => {
-                        setModalId(price._id!);
-                      }}
+                      
                     >
                       <FaInfo />
                     </button>
@@ -118,18 +109,7 @@ const PriceTable = ({ prices , setEditId }: { prices: TPrice[] , setEditId: (id:
         </table>
       </div>
 
-      <Modal
-        modalId={modalId}
-        width="max-w-3xl"
-        modalTitle="Car Details"
-        hanleCloseModal={hanleCloseModal}
-      >
-        {isSinglePriceLoading ? (
-          <Loading className="h-[400px]" />
-        ) : (
-          <CarDetailsTable details={car?.data} />
-        )}
-      </Modal>
+     
     </>
   );
 };

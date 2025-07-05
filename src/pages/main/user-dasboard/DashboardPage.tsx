@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import Breadcrumbs from "../../../components/ui/Breadcrumbs";
 import { NavLink, useSearchParams } from "react-router-dom";
 import { FaRegCircleCheck, FaUserLarge, FaXmark } from "react-icons/fa6";
-import { TbBrandBooking, TbPasswordUser } from "react-icons/tb";
+import { TbBrandBooking } from "react-icons/tb";
 import ProfileInfo from "./ProfileInfo";
 import MyBookings from "./MyBookings";
 import { ChangePassword } from "../../auth/ChangePassword";

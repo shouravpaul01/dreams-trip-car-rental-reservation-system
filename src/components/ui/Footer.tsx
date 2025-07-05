@@ -11,7 +11,7 @@ import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
-    <footer className=" bg-black ">
+    <footer className=" bg-black mt-24">
       <div className="my-container  pt-7">
         <div
           className={`flex flex-col md:flex-row gap-5 md:gap-0 justify-around text-black border  border-slate-50 border-opacity-30  rounded-lg px-7 py-7 `}

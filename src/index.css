@@ -1,49 +1,58 @@
-@import url('https://fonts.googleapis.com/css2?family=Rubik+Bubbles&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Rubik+Bubbles&display=swap");
 @import "tailwindcss";
 @plugin "daisyui";
 
-
 @theme {
-  --font-Spicy_Rice: "Spicy Rice", "serif"; 
+  --font-Spicy_Rice: "Spicy Rice", "serif";
 }
-.my-container{
-    @apply w-full max-w-5xl mx-auto px-2 md:px-0
+.my-container {
+  @apply w-full max-w-5xl mx-auto px-2 md:px-0;
 }
-.label-text{
-    @apply text-base pb-1
+.label-text {
+  @apply text-base pb-1;
 }
-.nav-menu{
-    @apply flex items-center space-x-4
+.nav-menu {
+  @apply flex items-center space-x-4;
 }
-.nav-item-hover:hover{
-    @apply bg-success rounded-full  text-white 
+.nav-item-hover:hover {
+  /* @apply bg-success rounded-full  text-white  */
+  @apply relative  transition-colors duration-200  after:content-[''] 
+  after:absolute after:-bottom-[22px] after:left-0 after:w-0 after:h-[2px] after:bg-success hover:after:w-full after:transition-all
+   after:duration-300;
 }
-.nav-item-active{
-    @apply bg-success rounded-full  text-white
+.nav-item-active {
+  @apply relative font-bold after:content-[''] after:absolute after:-bottom-[22px] after:left-0  after:w-full after:h-[2px] after:bg-success;
 }
 
 .main-menu {
-  @apply p-4   space-y-1
+  @apply p-4   space-y-1;
 }
 
 .menu-item {
-  @apply font-semibold flex items-center gap-2 hover:bg-success hover:text-white rounded-md py-2 px-3 w-full
+  @apply font-semibold  flex items-center gap-2 hover:bg-success hover:text-white rounded-md py-2 px-3 w-full;
 }
 
 .menu-item-active {
-  @apply font-semibold flex items-center gap-2 bg-success text-white rounded-md py-2 px-3 w-full
+  @apply font-semibold flex items-center gap-2 bg-success text-white rounded-md py-2 px-3 w-full;
+}
+.swiper-pagination-bullet {
+  @apply  bg-gray-400 rounded-full opacity-70 transition;
 }
 
+.swiper-pagination-bullet-active {
+  @apply bg-success!
+} 
 /* Animation */
 @keyframes animate-bounceLR {
-    0%, 100% {
-      transform: translateX(0);
-    }
-    50% {
-      transform: translateX(10px);
-    }
+  0%,
+  100% {
+    transform: translateX(0);
   }
-  
-  .animate-bounceLR {
-    animation: animate-bounceLR 3s infinite;
+  50% {
+    transform: translateX(10px);
   }
+}
+
+.animate-bounceLR {
+  animation: animate-bounceLR 3s infinite;
+}

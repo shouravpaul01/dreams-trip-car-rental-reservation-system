@@ -1,5 +1,4 @@
 import { useState } from "react";
-import Modal from "../../../components/ui/Modal";
 import { FaPlus } from "react-icons/fa6";
 import CarTypeForm from "../../../components/form/CarTypeForm";
 import CarTypeTable from "../../../components/table/CarTypeTable";

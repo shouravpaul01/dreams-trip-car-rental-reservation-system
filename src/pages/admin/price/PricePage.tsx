@@ -10,7 +10,7 @@ import {
   
 } from "../../../redux/features/price/priceApi";
 
-import {  useSearchParams } from "react-router-dom";
+
 
 const PricePage = () => {
  

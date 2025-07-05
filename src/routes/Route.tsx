@@ -5,7 +5,6 @@ import SignUp from "../pages/auth/SignUp";
 import NotFound from "../pages/not-found/NotFound";
 import HomePage from "../pages/main/home/HomePage";
 import CarListingPage from "../pages/main/car-listing/CarListingPage";
-
 import CarDetails from "../pages/main/car-details/CarDetails";
 import AboutUsPage from "../pages/main/about-us/AboutUsPage";
 import PrivateRoute from "./PrivateRoute";
@@ -17,33 +16,38 @@ import UserPage from "../pages/admin/user/UserPage";
 import { CarTypePage } from "../pages/admin/car-type/CarTypePage";
 import PricePage from "../pages/admin/price/PricePage";
 import { CarPage } from "../pages/admin/car/CarPage";
-
 import ProfilePage from "../pages/admin/profile/ProfilePage";
 import BookingPage from "../pages/main/booking/BookingPage";
 import { AdminBookingPage } from "../pages/admin/booking/BookingPage";
 import { AdminDashboardPage } from "../pages/admin/dashboard/DashboardPage";
+import BannerPage from "../pages/admin/banner/BannerPage";
+
 
 export const router = createBrowserRouter([
   {
     path: "/",
     element: <MainLayout />,
-    errorElement:<NotFound/>,
+    errorElement: <NotFound />,
     children: [
       {
-        path:"/",
-        element:<HomePage/>
+        path: "/",
+        element: <HomePage />,
       },
       {
-        path:"/car-listings",
-        element:<CarListingPage/>
+        path: "/car-listings",
+        element: <CarListingPage />,
       },
       {
-        path:"/car-listings/:id",
-        element:<CarDetails/>
+        path: "/car-listings/:id",
+        element: <CarDetails />,
       },
       {
-        path:"/booking/:id",
-        element:<PrivateRoute roles={[userRole.user,userRole.admin]}><BookingPage/></PrivateRoute>
+        path: "/booking/:id",
+        element: (
+          <PrivateRoute roles={[userRole.user, userRole.admin]}>
+            <BookingPage />
+          </PrivateRoute>
+        ),
       },
       {
         path: "/about",
@@ -51,7 +55,11 @@ export const router = createBrowserRouter([
       },
       {
         path: "/dashboard",
-        element: <PrivateRoute roles={[userRole.user,userRole.admin]}><DashboardPage /></PrivateRoute>,
+        element: (
+          <PrivateRoute roles={[userRole.user, userRole.admin]}>
+            <DashboardPage />
+          </PrivateRoute>
+        ),
       },
       {
         path: "/signup",
@@ -69,27 +77,34 @@ export const router = createBrowserRouter([
   },
   {
     path: "/admin/dashboard",
-    element: <PrivateRoute roles={[userRole.admin]}><AdminDashboardLayout /></PrivateRoute>,
-    errorElement:<NotFound/>,
+    element: (
+      <PrivateRoute roles={[userRole.admin]}>
+        <AdminDashboardLayout />
+      </PrivateRoute>
+    ),
+    errorElement: <NotFound />,
     children: [
-     
       {
         path: "/admin/dashboard",
         element: <AdminDashboardPage />,
       },
-     {
+      {
         path: "/admin/dashboard/manage-users",
         element: <UserPage />,
+      },
+      {
+        path: "/admin/dashboard/manage-banner",
+        element: <BannerPage />,
       },
       {
         path: "/admin/dashboard/profile",
         element: <ProfilePage />,
       },
-     {
+      {
         path: "/admin/dashboard/manage-Types",
         element: <CarTypePage />,
       },
-     {
+      {
         path: "/admin/dashboard/manage-prices",
         element: <PricePage />,
       },
@@ -97,7 +112,7 @@ export const router = createBrowserRouter([
         path: "/admin/dashboard/manage-cars",
         element: <CarPage />,
       },
-       {
+      {
         path: "/admin/dashboard/manage-bookings",
         element: <AdminBookingPage />,
       },

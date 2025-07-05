@@ -1,23 +1,43 @@
 
 import { testimonials } from "../../../constant";
 import TestimonialCard from "../../../components/cards/TestimonialCard";
+import { Swiper, SwiperSlide } from 'swiper/react';
+// import required modules
+import { Pagination } from 'swiper/modules';
 
-const CustomerTestimonialSection = () => {
+ const CustomerTestimonialSection = () => {
   return (
-    <div className="my-container pt-10 pb-20">
-        <h2 className="text-4xl font-bold font-Spicy_Rice text-center ">
+   <div className="bg-slate-100 py-9">
+     <div className="my-container">
+      <h2 className="text-4xl font-bold font-Spicy_Rice text-center">
         Our Customer Review
       </h2>
       <p className="text-lg text-center text-gray-600 mb-8">
-        Our Customer ,Our Pride
+        Our Customer, Our Pride
       </p>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-      {
-        testimonials.map((item,index)=>  <TestimonialCard key={index} testimonial={item}/>)
-      }
-        
-      </div>
+
+      <Swiper
+        spaceBetween={30}
+        pagination={{ clickable: true }}
+        modules={[Pagination]}
+        className="mySwiper !pb-10"
+        breakpoints={{
+          768: {
+            slidesPerView: 2,
+          },
+          0: {
+            slidesPerView: 1,
+          },
+        }}
+      >
+        {testimonials.map((item, index) => (
+          <SwiperSlide key={index}>
+            <TestimonialCard testimonial={item} />
+          </SwiperSlide>
+        ))}
+      </Swiper>
     </div>
+   </div>
   );
 };
 

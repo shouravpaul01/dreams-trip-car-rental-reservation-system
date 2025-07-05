@@ -8,9 +8,11 @@ import { MdOutlinePassword } from "react-icons/md";
 import { accounticon } from "../../constant";
 
 export default function AdminDashboardNavbar({
-  toggleSidebar,
+  sidebarOpen,
+  setSidebarOpen,
 }: {
-  toggleSidebar: () => void;
+  sidebarOpen: boolean;
+  setSidebarOpen: (val: boolean) => void;
 }) {
     const { user } = useAppSelector((state) => state.auth);
   const dispatch = useAppDispatch();
@@ -18,7 +20,7 @@ export default function AdminDashboardNavbar({
     <div className="navbar sticky top-0  bg-base-100 shadow-sm px-3.5 md:px-8 z-30">
       <div className="navbar-start">
         <div className="flex items-center gap-2">
-          <label htmlFor="my-drawer-2" className="link ">
+          <label  className="link " onClick={() => setSidebarOpen(!sidebarOpen)}> 
             <HiOutlineBars3 className="size-5 hover:animate-pulse" />
           </label>
 
