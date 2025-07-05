@@ -31,7 +31,7 @@ export default function AdminDashboardLayout() {
           lg:translate-x-0 lg:static
         `}
       >
-        <AdminDashboardSideBar sidebarOpen={isSidebarOpen} />
+        <AdminDashboardSideBar  />
       </aside>
 
       {/* Main Content */}

@@ -47,14 +47,10 @@ export const adminSidebarLinks = [
   },
 ];
 
-export default function AdminDashboardSideBar({
-  sidebarOpen,
-}: {
-  sidebarOpen: boolean;
-}) {
+export default function AdminDashboardSideBar() {
   return (
     <div
-     
+     className="p-5"
     >
       <div className="py-6 flex justify-center items-center">
         <Link to={"/"}>

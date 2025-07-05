@@ -27,8 +27,8 @@ const CarTypeTable = ({ carTypes ,setEditId}: { carTypes: TCarType[] , setEditId
 
   return (
     <>
-      <div className="overflow-x-auto">
-        <table className="table  bg-white rounded-none">
+      <div className="overflow-x-auto rounded-box border border-base-content/5 bg-base-100 shadow-sm">
+        <table className="table  bg-white rounded-md">
           {carTypes?.length == 0 && (
             <caption className="caption-bottom  text-lg py-4">
               <span className="flex justify-center items-center gap-2">

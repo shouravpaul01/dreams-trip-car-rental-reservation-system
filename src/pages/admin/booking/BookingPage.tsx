@@ -23,8 +23,8 @@ export const AdminBookingPage = () => {
 
   return (
     <>
-      <div className="bg-gray-100 mt-4">
-        <div className=" bg-[#3aa27ea8] gap-2 py-2 px-4">
+      <div className="bg-base-100 mt-4">
+        <div className=" bg-[#3aa27ea8] rounded-md gap-2 py-2 px-4">
           <p className="font-Spicy_Rice text-xl ">Manage Bookings</p>
         </div>
         <div className="px-4 py-5">

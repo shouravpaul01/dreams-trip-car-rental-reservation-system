@@ -23,8 +23,8 @@ export const CarPage = () => {
   }
   return (
     <>
-      <div className="bg-gray-100 mt-4">
-        <div className="flex items-center bg-[#3aa27ea8] gap-2 py-2 px-4">
+      <div className="bg-base-100 text-base  mt-4">
+        <div className="flex items-center bg-[#3aa27ea8] rounded-md gap-2 py-2 px-4">
           <p className="font-Spicy_Rice text-xl  flex-1">Manage Car</p>
           <label
             htmlFor="my_modal_6"

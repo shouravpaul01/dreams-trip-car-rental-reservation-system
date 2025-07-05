@@ -7,25 +7,21 @@ import Pagination from "../../../components/ui/Pagination";
 import InputSearch from "../../../components/ui/InputSearch";
 import Loading from "../../../components/ui/Loading";
 
-
 export const CarTypePage = () => {
   const [editId, setEditId] = useState<string>("");
   const [searchInputValue, setSearchInputValue] = useState<string>("");
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const { data: carTypes, isLoading } = useGetAllCarTypeQuery({
-    search: searchInputValue,
-    page: currentPage,
-  });
+  const { data: carTypes, isLoading } = useGetAllCarTypeQuery([{label:"search",value:searchInputValue},{label:"page",value:currentPage}]);
  
- 
+ console.log(carTypes,"t")
 
   if (isLoading) {
     return <Loading className="h-screen"/>;
   }
   return (
     <>
-      <div className="mt-4">
-        <div className="flex items-center bg-[#3aa27ea8] gap-2 py-2 px-4">
+      <div className="bg-base-100 text-base mt-4">
+        <div className="flex items-center bg-[#3aa27ea8] rounded-md gap-2 py-2 px-4">
           <p className="font-Spicy_Rice text-xl flex-1">Manage Types</p>
            <label
             htmlFor="my_modal_6"

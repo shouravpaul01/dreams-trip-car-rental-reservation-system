@@ -40,8 +40,8 @@ const CarTable = ({
 
   return (
     <>
-      <div className="overflow-x-auto">
-        <table className="table  bg-white rounded-none">
+      <div className="overflow-x-auto rounded-box border border-base-content/5 bg-base-100 shadow-sm">
+        <table className="table  bg-white rounded-md">
           {cars?.length == 0 && (
             <caption className="caption-bottom  text-lg py-4">
               <span className="flex justify-center items-center gap-2">
@@ -50,7 +50,7 @@ const CarTable = ({
             </caption>
           )}
           {/* head */}
-          <thead className="bg-[#3aa27ea8] text-sm text-black">
+          <thead className="bg-[#3aa27ea8] text-sm ">
             <tr>
               <th>Name</th>
               <th>Price Per Hour</th>

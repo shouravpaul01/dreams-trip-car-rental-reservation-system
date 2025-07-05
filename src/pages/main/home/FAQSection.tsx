@@ -34,7 +34,7 @@ const faqData = [
   return (
     <div className="my-container">
      <SectionHeader title="Frequently Asked Questions" subtitle="Find answers to your questions from our previous answers" />
-      <div className="flex flex-col md:flex-row gap-5 py-6">
+      <div className="flex flex-col md:flex-row gap-5">
         <div className="w-full md:w-1/2 flex items-center justify-center bg-white rounded-[4px]">
           <Lottie animationData={carLottie} loop={true} width={350} height={350} />
         </div>
@@ -49,7 +49,7 @@ const faqData = [
                 name="faq-accordion"
                 defaultChecked={index === 0}
               />
-              <div className="collapse-title text-lg font-medium border-b border-dashed">
+              <div className="collapse-title text-lg font-medium border-b border-dashed border-success">
                 Q: {faq.question}
               </div>
               <div className="collapse-content">
