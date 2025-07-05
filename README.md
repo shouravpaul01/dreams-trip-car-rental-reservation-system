@@ -2,14 +2,7 @@
 
 A full-featured car rental reservation system built with modern web technologies like **TypeScript**, **React**, **React Router DOM**, and **React Hook Form**. It provides users with a seamless experience to book cars for rent, manage reservations, and handle other key rental functions.
 
-## Table of Contents
-- [Project Overview](#project-overview)
-- [Demo](#demo)
-- [Features](#features)
-- [Technologies Used](#technologies-used)
-- [Installation](#installation)
-- [Usage](#usage)
-- [API Documentation](#api-documentation)
+
 
 
 ## Project Overview
@@ -22,28 +15,31 @@ You can see a live demo of the application [here](#https://dreamstrip.vercel.app
 
 ## Features
 
-- **Car Listings**: Users can view a list of available cars with detailed information like price, features, and availability.
-- **Reservation System**: Seamless booking of cars with dynamic date and location selection.
-- **User Authentication**: Secure user login and sign-up functionality .
-- **Admin Panel**: Admin users can manage car listings, bookings, and payments.
-- **Form Validation**: Integrated with advanced validation using `zod` and `React Hook Form` for error-proof form handling.
-
-- **Routing**: The app uses `React Router DOM` for dynamic, smooth client-side routing.
-
-- **Responsive Design**: Optimized for all devices including desktops, tablets, and mobile devices.
+- JWT based login/signup system for customer accounts.
+- Admin Dashboard: Centralized interface to manage cars, bookings, and user data.
+- Dynamic Car Listings: Filterable search (price, model, availability) for seamless browsing.
+- Booking System: Date selection, pickup/drop-off location customization, and reservation confirmation.
+- Payment Integration for completed bookings ( SSLCommerz).
 
 ## Technologies Used
 
 This project is built using the following technologies:
 
-- **TypeScript**: For static type checking and improved development workflow.
-- **React**: As the core JavaScript library for building the user interface.
-- **React Router DOM**: To manage the client-side routing, enabling users to navigate the app seamlessly.
-- **React Hook Form**: For efficient and accessible form validation and data handling.
-- **Zod**: Used for schema-based form validation and error handling.
-- **Tailwind CSS**: For rapid and modern UI styling.
-- **moment.js**: To handle date and time functionality.
-- **Vercel**: For hosting and deployment.
+ **Frontend Tech**:
+ 
+ - TypeScript
+ - React
+ - Redux
+ - React Hook Form
+ - Zod (Validation)
+ - Recharts
+
+ **Backend Tech**:
+
+ - Express js
+ - MongoDB
+ - Mongoose
+ - Zod (Validation)
 
 ## Installation
 
@@ -98,5 +94,5 @@ Make sure you have the following installed:
 
   **Github Link:** [https://github.com/shouravpaul01/car-rental-reservation-system-api](#)
   
-  **Live Link:**[https://car-rental-reservation-system-api.vercel.app/](#)
+
 
